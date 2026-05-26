@@ -312,7 +312,7 @@ input[type="checkbox"] {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 20px 0;
+  margin: 0 0 20px 0;
 }
 
 .or .or-line {
@@ -418,10 +418,13 @@ input[type="checkbox"] {
 .input-box input[type="password"]::-ms-clear {
   display: none;
 }
+
 .nameerror {
-  color: red;
-  font-size: 12px;
-  display: none;
+    color: red;
+    font-size: 12px;
+    min-height: 18px;
+    opacity: 0;
+    visibility: hidden;
 }
 #incorrect-credentials {
   text-align: center;

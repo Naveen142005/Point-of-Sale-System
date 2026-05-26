@@ -1,4 +1,3 @@
-
 const dot_box = document.querySelector(".dots-box");
 
 for (let i = 0; i <= 15; i++) {
@@ -7,64 +6,96 @@ for (let i = 0; i <= 15; i++) {
     dot_box.appendChild(dot);
 }
 
+const eye_icon = document.getElementById("eye-icon");
 
-
-const eye_icon = document.getElementById('eye-icon')
-
-const form = document.querySelector('.form-box')
+const form = document.querySelector(".form-box");
 const error = document.getElementById("incorrect-credentials");
 
+error.style.opacity = 0;
 
-//dummy users 
-
-users = {
+// dummy users
+const users = {
     "Naveen": "Naveen@142005",
     "Kumar": "Kumar@123",
     "User": "123"
-}
+};
 
+const usernameInp = document.getElementById("username");
+const passwordInp = document.getElementById("password");
 
-function showError(err) {
-    error.innerText = err;
+const usernameErr = document.getElementById("usernameErr");
+const passwordErr = document.getElementById("passwordErr");
+
+const usernameBox = usernameInp.parentElement;
+const passwordBox = passwordInp.parentElement;
+
+function showErr(eleErr, box, mess) {
+    eleErr.innerText = mess;
+    eleErr.style.opacity = 1;
+    eleErr.style.visibility = "visible";
+
+    box.style.border = "1px solid red";
 
     setTimeout(() => {
-        error.innerText = "";
+        clearErr(eleErr, box);
     }, 2000);
 }
 
+function clearErr(eleErr, box) {
+    eleErr.innerText = "";
+    eleErr.style.opacity = 0;
+    eleErr.style.visibility = "hidden";
+
+    box.style.border = "1px solid rgb(227, 220, 220)";
+}
+
+function clearAllErr() {
+    clearErr(usernameErr, usernameBox);
+    clearErr(passwordErr, passwordBox);
+}
+
 const check = (username, password) => {
-    if (username === "" || password === "") {
-        showError("Please enter username and password")
-        return;
+    let isValid = true;
+
+    clearAllErr();
+
+    if (username === "") {
+        showErr(usernameErr, usernameBox, "Please enter the user name");
+        isValid = false;
+    }
+
+    if (password === "") {
+        showErr(passwordErr, passwordBox, "Please enter the password");
+        isValid = false;
+    }
+
+    if (!isValid) {
+        return false;
     }
 
     if (!(username in users)) {
-        showError("Username does not exist");
-        return;
+        showErr(usernameErr, usernameBox, "Username does not exist");
+        return false;
     }
 
     if (users[username] !== password) {
-        showError("Incorrect password");
-        return;
+        showErr(passwordErr, passwordBox, "Incorrect password");
+        return false;
     }
-    error.innerText = "";
 
     return true;
-}
+};
 
-form.addEventListener('submit', (event) => {
+form.addEventListener("submit", (event) => {
     event.preventDefault();
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value.trim();
+
+    const username = usernameInp.value.trim();
+    const password = passwordInp.value.trim();
 
     if (check(username, password)) {
-        alert('Login Success...')
+        alert("Login Success...");
     }
-    else return;
-})
-
-
-// const eye_icon = document.getElementById("eye-icon");
+});
 
 const eyeOpen = `
 <path stroke-linecap="round" stroke-linejoin="round" 
@@ -79,12 +110,11 @@ d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993
 `;
 
 eye_icon.addEventListener("click", () => {
-    const password = document.getElementById("password");
-    if (password.type === "password") {
-        password.type = "text";
+    if (passwordInp.type === "password") {
+        passwordInp.type = "text";
         eye_icon.innerHTML = eyeOpen;
     } else {
-        password.type = "password";
+        passwordInp.type = "password";
         eye_icon.innerHTML = eyeSlash;
     }
 });

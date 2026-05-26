@@ -1,15 +1,36 @@
 const form = document.getElementById("form");
 
+const nameErr = document.getElementById("nameErr");
+const usernameErr = document.getElementById("usernameErr");
+const emailErr = document.getElementById("emailErr");
+const passwordErr = document.getElementById("passwordErr");
+const confirmErr = document.getElementById("confirmErr");
+const termsErr = document.getElementById("termsErr");
 
-function showerror(ele, mes) {
 
-    ele.style.display = "block";
+function showerror(ele, eleId, mes) {
+
+    console.log(ele);
+
+    ele.style.opacity = 1
     ele.innerText = mes;
 
+    let element;
+    if (eleId) {
+        element = document.getElementById(eleId)
+        element.style.border = `1px solid red`;
+        console.log(element);
+    }
+
     setTimeout(() => {
-        ele.style.display = "none";
-        ele.innerText = "";
-    }, 2000);
+        ele.style.opacity = 0;
+        ele.innerText = 's'
+
+        if (eleId)
+            element.style.border = `1px solid #e3dcdc`
+    }, 2000)
+
+    console.log(ele);
 }
 
 form.addEventListener("submit", (e) => {
@@ -21,32 +42,38 @@ form.addEventListener("submit", (e) => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("Cpassword").value;
+    const checkBox = document.getElementById('Terms_agree').checked
+
 
     let isValid = true;
 
     if (!validName(fullname)) {
-        showerror(nameErr, "Please enter valid name");
+        showerror(nameErr, "nameBox", "Please enter valid name");
         isValid = false;
     }
 
     if (!validUsername(username)) {
-        showerror(usernameErr, "Please enter valid username");
+        showerror(usernameErr, "usernameBox", "Please enter valid username");
         isValid = false;
     }
 
     if (!validEmail(email)) {
-        showerror(emailErr, "Please enter valid email");
+        showerror(emailErr, "emailBox", "Please enter valid email");
         isValid = false;
     }
 
     if (password.length < 6) {
-        showerror(passwordErr, "Password must contain 6 characters");
+        showerror(passwordErr, "passwordBox", "Password must contain 6 characters");
         isValid = false;
     }
 
     if (password.length >= 6 && password !== confirmPassword) {
-        showerror(confirmErr, "Password does not match");
+        showerror(confirmErr, "CpasswordBox", "Password does not match");
         isValid = false;
+    }
+
+    if (!checkBox) {
+        showerror(termsErr, 'Terms_agree', "Please check the terms and conditions")
     }
 
     if (isValid) {

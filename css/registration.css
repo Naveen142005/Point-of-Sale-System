@@ -132,12 +132,11 @@ body {
 .input-box {
   width: 100%;
   height: 40px;
-  border: 1px solid rgb(227, 220, 220);
+  border: 1px solid #e3dcdc;
   border-radius: 8px;
   display: flex;
   align-items: center;
   overflow: hidden;
-  margin-top: 8px;
   position: relative;
 }
 
@@ -326,7 +325,9 @@ input[type="checkbox"] {
 .nameerror {
   color: red;
   font-size: 12px;
-  display: none;
+  margin: 0;
+
+  opacity: 0;
 }
 
 #incorrect-credentials {
@@ -357,12 +358,6 @@ input[type="checkbox"] {
   text-decoration: underline;
 }
 
-.nameerror{
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-    display: none;
-}
 
 @media (max-width: 1100px) {
   .aside {
