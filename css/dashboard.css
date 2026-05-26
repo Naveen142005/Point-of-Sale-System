@@ -1,0 +1,112 @@
+/* -------------SIDEBAR DESIGN--------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+  background-color: #f4f4f4;
+  overflow: hidden;
+}
+
+.side-bar {
+  width: 245px;
+  height: 100vh;
+  padding: 18px 14px;
+  background: linear-gradient(180deg, #121343, #080923);
+  color: white;
+  overflow: hidden;
+}
+
+.side-bar-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.cafe-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #8b5cf6, #5b21ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(91, 54, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.cafe-icon img {
+  width: 29px;
+  height: 29px;
+  object-fit: cover;
+}
+
+.side-title h2 {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: rgb(246, 242, 242);
+  margin: 0;
+}
+
+.side-title p {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgb(216, 216, 234);
+  margin-top: 5px;
+}
+
+.full-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-item {
+  height: 40px;
+  padding: 0 11px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #e1e1eb;
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: 0.22s ease;
+}
+
+.menu-item svg {
+  width: 21px;
+  height: 21px;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1)
+}
+
+.menu-item.active {
+  background: linear-gradient(90deg, #5b36ff, #7c3aed);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 5px 12px rgba(91, 54, 255, 0.3);
+}
+
+.menu-item.active:hover {
+  transform: none;
+}
+
+.line {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 6px 0;
+}
+/* -------------SIDEBAR DESIGN ENDED--------------- */
