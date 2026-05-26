@@ -14,7 +14,7 @@
 </head>
 <body>
     <!-- side bar -->
-    <div class="side-bar">
+    <div class="side-bar" id="side-bar">
 
     <div class="side-bar-heading">
         <div class="cafe-icon">
@@ -142,12 +142,12 @@
 
     </div>
 
-    <div class="main-page">
+    <div class="main-page" id="main">
             <header>
         <div class="left">
             <!-- Menu Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                stroke-width="1.8" stroke="currentColor" class="menu-icon">
+                stroke-width="1.8" stroke="currentColor" class="menu-icon" id="menu-icon">
                 <path stroke-linecap="round" stroke-linejoin="round"
                     d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
@@ -279,7 +279,7 @@
                 </div>
 
                 <!-- crad - 3 -->
-                 <div class="card">
+                 <div class="card group" >
                      <div class="card-image" style="background: linear-gradient(135deg, #f0c95c, #eb7130); color: white;">
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
@@ -385,7 +385,7 @@
                             </div>
                         </div>
 
-                        <div class="drop-down">
+                        <div class="drop-down" style="cursor: pointer;">
                             Daily
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
@@ -400,15 +400,15 @@
 
                     <div class="sales-footer">
                         <div class="sale-data">
-                            <p>This Week Sales</p>
-                            <h2>₹45,231.89</h2>
+                            <p >This Week Sales</p>
+                            <h2 style="margin-top: 4px;">₹45,231.89</h2>
                         </div>
 
                         <div class="middle-line"></div>
 
                         <div class="sale-data">
                             <p>Last Week Sales</p>
-                            <h2>₹38,132.62</h2>
+                            <h2 style="margin-top: 4px;">₹38,132.62</h2>
                         </div>
 
                         <div class="profit">↗ 18.6%</div>
@@ -422,7 +422,7 @@
                             <h3>Top Selling items</h3>
                         </div>
 
-                        <div class="drop-down">
+                        <div class="drop-down" style="cursor: pointer;">
                             <div>This week</div>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
@@ -433,7 +433,7 @@
                     <div class="table-content">
                         <table>
                             <thead>
-                                    <td colspan="3">Items</td>
+                                    <td colspan="3" style="text-align: left;">Items</td>
                                     <td style="text-align: center;">Qty Sold</td>
                                     <td>Revenue</td>
                                
@@ -580,6 +580,25 @@
                                 <span>Completed</span>
                             </div>
                         </div>
+                        <div class="transaction-item">
+                            <div class="transaction-left">
+                                <div class="transaction-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M7.5 3.75h9A1.5 1.5 0 0 1 18 5.25v15l-3-1.5-3 1.5-3-1.5-3 1.5v-15A1.5 1.5 0 0 1 7.5 3.75Z" />
+                                    </svg>
+                                </div>
+
+                                <div class="transaction-details">
+                                    <h4>#INV-000321</h4>
+                                    <p>21 May 2024, 11:03 AM</p>
+                                </div>
+                            </div>
+
+                            <div class="transaction-right">
+                                <h4>₹220.00</h4>
+                                <span>Completed</span>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -593,8 +612,161 @@
                 </div>
             </div>
             
+            <div class="bottom-dashboard-row">
+
+             <!-- LOW STOCK CARD -->
+                <div class="low-stock-card">
+
+                    <div class="top2">
+                        <div class="headings alert-heading">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
+                            </svg>
+                            <h3>Low Stock Alerts</h3>
+                        </div>
+
+                        <a href="#" class="view-all">
+                            View All Alerts
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="stock-list">
+
+                        <div class="stock-item">
+                            <div class="stock-img coffee-bag">
+                                <img src="/assets/wholebeens.webp" alt="">
+                            </div>
+                            <div>
+                                <h4>Whole Beans</h4>
+                                <p>200g</p>
+                                <span>Stock: 4</span>
+                            </div>
+                        </div>        
+                        <div class="stock-item">
+                            <div class="stock-img coffee-bag">
+                                <img src="/assets/wholebeens.webp" alt="">
+                            </div>
+                            <div>
+                                <h4>Whole Beans</h4>
+                                <p>200g</p>
+                                <span>Stock: 4</span>
+                            </div>
+                        </div>        
+                        <div class="stock-item">
+                            <div class="stock-img coffee-bag">
+                                <img src="/assets/wholebeens.webp" alt="">
+                            </div>
+                            <div>
+                                <h4>Whole Beans</h4>
+                                <p>200g</p>
+                                <span>Stock: 4</span>
+                            </div>
+                        </div>        
+                        <div class="stock-item">
+                            <div class="stock-img coffee-bag">
+                                <img src="/assets/wholebeens.webp" alt="">
+                            </div>
+                            <div>
+                                <h4>Whole Beans</h4>
+                                <p>200g</p>
+                                <span>Stock: 4</span>
+                            </div>
+                        </div>        
+                        <div class="stock-item">
+                            <div class="stock-img coffee-bag">
+                                <img src="/assets/wholebeens.webp" alt="">
+                            </div>
+                            <div>
+                                <h4>Whole Beans</h4>
+                                <p>200g</p>
+                                <span>Stock: 4</span>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+
+
+                <!-- QUICK ACTIONS CARD -->
+                <div class="quick-action-card">
+
+                    <div class="top2">
+                        <div class="headings">
+                            <h3>Quick Actions</h3>
+                        </div>
+                    </div>
+
+                    <div class="action-list">
+
+                        <div class="action-box">
+                            <div class="action-icon purple">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 5h13v10H4V5Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 19h5m5-7h3m-1.5-1.5v3" />
+                                </svg>
+                            </div>
+                            <p style="font-size: 9px;">New Bill</p>
+                        </div>
+
+                        <div class="action-box">
+                            <div class="action-icon green">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 12 20 7.5M12 12 4 7.5M12 12v9" />
+                                </svg>
+                            </div>
+                            <p style="font-size: 9px;">Add Product</p>
+                        </div>
+
+                        <div class="action-box">
+                            <div class="action-icon orange">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 8h12l1 12H5L6 8Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 8a3 3 0 0 1 6 0" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 11v5m-2.5-2.5h5" />
+                                </svg>
+                            </div>
+                            <p style="font-size: 9px;">New Order</p>
+                        </div>
+
+                        <div class="action-box">
+                            <div class="action-icon blue">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 14c2.2.4 4 1.6 4 3.5V19H4v-1.5c0-1.9 1.8-3.1 4-3.5" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 8v4m-2-2h4" />
+                                </svg>
+                            </div>
+                            <p style="font-size: 9px;">Add Customer</p>
+                        </div>
+
+                        <div class="action-box">
+                            <div class="action-icon violet">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 19V5" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 19h16" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m7 15 4-4 3 3 5-6" />
+                                </svg>
+                            </div>
+                            <p style="font-size: 9px;">Reports</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </main>
-        <footer>s</footer>
+        <footer class="footer">
+            <p>© 2024 POS Cafe. All rights reserved.</p>
+
+            <p>
+                Made with 
+                <span>♥</span>
+                for your business
+            </p>
+        </footer>
     </div>
 </body>
 </html>
