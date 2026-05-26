@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POS-Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="/js/dashboard.js" defer></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>   
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -118,9 +123,10 @@
 
         <div class="menu-item">
             <!-- HELP -->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.712 4.33a9.027 9.027 0 0 1 3.032 3.032m0 0A9.014 9.014 0 0 1 21 12c0 1.64-.438 3.18-1.204 4.506m0 0a9.027 9.027 0 0 1-3.032 3.032m0 0A9.014 9.014 0 0 1 12 21a9.014 9.014 0 0 1-4.506-1.204m0 0a9.027 9.027 0 0 1-3.032-3.032m0 0A9.014 9.014 0 0 1 3 12c0-1.64.438-3.18 1.204-4.506m0 0A9.027 9.027 0 0 1 7.236 4.33m9.476 0A9.014 9.014 0 0 0 12 3a9.014 9.014 0 0 0-4.506 1.204m9.218.126-3.38 3.38m-2.664 0-3.38-3.38m0 15.34 3.38-3.38m2.664 0 3.38 3.38M9 12a3 3 0 1 0 6 0 3 3 0 0 0-6 0Z" />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
             </svg>
+
             <span>Help & Support</span>
         </div>
 
@@ -134,6 +140,461 @@
 
     </div>
 
-</div>
+    </div>
+
+    <div class="main-page">
+            <header>
+        <div class="left">
+            <!-- Menu Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke-width="1.8" stroke="currentColor" class="menu-icon">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+
+            <!-- Search Box -->
+            <div class="search-div">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="search-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+
+                <input type="text" class="search-box" placeholder="Search anything...">
+
+                <div class="key">Ctrl + K</div>
+            </div>
+        </div>
+
+        <div class="right">
+            <!-- Calendar Box -->
+            <div class="calendar-box">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="calendar-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M6.75 3v2.25M17.25 3v2.25M3.75 8.25h16.5M4.5 6.75h15a.75.75 0 0 1 .75.75v12a.75.75 0 0 1-.75.75h-15a.75.75 0 0 1-.75-.75v-12a.75.75 0 0 1 .75-.75Z" />
+                </svg>
+
+                <span>May 15 - May 21, 2024</span>
+
+                <!-- Down Arrow Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="2" stroke="currentColor" class="down-arrow">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+            </div>
+
+            <!-- Profile Area -->
+            <div class="profile-area">
+                <!-- Bell Icon -->
+                <div class="bell-box">
+                    <span class="dot"></span>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.7" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022 23.848 23.848 0 0 0 5.455 1.31m5.714 0a3 3 0 1 1-5.714 0" />
+                    </svg>
+                </div>
+
+                <!-- User Box -->
+                <div class="user-box">
+                    <div class="image">AD</div>
+
+                    <div class="text">
+                        <div class="user-name">
+                            Admin User
+
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="2" stroke="currentColor" class="user-down-arrow">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </div>
+
+                        <div class="role">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+        <main>
+
+            <div class="card-list">
+                <!-- card-1  -->
+                <div class="card">
+                    <div class="card-image">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                        </svg>
+                    </div>
+                    
+                    <div class="values">
+                        <div class="head"
+                        
+                        >Total Sales</div>
+                        <div class="price">₹ 45,231.89</div>
+                        <div class="comp">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                                </svg>
+                                18.6% 
+                                </span>
+                            <span class="vs">vs last week</span>
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- card - 2 -->
+                 <div class="card">
+                     <div class="card-image" style="background: linear-gradient(135deg, #22c55e, #16a34a); color: white;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 13.5l4.5-4.5 4.5 4.5 6-6M21 21H3V3" />
+                        </svg>
+                    </div>
+                    
+                    <div class="values">
+                        <div class="head"
+                        
+                        >Total Orders</div>
+                        <div class="price">324</div>
+                        <div class="comp">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                                </svg>
+                                12.6% 
+                                </span>
+                            <span class="vs">vs last week</span>
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- crad - 3 -->
+                 <div class="card">
+                     <div class="card-image" style="background: linear-gradient(135deg, #f0c95c, #eb7130); color: white;">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+</svg>
+
+
+                    </div>
+                    
+                    <div class="values">
+                        <div class="head"
+                        
+                        >Total Customers</div>
+                        <div class="price">156</div>
+                        <div class="comp">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                                </svg>
+                                8.7% 
+                                </span>
+                            <span class="vs">vs last week</span>
+                            
+                        </div>
+                    </div>
+
+                </div> 
+                
+                <!-- card - 4 -->
+                <div class="card">
+                    <div class="card-image" style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 6v12m3-9.75H10.5a2.25 2.25 0 0 0 0 4.5h3a2.25 2.25 0 0 1 0 4.5H9M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                    
+                    <div class="values">
+                        <div class="head"
+                        
+                        >Average order value</div>
+                        <div class="price">324</div>
+                        <div class="comp">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                                </svg>
+                                12.6% 
+                                </span>
+                            <span class="vs">vs last week</span>
+                            
+                        </div>
+                    </div>
+
+                </div> 
+
+                <!-- card - 5 -->
+                <div class="card">
+                      <div class="card-image" style="background: linear-gradient(135deg, #a855f7, #7e22ce); color: white;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5M4.5 10.5h15l-.75 9.75a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25L4.5 10.5Z" />
+                        </svg>
+                    </div>
+                    
+                    <div class="values">
+                        <div class="head"
+                        
+                        >Total Profit</div>
+                        <div class="price">₹ 12542.30</div>
+                        <div class="comp">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                                </svg>
+                                12.6% 
+                                </span>
+                            <span class="vs">vs last week</span>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br>
+            <div class="info-cards">
+                <div class="sales-card">
+                    <div class="top">
+                        <div class="headings">
+                            <h3>Sales Overview</h3>
+
+                            <div class="chart-legends">
+                                <div class="lines">
+                                    <span class="solid-line"></span>
+                                    Sales (₹)
+                                </div>
+
+                                <div class="lines">
+                                    <span class="dash-line"></span>
+                                    Last Week (₹)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drop-down">
+                            Daily
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        
+                        </div>
+                    </div>
+
+                    <div class="chart-box">
+                        <canvas id="sales-graph"></canvas>
+                    </div>
+
+                    <div class="sales-footer">
+                        <div class="sale-data">
+                            <p>This Week Sales</p>
+                            <h2>₹45,231.89</h2>
+                        </div>
+
+                        <div class="middle-line"></div>
+
+                        <div class="sale-data">
+                            <p>Last Week Sales</p>
+                            <h2>₹38,132.62</h2>
+                        </div>
+
+                        <div class="profit">↗ 18.6%</div>
+                    </div>
+                </div>
+
+
+                <div class="selling-item-card">
+                    <div class="top2">
+                        <div class="headings">
+                            <h3>Top Selling items</h3>
+                        </div>
+
+                        <div class="drop-down">
+                            <div>This week</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="table-content">
+                        <table>
+                            <thead>
+                                    <td colspan="3">Items</td>
+                                    <td style="text-align: center;">Qty Sold</td>
+                                    <td>Revenue</td>
+                               
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="border-bottom:1px solid transparent">1.</td>
+                                    <td style="border-bottom:1px solid transparent"> <img src="/assets/cappuccino.webp" alt=""></td>
+                                    <td>Coffee</td>
+                                    <td style="text-align: center;">124</td>
+                                    <td>$2488.0</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-bottom:1px solid transparent">2.</td>
+                                    <td style="border-bottom:1px solid transparent"> <img src="/assets/cappuccino.webp" alt=""></td>
+                                    <td>Coffee</td>
+                                    <td style="text-align: center;">124</td>
+                                    <td>$2488.0</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-bottom:1px solid transparent">3.</td>
+                                    <td style="border-bottom:1px solid transparent"> <img src="/assets/cappuccino.webp" alt=""></td>
+                                    <td>Coffee</td>
+                                    <td style="text-align: center;">124</td>
+                                    <td>$2488.0</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-bottom:1px solid transparent">4.</td>
+                                    <td style="border-bottom:1px solid transparent"> <img src="/assets/cappuccino.webp" alt=""></td>
+                                    <td>Coffee</td>
+                                    <td style="text-align: center;">124</td>
+                                    <td>$2488.0</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-bottom:1px solid transparent">5.</td>
+                                    <td style="border-bottom:1px solid transparent"> <img src="/assets/cappuccino.webp" alt=""></td>
+                                    <td style="border-bottom:1px solid transparent">Coffee</td>
+                                    <td style="text-align: center; border-bottom:1px solid transparent">124</td>
+                                    <td style="border-bottom:1px solid transparent">$2488.0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="view-product">
+                        <button>
+                            View All Products  
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
+                            style="width: 12px; height: 12px; margin-left: 12px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>
+
+                        </button>
+                    </div>
+                </div>
+
+                <div class="recent-transaction-card">
+
+                    <div class="top2">
+                        <div class="headings">
+                            <h3>Recent Transactions</h3>
+                        </div>
+
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+
+                    <div class="transaction-list">
+                        <div class="transaction-item">
+                            <div class="transaction-left">
+                                <div class="transaction-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M7.5 3.75h9A1.5 1.5 0 0 1 18 5.25v15l-3-1.5-3 1.5-3-1.5-3 1.5v-15A1.5 1.5 0 0 1 7.5 3.75Z" />
+                                    </svg>
+                                </div>
+
+                                <div class="transaction-details">
+                                    <h4>#INV-000324</h4>
+                                    <p>21 May 2024, 11:35 AM</p>
+                                </div>
+                            </div>
+
+                            <div class="transaction-right">
+                                <h4>₹450.00</h4>
+                                <span>Completed</span>
+                            </div>
+                        </div>
+
+                        <div class="transaction-item">
+                            <div class="transaction-left">
+                                <div class="transaction-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M7.5 3.75h9A1.5 1.5 0 0 1 18 5.25v15l-3-1.5-3 1.5-3-1.5-3 1.5v-15A1.5 1.5 0 0 1 7.5 3.75Z" />
+                                    </svg>
+                                </div>
+
+                                <div class="transaction-details">
+                                    <h4>#INV-000323</h4>
+                                    <p>21 May 2024, 11:28 AM</p>
+                                </div>
+                            </div>
+
+                            <div class="transaction-right">
+                                <h4>₹120.00</h4>
+                                <span>Completed</span>
+                            </div>
+                        </div>
+
+                        <div class="transaction-item">
+                            <div class="transaction-left">
+                                <div class="transaction-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M7.5 3.75h9A1.5 1.5 0 0 1 18 5.25v15l-3-1.5-3 1.5-3-1.5-3 1.5v-15A1.5 1.5 0 0 1 7.5 3.75Z" />
+                                    </svg>
+                                </div>
+
+                                <div class="transaction-details">
+                                    <h4>#INV-000322</h4>
+                                    <p>21 May 2024, 11:15 AM</p>
+                                </div>
+                            </div>
+
+                            <div class="transaction-right">
+                                <h4>₹360.00</h4>
+                                <span>Completed</span>
+                            </div>
+                        </div>
+
+                        <div class="transaction-item">
+                            <div class="transaction-left">
+                                <div class="transaction-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M7.5 3.75h9A1.5 1.5 0 0 1 18 5.25v15l-3-1.5-3 1.5-3-1.5-3 1.5v-15A1.5 1.5 0 0 1 7.5 3.75Z" />
+                                    </svg>
+                                </div>
+
+                                <div class="transaction-details">
+                                    <h4>#INV-000321</h4>
+                                    <p>21 May 2024, 11:03 AM</p>
+                                </div>
+                            </div>
+
+                            <div class="transaction-right">
+                                <h4>₹220.00</h4>
+                                <span>Completed</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button class="all-transaction-btn">
+                        View All Transactions
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+
+                </div>
+            </div>
+            
+        </main>
+        <footer>s</footer>
+    </div>
 </body>
 </html>

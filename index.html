@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chart JS Example</title>
+
+  <!-- 1. Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    .chart-box {
+      width: 400px;
+      height: 220px;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 2. Canvas place -->
+  <div class="chart-box">
+    <canvas id="salesChart"></canvas>
+  </div>
+
+  <!-- 3. Chart JavaScript -->
+  <script>
+    const ctx = document.getElementById("salesChart");
+
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: ["15 May", "16 May", "17 May", "18 May", "19 May", "20 May", "21 May"],
+        datasets: [
+          {
+            data: [6400, 5600, 8900, 3300, 5600, 7000, 8800],
+            borderColor: "#4b35ff",
+            borderWidth: 3,
+            tension: 0.45,
+            pointRadius: 0
+          },
+          {
+            data: [5500, 4100, 7600, 2400, 5800, 5200, 7100],
+            borderColor: "#a798ff",
+            borderWidth: 3,
+            borderDash: [4, 4],
+            tension: 0.45,
+            pointRadius: 0
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+
+        scales: {
+          x: {
+            grid: {
+              display: false
+            }
+          },
+          y: {
+            min: 0,
+            max: 10000,
+            ticks: {
+              stepSize: 2000,
+              callback: function(value) {
+                return value === 0 ? "0" : value / 1000 + "K";
+              }
+            },
+            grid: {
+              color: "#eeeaf7"
+            }
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
