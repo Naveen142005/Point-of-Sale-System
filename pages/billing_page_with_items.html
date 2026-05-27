@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>POS - Billing</title>
+  <title>POS - Billing with items</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/css/empty_billing_page.css">
+  <link rel="stylesheet" href="/css/billing_page_with_items.css">
 </head>
 
 <body>
@@ -114,24 +114,125 @@
         <main>
             <div class="main-boxes"> 
                 <div class="items-add">
-                    
                     <table>
                         <tr>
-                            <th>Item</th>
-                            <th>Qty</th>
-                            <th>Unit Price</th>
-                            <th>Total</th>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                        <th></th>
                         </tr>
-                    </table>
-                    <div class="empty-bill">
-                        <div class="empty-icon">
-                            <img src="/assets/bill.png" alt="">
-                        </div>
 
-                        <h4>No items added yet</h4>
-                        <p>Select items from the menu to add to the bill</p>
+                        <tr>
+                            <td>
+                                <div class="bill-item">
+                                <div class="item-icon">
+                                    <img src="/assets/soya_milk.png" alt="">
+                                </div>
+                                <span>Soya Milk</span>
+                                </div>
+                            </td>
+                            <td><div class="qty-num">2</div></td>
+                            <td>$16.50</td>
+                            <td>$33.00</td>
+                            <td>
+                                <button class="del-btn">
+                                <img src="/assets/delete.png" alt="">
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                        <td>
+                            <div class="bill-item">
+                            <div class="item-icon">
+                                <img src="/assets/tea_c.png" alt="">
+                            </div>
+                            <span>Tea C</span>
+                            </div>
+                        </td>
+                        <td><div class="qty-num">5</div></td>
+                        <td>$4.70</td>
+                        <td>$23.50</td>
+                        <td><button class="del-btn">
+                            <img src="/assets/delete.png" alt="">
+                        </button></td>
+                        </tr>
+
+                        <tr>
+                        <td>
+                            <div class="bill-item">
+                            <div class="item-icon">
+                                <img src="/assets/Chrysanthemum_Tea.png" alt="">
+                            </div>
+                            <span>Streamed Timsum</span>
+                            </div>
+                        </td>
+                        <td><div class="qty-num">1</div></td>
+                        <td>$7.30</td>
+                        <td>$7.30</td>
+                        <td><button class="del-btn">
+                            <img src="/assets/delete.png" alt="">
+                        </button></td>
+                        </tr>
+
+                        <tr>
+                        <td>
+                            <div class="bill-item">
+                            <div class="item-icon"><img src="/assets/porridge.png" alt=""></div>
+                            <span>Porridge</span>
+                            </div>
+                        </td>
+                        <td><div class="qty-num">1</div></td>
+                        <td>$11.20</td>
+                        <td>$11.20</td>
+                        <td><button class="del-btn">
+                            <img src="/assets/delete.png" alt="">
+                        </button></td>
+                        </tr>
+
+                        <tr>
+                        <td>
+                            <div class="bill-item">
+                            <div class="item-icon"><img src="/assets/Iced_tea_black.png" alt=""></div>
+                            <span>Iced Tea</span>
+                            </div>
+                        </td>
+                        <td><div class="qty-num">1</div></td>
+                        <td>$11.70</td>
+                        <td>$11.70</td>
+                        <td><button class="del-btn">
+                            <img src="/assets/delete.png" alt="">
+                        </button></td>
+                        </tr>
+
+                        <tr>
+                        <td>
+                            <div class="bill-item">
+                            <div class="item-icon"><img src="/assets/dumplings.png" alt=""></div>
+                            <span>Dumplings</span>
+                            </div>
+                        </td>
+                        <td><div class="qty-num">1</div></td>
+                        <td>$16.10</td>
+                        <td>$16.10</td>
+                        <td><button class="del-btn">
+                            <img src="/assets/delete.png" alt="">
+                        </button></td>
+                        </tr>
+
+                        
+                        
+                    </table>
+
+                    <div class="bill-info">
+                        <div class="info-icon">i</div>
+                        <p>
+                        Click item to create billing entry. If item already exists, quantity will increase.<br>
+                        Cancel item removes the last billed item. Delete All clears local data.<br>
+                        Main menu will redirect to menu page.
+                        </p>
                     </div>
-                    
                 </div>
                 <div class="items-menu">
 
@@ -332,7 +433,9 @@
 
                             <button>0</button>
                             <button>.</button>
-                            <button>⌫</button>
+                            <button>
+                                ⌫
+                            </button>
                         </div>
 
                     </div>
@@ -434,6 +537,6 @@
         </footer>
     </div>
 
-    <script src="/js/empty_billing_page.js" defer></script>
+    <script src="/js/billing_page_with_items.js" defer></script>
 </body>
 </html>
