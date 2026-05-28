@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POS - Billing with items</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/billing_page_with_price.css">
+</head>
+
+<body>
+
+    <div class="side-bar" id="side-bar">
+    <div class="divider">
+
+        <div>
+        <div class="side-bar-heading">
+            <div class="cafe-icon">
+            <img src="/assets/coffee.png" alt="coffee">
+            </div>
+
+            <div class="side-title">
+            <h2>POS Cafe</h2>
+            </div>
+        </div>
+
+        <div class="full-menu">
+
+            <div class="menu-item active">
+            <img src="/assets/billing.png" alt="">
+            <span>Billing</span>
+            </div>
+
+            <div class="menu-item">
+            <img src="/assets/inventory.png" alt="">
+            <span>Inventory</span>
+            </div>
+
+            <div class="menu-item">
+            <img src="/assets/windows.png" alt="">
+            <span>Item Request</span>
+            </div>
+
+            <div class="menu-item">
+            <img src="/assets/report.png" alt="">
+            <span>Sales Report</span>
+            </div>
+
+            <div class="menu-item">
+            <img src="/assets/settings.png" alt="">
+            <span>Settings</span>
+            </div>
+
+            <div class="menu-item">
+            <img src="/assets/users.png" alt="">
+            <span>Users</span>
+            </div>
+
+        </div>
+        </div>
+
+        <div class="user-box">
+        <div class="image">A</div>
+
+        <div class="text">
+            <div class="user-name">Admin</div>
+            <div class="role">Administrator</div>
+        </div>
+
+        <img src="/assets/down-arrow.png" class="user-down-arrow" alt="">
+        
+        </div>
+
+    </div>
+    </div>
+
+    <div class="main-page" id="main">
+
+        <header>
+            <div class="left">
+                <div class="title">
+                    <img src="/assets/static-menu.png" alt="" id="menu-icon">
+                    <span>Current Bill</span>
+                </div>
+
+                <div class="amt">
+                    <div>Total Amount</div>
+                    <div class="rupee">$0.00</div>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="search-div">
+                    <img src="/assets/search.png" alt="">
+                    <input type="text" class="search-box" placeholder="Search menu items...">
+                </div>
+
+                <div class="four-box">
+                    <div class="view-box active" style="width: 38px !important;">
+                    <img src="/assets/box.png" alt="">
+                    </div>
+
+                    <div class="list-btn">
+                        <img src="/assets/list.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="main-boxes"> 
+                <div class="items-add">
+                        
+                    <div class="price-amendment-box">
+
+                        <div class="price-header">
+                            <img src="/assets/tag_purple.png" alt="">
+                            <h3>Price Amendment</h3>
+                        </div>
+
+                        <div class="price-line"></div>
+
+                        <div class="price-row">
+                            <p>Total Amount</p>
+                            <h4>$146.30</h4>
+                        </div>
+
+                        <div class="price-row">
+                            <p>GST Amount (7%)</p>
+                            <h4>$10.24</h4>
+                        </div>
+
+                        <div class="price-line"></div>
+
+                        <div class="price-row payable-row">
+                            <p>Payable</p>
+                            <h2>$156.54</h2>
+                        </div>
+
+                        <div class="price-line"></div>
+
+                        <div class="price-row tender-row">
+                            <p>Tender</p>
+                            <div class="tender-box">
+                                <span>$</span>
+                                <input type="text" value="160.00">
+                            </div>
+                        </div>
+
+                        <div class="change-box">
+                            <p>Change (Balance)</p>
+                            <h2>$3.46</h2>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+                <div class="items-menu">
+
+                    <div class="item active">
+                        <img src="/assets/beverage.svg" alt="">
+                        <span>Beverage</span>
+                    </div>
+
+                    <div class="item">
+                        <img src="/assets/steamed-bun.svg" alt="">
+                        <span>Steamed<br> Bun</span>
+                    </div>
+
+                    <div class="item">
+                        <img src="/assets/steamed-timsum.svg" alt="">
+                        <span>Steamed<br> Timsum</span>
+                    </div>
+
+                    <div class="item">
+                        <img src="/assets/deep-fry-timsum.svg" alt="">
+                        <span>Deep Fry<br> Timsum</span>
+                    </div>
+
+                    <div class="item">
+                        <img src="/assets/bake.svg" alt="">
+                        <span>Bake</span>
+                    </div>
+
+                    <div class="item">
+                        <img src="/assets/noodle-dumplings.svg" alt="">
+                        <span>Noodle/<br> Dumplings</span>
+                    </div>
+
+                    <div class="item">
+                        <img src="/assets/porridge.svg" alt="">
+                        <span>Porridge</span>
+                    </div>
+
+                    <div class="item">
+                        <img src="/assets/all-items.svg" alt="">
+                        <span>All Items</span>
+                    </div>
+
+                </div>
+                <div class="items-list-box">
+
+                    <div class="items-pic">
+                        <img src="/assets/Coffe_Black.png" alt="">
+                        <div class="img-title" >
+                            Coffee Black
+                            <div class="price-pic">$60.0</div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/Tea_Black.png" alt="">
+                        <div class="img-title">Tea Black<div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/Chrysanthemum_Tea.png" alt="">
+                        <div class="img-title">Chrysanthemum Tea <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/Coffee_omg.png" alt="">
+                        <div class="img-title">Coffee <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/tea.png" alt="">
+                        <div class="img-title">Tea <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/Chinease_Tea.png" alt="">
+                        <div class="img-title">Chinese Tea <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/Coffe_Black.png" alt="">
+                        <div class="img-title">Iced Coffee Black <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/Coffee_c.png" alt="">
+                        <div class="img-title">Iced Tea Black <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/soya_milk.png" alt="">
+                        <div class="img-title">Soya Milk <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/Iced_coffee_black.png" alt="">
+                        <div class="img-title">Iced Coffee <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/Iced_tea_black.png" alt="">
+                        <div class="img-title">Iced Tea <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/Grass_Jelly.png" alt="">
+                        <div class="img-title">Grass Jelly <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/Coffee_c.png" alt="">
+                        <div class="img-title">Coffee C <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/tea_c.png" alt="">
+                        <div class="img-title">Tea C <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/black_and_white.png" alt="">
+                        <div class="img-title">Black & White <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/milo.png" alt="">
+                        <div class="img-title">Milo <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/products/iced-milo.svg" alt="">
+                        <div class="img-title">Iced Milo <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/Takeaway_water.png" alt="">
+                        <div class="img-title">Takeaway Water <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/tea.png" alt="">
+                        <div class="img-title">Tea <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                    <div class="items-pic">
+                        <img src="/assets/Chinease_Tea.png" alt="">
+                        <div class="img-title">Chinese Tea <div class="price-pic">$60.0</div></div>
+                    </div>
+
+                </div>
+
+                <div class="calc-box">
+                    <div class="calc-left">
+                        <div class="input-group">
+                            <label>Item Number</label>
+                            <div class="input-box">
+                                <input type="text" placeholder="Scan / Enter item number">
+                                <img src="/assets/scanner.png" class="scanner-icon" alt="">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Table No</label>
+                            <div class="input-box small">
+                                <input type="text" placeholder="Enter table no">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>No of Cover</label>
+                            <div class="input-box small">
+                                <input type="text" placeholder="Enter no of cover">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="calc-middle">
+
+                        <div class="input-group qty-group">
+                            <label>Quantity</label>
+                            <div class="qty-box">
+                                <button>-</button>
+                                <span>1</span>
+                                <button>+</button>
+                            </div>
+                        </div>
+
+                        <div class="num-pad">
+                            <button>7</button>
+                            <button>8</button>
+                            <button>9</button>
+
+                            <button>4</button>
+                            <button>5</button>
+                            <button>6</button>
+
+                            <button>1</button>
+                            <button>2</button>
+                            <button>3</button>
+
+                            <button>0</button>
+                            <button>.</button>
+                            <button>
+                                ⌫
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="calc-right">
+                        <button class="add-btn">Add</button>
+                        <button class="clear-btn">AC</button>
+                        <button class="clear-btn">Clear</button>
+                    </div>
+
+                </div>
+                
+                <div class="bill-actions">
+                    <div class="first-two">
+                        <div class="new-bill">
+                            <img src="/assets/plus.png" alt="">
+                            <span>New Bill</span>
+                        </div>
+
+                        <div class="price-amendment">
+                            <img src="/assets/tag.png" alt="">
+                            <span>Price Amendment</span>
+                        </div>
+                    </div>
+
+                    <div class="price-list">
+                        <div class="price">$2</div>
+                        <div class="price">$5</div>
+                        <div class="price">$10</div>
+                        <div class="price">$20</div>
+                        <div class="price">$50</div>
+
+                        <div class="price Gift">
+                            <img src="/assets/gift.png" alt="">
+                            <span>Gift Voucher</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cash-actions">
+
+                    <div class="cash-box-btn">
+                        <img src="/assets/cash-box.png" alt="">
+                        <span>Open Cash Box</span>
+                    </div>
+
+                    <div class="goods-return-btn">
+                        <img src="/assets/star.png" alt="" style="width: 18px; height: 18px;">
+                        <span>Goods Return</span>
+                    </div>
+
+                    <div class="cancel-item-btn">
+                        <img src="/assets/reload.png" alt="">
+                        <span>Cancel Item</span>
+                    </div>
+
+                    <div class="add-item-btn">
+                        <img src="/assets/cart.png" alt="">
+                        <span>Add Item</span>
+                    </div>
+
+                </div>
+                <div class="transaction-actions">
+
+                    <div class="terminate">
+                        <img src="/assets/slash.png" alt="">
+                        <span>Terminate<br>Transaction</span>
+                    </div>
+
+                    <div class="print">
+                        <img src="/assets/print.png" alt="">
+                        <span>Print</span>
+                    </div>
+
+                    <div class="reserved">
+                        <img src="/assets/bookmark.png" alt="">
+                        <span>Reserved<br>Transaction</span>
+                    </div>
+
+                    <div class="delete-all">
+                        <img src="/assets/delete_2.png" alt="">
+                        <span>Delete All<br>Transaction</span>
+                    </div>
+
+                    <div class="restore">
+                        <img src="/assets/reload.png" alt="">
+                        <span>Restore</span>
+                    </div>
+
+                    <div class="main-menu-btn">
+                        <img src="/assets/home.png" alt="">
+                        <span>Main Menu</span>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+        <footer>
+
+        </footer>
+    </div>
+
+    <script src="/js/billing_page_with_price.js" defer></script>
+</body>
+</html>
