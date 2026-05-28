@@ -18,7 +18,7 @@ menuIcon.addEventListener('click', (e) => {
     if (isMobile) {
         sideBar.classList.add('active')
     }
-    else {
+    else {  
         if (sideBar.classList.contains('closed')) {
             sideBar.classList.remove('closed');
             main.style.marginLeft = '200px';

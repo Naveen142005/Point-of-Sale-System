@@ -118,8 +118,11 @@ body {
 .main-page {
   margin-left: 245px;
   width: calc(100vw - 245px);
-  height: 100vh;
-   transition: 0.2s all ease;
+  min-height: 100vh;
+  transition: 0.2s all ease;
+  display: flex;
+  flex-direction: column;
+justify-content: space-between;
 }
 
 main {
@@ -1078,7 +1081,7 @@ tbody tr td img {
         height: auto;
     }
     .search-div {
-      /* width:epx; */
+      /* width:epx; */  
       flex: 1;
       
    }
@@ -1097,3 +1100,4 @@ tbody tr td img {
   z-index: 1000;
   width: 260px;
 }
+
