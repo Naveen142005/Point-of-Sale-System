@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POS - Edit Item Request</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/css/Item_request_add_page.css" />
+  </head>
+
+  <body>
+    <div class="side-bar" id="side-bar">
+      <div class="divider">
+        <div>
+          <div class="side-bar-heading">
+            <div class="cafe-icon">
+              <img src="/assets/coffee.png" alt="coffee" />
+            </div>
+
+            <div class="side-title">
+              <h2>POS Cafe</h2>
+            </div>
+          </div>
+
+          <div class="full-menu">
+            <div class="menu-item">
+              <img src="/assets/billing.png" alt="" />
+              <span>Billing</span>
+            </div>
+
+            <div class="menu-item">
+              <img src="/assets/inventory.png" alt="" />
+              <span>Inventory</span>
+            </div>
+
+            <div class="menu-item active">
+              <img src="/assets/windows.png" alt="" />
+              <span>Item Request</span>
+            </div>
+
+            <div class="menu-item">
+              <img src="/assets/report.png" alt="" />
+              <span>Sales Report</span>
+            </div>
+
+            <div class="menu-item">
+              <img src="/assets/settings.png" alt="" />
+              <span>Settings</span>
+            </div>
+
+            <div class="menu-item">
+              <img src="/assets/users.png" alt="" />
+              <span>Users</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="user-box">
+          <div class="image">A</div>
+
+          <div class="text">
+            <div class="user-name">Admin</div>
+            <div class="role">Administrator</div>
+          </div>
+
+          <img src="/assets/down-arrow.png" class="user-down-arrow" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <main id="main">
+      <div class="header">
+        <div class="left">
+          <img src="/assets/static-menu.png" alt="" id="menu-icon" />
+
+          <div class="sub-title">
+            <span>Edit Item Request</span>
+
+            <span>
+              <span style="color: blueviolet; font-weight: 800" class="x">
+                Item Request
+              </span>
+              &nbsp;&nbsp; > &nbsp;&nbsp;
+              <span style="color: blue; font-weight: 800" class="x">
+                Edit Item Request
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="calen">
+            <img src="/assets/canlendar.png" alt="" />
+            <span>
+              20 May 2024 <br />
+              <span>Monday</span>
+            </span>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="time">
+            <img src="/assets/clock.png" alt="" />
+            <span>10:30 AM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="new-item-box">
+        <div class="request-info-box">
+          <h3>Request Information</h3>
+
+          <div class="input-row">
+            <div class="input-box">
+              <label>Request ID</label>
+              <input type="text" value="REQ-00013" />
+            </div>
+
+            <div class="input-box">
+              <label>Subject <sup style="color: red">*</sup></label>
+              <input type="text" value="Request for Coffee Beans" />
+            </div>
+
+            <div class="input-box">
+              <label>Requested By</label>
+              <input type="text" value="Admin" />
+            </div>
+          </div>
+
+          <div class="input-row">
+            <div class="input-box">
+              <label>Requested Date</label>
+              <input type="text" value="20 May 2024" />
+            </div>
+
+            <div class="input-box">
+              <label>Expecting Delivery <sup style="color: red">*</sup></label>
+
+              <div class="date-input-box">
+                <input type="text" value="23 May 2024" />
+                <img src="/assets/calendar_blue.png" alt="" />
+              </div>
+            </div>
+
+            <div class="input-box">
+              <label>Status</label>
+              <input type="text" value="Pending" />
+            </div>
+          </div>
+        </div>
+
+        <div class="items-box">
+          <div class="item-list-box">
+            <div class="item-list-box-header">
+              <div class="left">
+                <span>Items</span>
+                <br />
+                <span>Total 3 items</span>
+              </div>
+
+              <div class="right">
+                <img src="/assets/plus.png" alt="" />
+                <p>Add Item</p>
+              </div>
+            </div>
+
+            <div class="item-list-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item Name <sup>*</sup></th>
+                    <th>Quantity <sup>*</sup></th>
+                    <th>Expected Date <sup>*</sup></th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>
+                      <select>
+                        <option selected>Coffee Beans 1kg</option>
+                      </select>
+                    </td>
+
+                    <td>
+                      <input type="number" value="5" />
+                    </td>
+
+                    <td>
+                      <div class="date-input-box">
+                        <input type="text" value="23 May 2024" />
+                        <img src="/assets/calendar_blue.png" alt="" />
+                      </div>
+                    </td>
+
+                    <td>
+                      <button class="delete-btn">🗑</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <select>
+                        <option selected>Milk 1L</option>
+                      </select>
+                    </td>
+
+                    <td>
+                      <input type="number" value="10" />
+                    </td>
+
+                    <td>
+                      <div class="date-input-box">
+                        <input type="text" value="22 May 2024" />
+                        <img src="/assets/calendar_blue.png" alt="" />
+                      </div>
+                    </td>
+
+                    <td>
+                      <button class="delete-btn">🗑</button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <select>
+                        <option selected>Sugar 1kg</option>
+                      </select>
+                    </td>
+
+                    <td>
+                      <input type="number" value="3" />
+                    </td>
+
+                    <td>
+                      <div class="date-input-box">
+                        <input type="text" value="21 May 2024" />
+                        <img src="/assets/calendar_blue.png" alt="" />
+                      </div>
+                    </td>
+
+                    <td>
+                      <button class="delete-btn">🗑</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="btns">
+            <button class="cancel-btn">Cancel</button>
+
+            <button class="save-btn">
+              Update
+            </button>
+
+            <button class="submit-btn">
+              <img src="/assets/send.png" alt="" />
+              Submit Request
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="/js/Item_request_add_page.js" defer></script>
+  </body>
+</html>

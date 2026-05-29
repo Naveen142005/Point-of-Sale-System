@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POS - Inventory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/item_request_list_page.css" />
+  </head>
+  <body>
+    <div class="side-bar" id="side-bar">
+      <div class="divider">
+        <div>
+          <div class="side-bar-heading">
+            <div class="cafe-icon">
+              <img src="/assets/coffee.png" alt="coffee" />
+            </div>
+
+            <div class="side-title">
+              <h2>POS Cafe</h2>
+            </div>
+          </div>
+
+          <div class="full-menu">
+            <div class="menu-item ">
+              <img src="/assets/billing.png" alt="" />
+              <span>Billing</span>
+            </div>
+
+            <div class="menu-item">
+              <img src="/assets/inventory.png" alt="" />
+              <span>Inventory</span>
+            </div>
+
+            <div class="menu-item ">
+              <img src="/assets/windows.png" alt="" />
+              <span>Item Request</span>
+            </div>
+
+            <div class="menu-item">
+              <img src="/assets/report.png" alt="" />
+              <span>Sales Report</span>
+            </div>
+
+            <div class="menu-item">
+              <img src="/assets/settings.png" alt="" />
+              <span>Settings</span>
+            </div>
+
+            <div class="menu-item">
+              <img src="/assets/users.png" alt="" />
+              <span>Users</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="user-box">
+          <div class="image">A</div>
+
+          <div class="text">
+            <div class="user-name">Admin</div>
+            <div class="role">Administrator</div>
+          </div>
+
+          <img src="/assets/down-arrow.png" class="user-down-arrow" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <main id="main">
+        <div class="header">
+            <div class="left">
+                <img src="/assets/static-menu.png" alt="" id="menu-icon">
+                <span>Inventory</span>
+            </div>
+            <div class="right">
+                <div class="calen">
+                    <img src="/assets/canlendar.png" alt="">
+                    <span>20 May 2024 <br> 
+                        <span>Monday</span>
+                    </span>
+                </div>
+                <div class="head-line"></div>
+                <div class="time">
+                    <img src="/assets/clock.png" alt="">
+                    <span>10:30 AM</span>
+                </div>
+            </div>
+        </div>
+        <div class="filter-box">
+
+            <div class="all-filters">
+
+                <div class="filter">
+                <div class="title">Request ID</div>
+                <div class="select-box">
+                    <select>
+                    <option>Select request ID</option>
+                    <option>REQ-001</option>
+                    <option>REQ-002</option>
+                    </select>
+                </div>
+                </div>
+
+                <div class="filter">
+                <div class="title">Subject</div>
+                <div class="select-box">
+                    <input type="text" placeholder="Enter subject">
+                </div>
+                </div>
+
+                <div class="filter">
+                <div class="title">Requested By</div>
+                <div class="select-box">
+                    <select>
+                    <option>Select requested by</option>
+                    <option>Admin</option>
+                    <option>Manager</option>
+                    </select>
+                </div>
+                </div>
+
+                <div class="filter">
+            <div class="title">Requested Date From</div>
+            <div class="select-box date-box">
+                <input type="date">
+                <img src="/assets/calendar_blue.png" alt="">
+            </div>
+            </div>
+
+            <div class="filter">
+            <div class="title">Requested Date To</div>
+            <div class="select-box date-box">
+                <input type="date">
+                <img src="/assets/calendar_blue.png" alt="">
+            </div>
+            </div>
+
+            </div>
+
+            <div class="filter-btn">
+                <button class="active-btn">
+                <img src="/assets/filter.png" alt="">
+                Filter
+                </button>
+
+                <button>
+                <img src="/assets/reset_bacl.png" alt="">
+                Reset
+                </button>
+            </div>
+
+        </div>
+
+        <div class="inventory-list">
+            <div class="inventory-header">
+                <div class="i-left">
+                     <span style="font-size: 16px;">Inventory List</span>
+                    <br>
+                    <span style="
+                    font-size: 10px;
+                    font-weight: 600;
+                    color:#0707c8ca;
+                    "
+                    >Total 128 items found</span>
+                </div>
+                <div class="i-right">
+                    <button class="btn-1">
+                        <img src="/assets/add.png" alt="">
+                        New Item Request
+                    </button>
+                    
+                    <button class="btn-3">
+                        <img src="/assets/excel.png" alt="">
+                        Export to Excel
+                    </button>
+                </div>
+                <div class="three-dot " id="three-dot" style="border: none !important;">
+                    <img width="10" height="10" src="/assets/three-dot.png" alt="" >  
+                    <ul id="list">
+                        <li>
+                             <button class="btn-1">
+                                
+                                New Item Request
+                            </button>
+                        </li>
+                        
+                        <li>
+                             <button class="btn-3">
+                                
+                                Export to Excel
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="inventory-table-box">
+                <table class="inventory-table">
+                    <thead>
+                    <tr>
+                        <th>
+                            Request ID
+                            <img src="/assets/sort.png" alt="" class="filter-icon">
+                        </th>
+                        <th>
+                            Subject
+                            <img src="/assets/sort.png" alt="" class="filter-icon">
+                        </th>
+                        <th>
+                            Requested by
+                            <img src="/assets/sort.png" alt="" class="filter-icon">
+                        </th>
+                        <th>
+                            Requested Date
+                            <img src="/assets/sort.png" alt="" class="filter-icon">
+                        </th>
+                        <th>
+                            Expecting Delivary
+                            <img src="/assets/sort.png" alt="" class="filter-icon">
+                        </th>
+                        <th>
+                            Status
+                            <img src="/assets/sort.png" alt="" class="filter-icon">
+                        </th>
+                        <th>
+                            Action
+                            <img src="/assets/sort.png" alt="" class="filter-icon">
+                        </th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span>REQ-00012</span>
+                                </div>
+                            </td>
+                            <td>Request for Coffee Beans</td>
+                            <td>James Anderson</td>
+                            <td>20 May 2024<br>09:15 AM</td>
+                            <td>23 May 2024</td>
+                            <td><span class="status-box pending">Pending</span></td>
+                            <td>
+                                <img src="/assets/eye.png" alt="" width="20" height="20">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span>REQ-00011</span>
+                                </div>
+                            </td>
+                            <td>Request for Milk and Cream</td>
+                            <td>Sarah Johnson</td>
+                            <td>19 May 2024<br>04:30 PM</td>
+                            <td>22 May 2024</td>
+                            <td><span class="status-box on-way">On the way</span></td>
+                            <td>
+                                <img src="/assets/eye.png" alt="" width="20" height="20">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span>REQ-00010</span>
+                                </div>
+                            </td>
+                            <td>Request for Disposable Cups</td>
+                            <td>Michael Brown</td>
+                            <td>18 May 2024<br>11:05 AM</td>
+                            <td>21 May 2024</td>
+                            <td><span class="status-box received">Received</span></td>
+                            <td>
+                                <img src="/assets/eye.png" alt="" width="20" height="20">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span>REQ-00009</span>
+                                </div>
+                            </td>
+                            <td>Request for Sugar and Sweeteners</td>
+                            <td>Emily Davis</td>
+                            <td>17 May 2024<br>03:45 PM</td>
+                            <td>20 May 2024</td>
+                            <td><span class="status-box pending">Pending</span></td>
+                            <td>
+                                <img src="/assets/eye.png" alt="" width="20" height="20">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span>REQ-00008</span>
+                                </div>
+                            </td>
+                            <td>Request for Teabags</td>
+                            <td>David Wilson</td>
+                            <td>16 May 2024<br>10:20 AM</td>
+                            <td>19 May 2024</td>
+                            <td><span class="status-box on-way">On the way</span></td>
+                            <td>
+                                <img src="/assets/eye.png" alt="" width="20" height="20">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span>REQ-00007</span>
+                                </div>
+                            </td>
+                            <td>Request for Chocolate Syrup</td>
+                            <td>Lisa Martinez</td>
+                            <td>15 May 2024<br>02:10 PM</td>
+                            <td>18 May 2024</td>
+                            <td><span class="status-box received">Received</span></td>
+                            <td>
+                                <img src="/assets/eye.png" alt="" width="20" height="20">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span>REQ-00006</span>
+                                </div>
+                            </td>
+                            <td>Request for Paper Napkins</td>
+                            <td>Robert Taylor</td>
+                            <td>14 May 2024<br>09:50 AM</td>
+                            <td>17 May 2024</td>
+                            <td><span class="status-box cancelled">Cancelled</span></td>
+                            <td>
+                                <img src="/assets/eye.png" alt="" width="20" height="20">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span>REQ-00005</span>
+                                </div>
+                            </td>
+                            <td>Request for Straws</td>
+                            <td>Jessica White</td>
+                            <td>13 May 2024<br>01:30 PM</td>
+                            <td>16 May 2024</td>
+                            <td><span class="status-box on-way">On the way</span></td>
+                            <td>
+                                <img src="/assets/eye.png" alt="" width="20" height="20">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span>REQ-00004</span>
+                                </div>
+                            </td>
+                            <td>Request for Vanilla Syrup</td>
+                            <td>Daniel Harris</td>
+                            <td>12 May 2024<br>05:25 PM</td>
+                            <td>15 May 2024</td>
+                            <td><span class="status-box pending">Pending</span></td>
+                            <td>
+                                <img src="/assets/eye.png" alt="" width="20" height="20">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="item-name">
+                                    <span>REQ-00003</span>
+                                </div>
+                            </td>
+                            <td>Request for Oat Milk</td>
+                            <td>Sophia Clark</td>
+                            <td>11 May 2024<br>10:00 AM</td>
+                            <td>14 May 2024</td>
+                            <td><span class="status-box received">Received</span></td>
+                            <td>
+                                <img src="/assets/eye.png" alt="" width="20" height="20">
+                            </td>
+                        </tr>
+                </tbody>
+                </table>
+            </div>
+            <div class="page-box">
+                    <div class="page-left">
+                        <span>Show</span>
+
+                        <div class="entry-box">
+                            <span>10</span>
+                            <img src="/assets/down_arrow_blac.png" alt="">
+                        </div>
+
+                        <span>entries</span>
+                    </div>
+
+                    <div class="page-center">
+                        <button class="page-btn">&laquo;</button>
+                        <button class="page-btn">&lsaquo;</button>
+
+                        <button class="page-btn active-page">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">4</button>
+                        <button class="page-btn">5</button>
+
+                        <button class="page-btn dots">...</button>
+
+                        <button class="page-btn">13</button>
+                        <button class="page-btn">&rsaquo;</button>
+                        <button class="page-btn">&raquo;</button>
+                    </div>
+
+                    <div class="page-right">
+                        <span>Showing 1 to 10 of 128 entries</span>
+                    </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/item_request_list_page.js" defer></script>
+  </body>
+</html>

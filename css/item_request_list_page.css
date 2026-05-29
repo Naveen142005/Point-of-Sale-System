@@ -1,3 +1,4 @@
+
 :root {
   --font-main: "Inter", sans-serif;
   --body-bg: #f4f4f4;
@@ -101,7 +102,7 @@ body {
 
 .menu-item {
   width: 100% !important;
-  height: 40px ;
+  height: 40px;
   padding: 0 11px;
   border-radius: 7px;
   display: flex;
@@ -314,37 +315,123 @@ main .header img {
   width: 20px;
   height: 20px;
 }
+
+
+.filter-box {
+  width: 100%;
+  background: var(--white);
+  box-shadow: var(--box-shadow);
+  padding: 18px;
+  border-radius: 8px;
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .all-filters {
   display: flex;
+  flex: 1;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.filter {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #060633;
+}
+
+.select-box {
+  width: 100%;
+  height: 38px;
+  border: 1px solid var(--text-muted);
+  border-radius: 6px;
+  display: flex;
   align-items: center;
-  width: 80%;
-  gap: 12px;
+  background: var(--white);
+  position: relative;
 }
 
-.select-box > :nth-child(3) {
-  margin-left: auto;
-}
-
-.select-box span {
-  font-size: 12px;
+.select-box select,
+.select-box input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding-left: 12px;
+  padding-right: 32px;
+  font-size: 11px;
   font-weight: 600;
   color: rgb(4, 4, 122);
 }
 
+.select-box select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("/assets/down_arrow_blac.png");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 10px;
+  cursor: pointer;
+}
+
+.select-box input::placeholder {
+  color: rgb(4, 4, 122);
+}
+
+.date-box img {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+}
+
 .filter-btn {
-cursor: pointer;
-  width: 20%;
+  cursor: pointer;
+  width: 18%;
   display: flex;
-  gap: 30px;
+  gap: 12px;
   justify-content: flex-end;
+  /* flex-wrap: wrap; */
+}
+
+.filter-btn button {
+  height: 38px;
+  padding: 0 15px;
+  border-radius: 6px;
+  border: 1px solid var(--text-muted);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #2400ff;
+  flex: 1;
+  cursor: pointer;
+}
+
+.filter-btn button img {
+  width: 14px;
+  height: 14px;
 }
 
 .active-btn {
-  background: var(--purple-gradient);
-  color: white;
-  font-weight: 400;
-  letter-spacing: 0.4px;
-}
+  background: var(--purple-gradient) !important;
+  color: white !important;
+  border: none !important;
+} 
 
 .inventory-list {
 box-shadow: var(--box-shadow);
@@ -483,7 +570,7 @@ box-shadow: var(--box-shadow);
 }
 
 .filter-icon {
-  width: 8px;
+  width: 20px;
   height: 8px;
   margin-left: 5px;
   vertical-align: middle;
@@ -494,43 +581,40 @@ box-shadow: var(--box-shadow);
 
 
 .filter-icon {
-  width: 8px;
-  height: 8px;
+  width: 14px;
+  height: 14px;
   margin-left: 5px;
   vertical-align: middle;
 }
 
-.stock-green {
-  color: #00b341 !important;
+.pending {
+    background-color: #fff1c7;
+    color: #b77700;
 }
 
-.stock-orange {
-  color: #ff7a00 !important;
+.on-way {
+    background-color: #e7efff;
+    color: #2454d6;
 }
 
-.stock-red {
-  color: #ff0000 !important;
+.received {
+    background-color: #dff8d7;
+    color: #238000;
 }
+
+.cancelled {
+    background-color: #ffdede;
+    color: #d60000;
+}
+
+
 .status-box {
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 10px;
   font-weight: 800;
 }
-.in-stock {
-  background-color: #dcf8e6;
-  color: #00a33c;
-}
 
-.low-stock {
-  background-color: #fff1df;
-  color: #ff7a00;
-}
-
-.out-stock {
-  background-color: #ffe1e1;
-  color: #ff0000;
-}
 
 .inventory-table tr > :nth-child(2) {
     text-align: left;
@@ -624,17 +708,14 @@ ul > li {
     display:none;
 }
 
+
+@media screen and (max-width: 1280px) {
+    .filter-box {
+      flex-direction: column;
+    }
+}
+
 @media screen and (max-width:1200px ) {
-    .filters-box {
-        flex-direction: column;
-        align-items: flex-end;
-    }
-    .filters-box .filter{
-        flex: 1;
-    }
-    .all-filters {
-        width: 100%;
-    }
      .page-box {
         flex-direction: column;
         align-items: stretch;
@@ -660,7 +741,7 @@ ul > li {
     gap: 12px;
    }
    .i-right button {
-    /* width: 100px; */
+
     padding:8px;
    }
    .i-right {
@@ -714,11 +795,12 @@ ul > li {
     }
     ul {
         position: absolute;
-        width: 120px;
+        width: 150px;
         display: none;
         background: var(--white); 
         flex-direction: column;
-        left: -102px;
+        bottom: -70px;
+        left: -130px;
         box-shadow: var(--box-shadow);
         border-radius: 8px;
         border: 1px solid var(--text-muted);
@@ -777,6 +859,8 @@ ul > li {
         padding: 4px;
     }
 }
+
+
 @media screen and (max-width: 380px) {
     main .header {
         flex-direction: column;
@@ -788,6 +872,7 @@ ul > li {
         justify-content: space-between;
     }
 }
+
 .active {
   transform: translate(0) !important;
   z-index: 10000;
@@ -796,4 +881,57 @@ ul > li {
 
 .side-bar {
   z-index: 99999;
+}
+
+.date-box {
+  position: relative;
+}
+
+.date-box {
+  cursor: pointer;
+  color: rgb(4, 4, 122);
+}
+
+.date-box::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.date-box img {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+}
+@media screen and (max-width: 1280px) {
+    .select-box select,
+    .select-box:not(.date-box) input {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 968px) {
+    .select-box select,
+    .select-box:not(.date-box) input {
+        font-size: 9px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .select-box select,
+    .select-box:not(.date-box) input {
+        font-size: 8px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .select-box select,
+    .select-box:not(.date-box) input {
+        font-size: 7.5px;
+    }
+}
+
+table th  {
+  color: var(--text-blue) !important;
 }
