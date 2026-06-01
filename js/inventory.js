@@ -114,18 +114,83 @@ function showTableContent(items) {
             </td>
 
             <td>
-                <button class="edit-btn">Edit</button>
+                <button class="edit-btn" data-id = ${item.itemCode}>Edit</button>
             </td>
         </tr>
     `;
     }
 }
 
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    const tableContent = document.getElementById("tableContent");
+document.addEventListener("DOMContentLoaded", () => {
     const items = JSON.parse(localStorage.getItem("Inventory") || "[]");
 
-    showTableContent(items)
-})
+    const category = document.getElementById("category");
+    const itemName = document.getElementById("itemName");
+    const status = document.getElementById("status");
+    const dateFrom = document.getElementById("dateFrom");
+    const dateTo = document.getElementById("dateTo");
+
+    const filterBtn = document.getElementById("filterBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    showTableContent(items);
+
+    filterBtn.addEventListener("click", () => {
+        const finalData = items.filter((item) => {
+            const itemDate = new Date(item.update_at);
+
+            if (category.value && item.category !== category.value) {
+                return false;
+            }
+
+            if (itemName.value && item.itemName !== itemName.value) {
+                return false;
+            }
+
+            if (status.value && item.status !== status.value) {
+                return false;
+            }
+
+            if (dateFrom.value && itemDate < new Date(dateFrom.value)) {
+                return false;
+            }
+
+            if (dateTo.value && itemDate > new Date(dateTo.value)) {
+                return false;
+            }
+
+            return true;
+        });
+
+        showTableContent(finalData);
+    });
+
+    resetBtn.addEventListener("click", () => {
+        category.value = "";
+        itemName.value = "";
+        status.value = "";
+        dateFrom.value = "";
+        dateTo.value = "";
+
+        showTableContent(items);
+    });
+});
+
+
+document.querySelector(".date-box").addEventListener("click", () => {
+    document.getElementById("dateTo").showPicker();
+});
+document.querySelector(".date-box-1").addEventListener("click", () => {
+    document.getElementById("dateFrom").showPicker();
+});
+
+
+
+document.addEventListener("click", (e) => {
+    
+    if (e.target.classList.contains("edit-btn")) {
+        const id = e.target.dataset.id;
+
+        location.href = `./inventory_edit_page.html?id=${id}`;
+    }
+});

@@ -1,4 +1,4 @@
-function addIntoLocalStorage(key, object) {
+function addItemToLocal(key, object) {
     try {
         const objectArr = JSON.parse(localStorage.getItem(key) || "[]");
 
@@ -13,6 +13,21 @@ function addIntoLocalStorage(key, object) {
         return false;
     }
 }
+
+function updateToLocal(key, arr) {
+    try {
+        localStorage.setItem(key, JSON.stringify(arr));
+        return true;
+    } catch (e) {
+        console.log("LC update err", e);
+        return false;
+    }
+}
+
+function getItemFromLocal (key) {
+    return JSON.parse(localStorage.getItem(key) || "[]")
+}
+
 
 
 function showPopups(mes, isSuccess) {
@@ -46,9 +61,6 @@ function showPopups(mes, isSuccess) {
     },3000)
 }
 
-function getItemFromLocal (key) {
-    return JSON.parse(localStorage.getItem(key) || "[]")
-}
 
 function getCurrentDateTime() {
     const date = new Date();

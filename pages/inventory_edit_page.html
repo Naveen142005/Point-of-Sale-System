@@ -12,6 +12,8 @@
     />
 
     <link rel="stylesheet" href="/css/inventory_edit_page.css" />
+    <link rel="stylesheet" href="/css/inventory_new_item.css" />
+    <link rel="stylesheet" href="/css/model.css" />
   </head>
   <body>
     <div class="side-bar" id="side-bar">
@@ -79,10 +81,13 @@
           <img src="/assets/static-menu.png" alt="" id="menu-icon" />
           <div class="sub-title">
             <span>Inventory</span>
-            <span> 
-              <span style="color: blueviolet;font-weight: 800;" class="x"> Inventory </span>  
+            <span>
+              <span style="color: blueviolet; font-weight: 800" class="x">
+                Inventory
+              </span>
               &nbsp;&nbsp; > &nbsp;&nbsp;
-              <span style="color: gray;" class="x">Edit Inventory</span> </span>
+              <span style="color: gray" class="x">Edit Inventory</span>
+            </span>
           </div>
         </div>
         <div class="right">
@@ -106,128 +111,191 @@
           <h3>Edit Inventory</h3>
           <div>Update the details of the inventory item</div>
         </div>
-        <div class="form-box">
 
-          <div class="input-row">
-            <div class="input-box">
-              <label>Item Code</label>
-              <input type="text" value="ITM-000129">
-              <span>Auto-generated</span>
+        <form id="editForm">
+          <div class="form-box">
+            <div class="input-row">
+              <div class="input-box">
+                <label>Item Code</label>
+                <input type="text" value="ITM-000129" disabled id="itemCode" />
+                <span>Auto-generated</span>
+              </div>
+
+              <div class="input-box">
+                <label>Item Name <sup style="color: red">*</sup></label>
+                <input
+                  type="text"
+                  placeholder="Enter item name"
+                  data-req
+                  data-name="Item name"
+                  id="itemName"
+                />
+              </div>
             </div>
 
-            <div class="input-box">
-              <label>Item Name <sup style="color: red;">*</sup></label>
-              <input type="text" placeholder="Enter item name" value="Cappuccino Coffee">
-            </div>
-          </div>
-
-          <div class="input-row">
-            <div class="input-box">
+            <div class="input-row">
+              <div class="input-box">
                 <label>Item Image</label>
 
-                <div class="item-img-box">
-                    <div class="item-img-left">
-                    <img src="/assets/cappuccino.webp" alt="">
+                <div class="item-img-box" id="itemImgBox">
+                  <div class="item-img-left">
+                    <img
+                      src=""
+                      alt=""
+                      id="uploadedImg"
+                    />
+                  </div>
+
+                  <div class="item-img-right">
+                    <input
+                      type="file"
+                      id="itemImage"
+                      accept="image/png, image/jpg, image/jpeg, image/webp"
+                      style="display: flex"
+                    />
+
+                    <div class="change-img" id="changeImgBtn">
+                      <img src="/assets/save-blue.png" alt="" />
+                      <span>Change Image</span>
                     </div>
 
-                    <div class="item-img-right">
-                    <div class="change-img">
-                        <img src="/assets/save-blue.png" alt="">
-                        <span>Change Image</span>
-                    </div>
-
-                    <p>PNG, JPG or WEBP (Max. 2MB)</p>
-                    </div>
+                    <p id="imageText">PNG, JPG or WEBP (Max. 2MB)</p>
+                  </div>
                 </div>
-            </div>
-
-            <div class="input-box">
-              <label>Item Description</label>
-              <textarea placeholder="Rich and creamy cappuccino coffee blend made with
-premium quality beans." ></textarea>
-            </div>
-          </div>
-
-          <div class="input-row">
-            <div class="input-box">
-              <label>Category <sup style="color: red;">*</sup></label>
-              <select>
-                <option>Beverages</option>
-                <option>Food</option>
-                <option>Drinks</option>
-                <option>Snacks</option>
-              </select>
-            </div>
-
-            <div class="input-box">
-              <label>Price <sup style="color: red;">*</sup></label>
-              <div class="input-with-value">
-                <input type="text" placeholder="Enter price">
-                <p>4.50</p>
+              </div>
+              <div class="input-box">
+                <label>Item Description</label>
+                <textarea
+                  placeholder="Enter item description"
+                  id="itemDescription"
+                ></textarea>
               </div>
             </div>
-          </div>
 
-          <div class="input-row">
-            <div class="input-box">
-              <label>Unit <sup style="color: red;">*</sup></label>
-              <select>
-                <option>Piece</option>
-                <option>Kg</option>
-                <option>Piece</option>
-                <option>Liter</option>
-              </select>
-            </div>
+            <div class="input-row">
+              <div class="input-box">
+                <label>Category <sup style="color: red">*</sup></label>
+                <select id="category" data-req data-name="Category">
+                  <option>Select category</option>
+                  <option>Food</option>
+                  <option>Drinks</option>
+                  <option>Snacks</option>
+                </select>
+              </div>
 
-            <div class="input-box">
-              <label>In Stock <sup style="color: red;">*</sup></label>
-              <div class="input-with-value">
-                <input type="text" placeholder="Enter stock quantity">
-                <p>120</p>
+              <div class="input-box">
+                <label>Price <sup style="color: red">*</sup></label>
+                <div class="input-with-value">
+                  <input
+                    type="text"
+                    placeholder="Enter price"
+                    data-req
+                    data-name="Price"
+                    data-type="price"
+                    id="price"
+                  />
+                  <p id="priceValue">0.00</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="input-row">
-            <div class="input-box">
-              <label>Status</label>
-              <select>
-                <option>In Stock</option>
-                <option>Out of Stock</option>
-              </select>
-              <span>Status is auto-populated based on In Stock quantity.</span>
+            <div class="input-row">
+              <div class="input-box">
+                <label>Unit <sup style="color: red">*</sup></label>
+                <select id="unit" data-req data-name="Unit">
+                  <option>Select unit</option>
+                  <option>Kg</option>
+                  <option>Piece</option>
+                  <option>Liter</option>
+                </select>
+              </div>
+
+              <div class="input-box">
+                <label>In Stock <sup style="color: red">*</sup></label>
+                <div class="input-with-value">
+                  <input
+                    type="text"
+                    placeholder="Enter stock quantity"
+                    data-req
+                    data-name="Stock quantity"
+                    data-type="number"
+                    id="inStock"
+                  />
+                  <p id="stockValue">0</p>
+                </div>
+              </div>
             </div>
 
-            <div class="input-box">
-              <label>Supplier</label>
-              <select>
-                <option>Bean & Brew Supplies</option>
-                <option>Supplier 1</option>
-                <option>Supplier 2</option>
-              </select>
+            <div class="input-row">
+              <div class="input-box">
+                <label>Status</label>
+                <select id="status" disabled style="background-image: none">
+                  <option>In Stock</option>
+                  <option>Out of Stock</option>
+                </select>
+                <span
+                  >Status is auto-populated based on In Stock quantity.</span
+                >
+              </div>
+
+              <div class="input-box">
+                <label>Supplier</label>
+                <select id="supplier">
+                  <option>Select supplier</option>
+                  <option>Supplier 1</option>
+                  <option>Supplier 2</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="button-box">
+              <button class="cancel-btn" type="button" id="cancelBtn">
+                Cancel
+              </button>
+
+              <button class="save-btn" type="submit" id="save-btn">
+                <img src="/assets/save.png" alt="" />
+                Save
+              </button>
+
+              <button class="del-btn delete-btn" id="deleteBtn" type="button">
+                <img src="/assets/del_red.png" alt="" />
+                Delete
+              </button>
             </div>
           </div>
-
-          <div class="button-box">
-            <button class="cancel-btn">Cancel</button>
-
-            <button class="save-btn">
-              <img src="/assets/save.png" alt="">
-              Save
-            </button>
-
-            <button class="delete-btn">
-              <img src="/assets/del_red.png" alt="">
-              Delete
-            </button>
-          </div>
-
-        </div>
+        </form>
       </div>
     </main>
 
+    <div class="temp-body">
+      <div class="model">
+        <div class="text-box">
+          <div class="image" style="background-color: rgba(255, 0, 0, 0.187)">
+            <img src="/assets/del-red.png" alt="" />
+          </div>
+          <h4>Delete Inventory</h4>
+          <p>
+            Are you sure you want to delete this inventory item? This action
+            cannot be undone.
+          </p>
+        </div>
+        <div class="btn-box">
+          <button class="cancel-btn-model" id="cancel-btn">Cancel</button>
+          <button
+            class="save-btn-model"
+            style="background: #ff0000de"
+            id="del-btn"
+          >
+            <img src="/assets/del-white.png" alt="" />
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="/js/utility.js"></script>
+    <script src="/js/inventory_new_item.js" defer></script>
     <script src="/js/inventory_edit_page.js" defer></script>
-      <script src="/js/navigate.js" defer></script>
-
+    <script src="/js/navigate.js" defer></script>
   </body>
 </html>

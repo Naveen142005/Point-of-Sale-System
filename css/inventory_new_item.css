@@ -31,6 +31,10 @@ body {
   overflow-x: hidden;
 }
 
+span {
+  text-wrap: wrap !important;
+}
+
 .side-bar {
   position: fixed;
   width: var(--sidebar-width);

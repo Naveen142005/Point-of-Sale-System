@@ -16,7 +16,7 @@ menuIcon.addEventListener('click', (e) => {
     if (isMobile) {
         sideBar.classList.add('active')
     }
-    else {  
+    else {
         if (sideBar.classList.contains('closed')) {
             sideBar.classList.remove('closed');
             main.style.marginLeft = '200px';
@@ -61,7 +61,6 @@ itemCode.value = newValue
 
 function showError(field, message) {
     const inputBox = field.closest(".input-box");
-
     let error = inputBox.querySelector(".error-msg");
 
     if (!error) {
@@ -69,7 +68,6 @@ function showError(field, message) {
         error.className = "error-msg";
         inputBox.appendChild(error);
     }
-
     error.innerText = message;
     error.style.color = "red";
     error.style.fontSize = "12px";
@@ -92,7 +90,7 @@ function checkField(field) {
     const type = field.dataset.type;
 
     console.log(type);
-    
+
     if (value === "" || value.startsWith("Select")) {
         showError(field, `${name} is required`);
         return false;
@@ -102,8 +100,8 @@ function checkField(field) {
         showError(field, "Enter valid price");
         return false;
     }
-    
-    
+
+
     if (type === "number" && (isNaN(value) || Number(value) < 0)) {
         showError(field, "Enter valid stock quantity");
         console.log(value);
@@ -137,8 +135,8 @@ const ele = document.getElementById("uploadedImg");
 const h4 = document.querySelector(".upload-box h4");
 const p = document.querySelector(".upload-box p");
 const defaultImg = ele.src;
-const defaultH4 = h4.innerHTML;
-const defaultP = p.innerHTML;
+const defaultH4 = h4 ? h4.innerHTML : "";
+const defaultP = p ? p.innerHTML : "";
 
 let currentImgUrl = null;
 
@@ -147,51 +145,54 @@ itemImage.addEventListener("change", () => {
 
     if (!file) return;
 
-    if (currentImgUrl) 
+    if (currentImgUrl)
         URL.revokeObjectURL(currentImgUrl);
-    
+
 
     currentImgUrl = URL.createObjectURL(file);
     ele.src = currentImgUrl;
 
-    h4.innerHTML = "Click to change the image";
-    p.innerHTML = "Remove the image";
+    if (h4 && p) {
+        h4.innerHTML = "Click to change the image";
+        p.innerHTML = "Remove the image";
 
-    p.classList.add("having-image");
-    p.style.textDecoration = "underline";
-    p.style.color = "blue";
-    p.style.fontSize = "10px";
-    p.style.cursor = "pointer";
-    p.style.position = "relative";
-    p.style.zIndex = "10";
-});
-
-p.addEventListener("click", (e) => {
-    if (p.classList.contains("having-image")) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        ele.src = defaultImg;
-        itemImage.value = "";
-
-        h4.innerHTML = defaultH4;
-        p.innerHTML = defaultP;
-
-        p.classList.remove("having-image");
-        p.style.textDecoration = "";
-        p.style.color = "";
-        p.style.fontSize = "";
-        p.style.cursor = "";
-        p.style.position = "";
-        p.style.zIndex = "";
-
-        if (currentImgUrl) {
-            URL.revokeObjectURL(currentImgUrl);
-            currentImgUrl = null;
-        }
+        p.classList.add("having-image");
+        p.style.textDecoration = "underline";
+        p.style.color = "blue";
+        p.style.fontSize = "10px";
+        p.style.cursor = "pointer";
+        p.style.position = "relative";
+        p.style.zIndex = "10";
     }
 });
 
+if (p) {
+    p.addEventListener("click", (e) => {
+        if (p.classList.contains("having-image")) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            ele.src = defaultImg;
+            itemImage.value = "";
+
+            h4.innerHTML = defaultH4;
+            p.innerHTML = defaultP;
+
+            p.classList.remove("having-image");
+            p.style.textDecoration = "";
+            p.style.color = "";
+            p.style.fontSize = "";
+            p.style.cursor = "";
+            p.style.position = "";
+            p.style.zIndex = "";
+
+            if (currentImgUrl) {
+                URL.revokeObjectURL(currentImgUrl);
+                currentImgUrl = null;
+            }
+        }
+    });
+}
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -247,11 +248,15 @@ form.addEventListener("submit", async (e) => {
         update_at: getCurrentDateTime()
     };
 
-    const isAdded = addIntoLocalStorage("Inventory", itemData);
+    const isAdded = addItemToLocal("Inventory", itemData);
 
     if (isAdded) {
         showPopups("Item added successfully", true);
         form.reset();
+        setTimeout(() => {
+
+            location.href='./inventory_new_item.html'
+        },1500)
     } else {
         showPopups("Unknown error occurred", false);
     }

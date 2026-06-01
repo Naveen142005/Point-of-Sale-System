@@ -446,6 +446,8 @@ main .header img {
   table-layout: fixed;
 }
 
+
+
 .inventory-table th,
 .inventory-table td {
   padding: 0 14px;
@@ -813,3 +815,33 @@ ul {
   z-index: 99999;
 }
 
+
+.select-box select,
+.select-box input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.select-box select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.select-box input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    cursor: pointer;
+}
+
+button.select-box {
+    border: none;
+    cursor: pointer;
+}
+.filter {
+  cursor: pointer;
+}
