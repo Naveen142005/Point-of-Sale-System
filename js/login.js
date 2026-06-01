@@ -17,7 +17,8 @@ error.style.opacity = 0;
 const users = {
     "Naveen": "Naveen@142005",
     "Kumar": "Kumar@123",
-    "User": "123"
+    "User": "123",
+    "1": "1"
 };
 
 const usernameInp = document.getElementById("username");
@@ -87,13 +88,23 @@ const check = (username, password) => {
 };
 
 form.addEventListener("submit", (event) => {
+     
     event.preventDefault();
 
     const username = usernameInp.value.trim();
     const password = passwordInp.value.trim();
 
     if (check(username, password)) {
-        alert("Login Success...");
+        error.innerHTML = "Login Success. Redirecting to dashboard..."
+        error.style.color = `green`;
+        error.style.opacity = 1;
+        error.style.padding = `12px 0`
+        error.style.fontWeight = 600;
+
+        setTimeout(() => {
+            location.href = "./dashboard.html"; 
+        }, 2000);
+
     }
 });
 

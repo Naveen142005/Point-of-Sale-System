@@ -1,0 +1,150 @@
+:root {
+  --font-main: "Inter", sans-serif;
+  --body-bg: #f4f4f4;
+
+  --sidebar-width: 200px;
+  --sidebar-bg: linear-gradient(180deg, #121343, #080923);
+
+  --purple: #830ad3;
+  --purple-gradient: linear-gradient(90deg, #5b36ff, #7705c3);
+  --active-gradient: linear-gradient(90deg, #5b36ff, #7c3aed);
+
+  --white: #ffffff;
+  --text-blue: #2400ff;
+  --text-light: #dcdcf0;
+  --text-muted: #b8b8cc;
+
+  --box-bg: #f1edff;
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.073);
+
+  --hover-bg: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  overflow: hidden;
+}
+.temp-body {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #0000008c;
+  z-index: 100000;
+}
+.model {
+  width: 350px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  z-index: 1000;
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: var(--box-shadow);
+}
+
+.text-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-direction: column;
+}
+
+.text-box .image {
+  background-color: rgba(123, 228, 123, 0.215);
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* text-align: center; */
+}
+
+.text-box .image img {
+  width: 50%;
+  height: 50%;
+}
+
+.text-box p {
+  font-size: 12px;
+  text-align: center;
+  color: #787878;
+  width: 80%;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.btn-box {
+  width: 90%;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.btn-box > * {
+  flex: 1;
+}
+
+.cancel-btn-model {
+  font-size: 12px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  color: #7705c3;
+  background-color: white;
+  color: #070b61;
+  border: 1px solid var(--purple);
+}
+
+.save-btn-model img {
+  width: 16px;
+  height: 16px;
+}
+
+.save-btn-model {
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  background: var(--purple-gradient);
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  border-radius: 6px;
+  gap: 12px;
+  padding: 10px;
+  align-items: center;
+  background: linear-gradient(90deg, #008b1f, #00a82d);
+}
+
+.text-box h4 {
+  letter-spacing: 0.3px;
+}
+
+@media screen and (max-width: 400px) {
+  .model {
+    width: 90%;
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .text-box p {
+    font-size: 12px;
+    text-align: center;
+    color: #787878;
+    width: 90%;
+    line-height: 16px;
+    font-weight: 500;
+  }
+}

@@ -106,18 +106,20 @@
           <h3>Add New Item</h3>
           <div>Add a new item to your inventory</div>
         </div>
+        
+      <form action="">
         <div class="form-box">
 
           <div class="input-row">
             <div class="input-box">
               <label>Item Code</label>
-              <input type="text" value="ITM-000129">
+              <input type="text" value="ITM-000129" disabled id="itemCode">
               <span>Auto-generated</span>
             </div>
 
             <div class="input-box">
               <label>Item Name <sup style="color: red;">*</sup></label>
-              <input type="text" placeholder="Enter item name">
+              <input type="text" placeholder="Enter item name" data-req data-name="Item name">
             </div>
           </div>
 
@@ -125,9 +127,11 @@
             <div class="input-box">
               <label>Item Image</label>
 
-              <div class="upload-box">
-                <img src="/assets/upload.png" alt="">
-                <h4>Click to upload or drag and drop</h4>
+              <div class="upload-box" id="uploadBox">
+                <input type="file" id="itemImage">
+
+                <img src="/assets/upload.png" alt="" id="uploadedImg" accept="image/png, image/jpg, image/jpeg, image/webp">
+                <h4 >Click to upload or drag and drop</h4>
                 <p>PNG, JPG or WEBP (Max. 2MB)</p>
               </div>
             </div>
@@ -141,7 +145,7 @@
           <div class="input-row">
             <div class="input-box">
               <label>Category <sup style="color: red;">*</sup></label>
-              <select>
+              <select data-req data-name="Category">
                 <option>Select category</option>
                 <option>Food</option>
                 <option>Drinks</option>
@@ -152,7 +156,7 @@
             <div class="input-box">
               <label>Price <sup style="color: red;">*</sup></label>
               <div class="input-with-value">
-                <input type="text" placeholder="Enter price">
+                <input type="text" placeholder="Enter price" data-req data-name="Price" data-type="price">
                 <p>0.00</p>
               </div>
             </div>
@@ -161,7 +165,7 @@
           <div class="input-row">
             <div class="input-box">
               <label>Unit <sup style="color: red;">*</sup></label>
-              <select>
+              <select data-req data-name="Unit">
                 <option>Select unit</option>
                 <option>Kg</option>
                 <option>Piece</option>
@@ -172,7 +176,7 @@
             <div class="input-box">
               <label>In Stock <sup style="color: red;">*</sup></label>
               <div class="input-with-value">
-                <input type="text" placeholder="Enter stock quantity">
+                <input type="text" placeholder="Enter stock quantity" data-req data-name="Stock quantity" data-type="number">
                 <p>0</p>
               </div>
             </div>
@@ -181,7 +185,7 @@
           <div class="input-row">
             <div class="input-box">
               <label>Status</label>
-              <select>
+              <select id="status" disabled style="background-image: none;">
                 <option>In Stock</option>
                 <option>Out of Stock</option>
               </select>
@@ -199,18 +203,21 @@
           </div>
 
           <div class="button-box">
-            <button class="cancel-btn">Cancel</button>
+            <button class="cancel-btn" type="button">Cancel</button>
 
-            <button class="save-btn">
+            <button class="save-btn" type="submit">
               <img src="/assets/save.png" alt="">
               Save
             </button>
           </div>
 
         </div>
+      </form>
       </div>
     </main>
-
+    
+    <script src="/js/utility.js" defer></script>
     <script src="/js/inventory_new_item.js" defer></script>
+      <script src="/js/navigate.js" defer></script>
   </body>
 </html>

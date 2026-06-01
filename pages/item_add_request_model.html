@@ -12,6 +12,7 @@
     />
 
     <link rel="stylesheet" href="/css/Item_request_add_page.css" />
+    <link rel="stylesheet" href="/css/model.css">
   </head>
   <body>
     <div class="side-bar" id="side-bar">
@@ -223,8 +224,35 @@
       </div>
     </main>
 
-    <script src="/js/Item_request_add_page.js" defer></script>
-      <script src="/js/navigate.js" defer></script>
 
+    <div class="temp-body">    
+        <div class="model">
+            <div class="text-box">
+                <div class="image">
+                    <img src="/assets/send-green.png" alt="" style="width: 80%; height: 80%;">
+
+                </div>
+                <h4>Submit Item Request?</h4>
+                <p>
+                    Please confirm that you want to submit this
+                    item request. You won't be able to edit it after
+                    submission.
+                </p>
+            </div>
+            <div class="btn-box">
+                <button class="cancel-btn-model">Cancel</button>
+                <button class="save-btn-model">
+                <img src="/assets/send-white.png" alt="">
+                Yes, Submit
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/Item_request_add_page.js" defer></script>
+  
+
+      <script src="/js/navigate.js" defer></script>
+  
   </body>
 </html>

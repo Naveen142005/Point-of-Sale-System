@@ -25,12 +25,12 @@
           </div>
 
           <div class="full-menu">
-            <div class="menu-item active">
+            <div class="menu-item ">
               <img src="/assets/billing.png" alt="" />
               <span>Billing</span>
             </div>
 
-            <div class="menu-item">
+            <div class="menu-item active">
               <img src="/assets/inventory.png" alt="" />
               <span>Inventory</span>
             </div>
@@ -182,18 +182,20 @@
                     font-weight: 600;
                     color:#0707c8ca;
                     "
-                    >Total 128 items found</span>
+                    >Total 
+                    <span class="totalItem"></span>
+                    items found</span>
                 </div>
                 <div class="i-right">
-                    <button class="btn-1">
+                    <button class="btn-1" style="cursor: pointer;" id="add-item-btn">
                         <img src="/assets/add.png" alt="">
                         Add Item
                     </button>
-                    <button class="btn-2">
+                    <button class="btn-2" style="cursor: pointer;;" id="req-item-btn">
                         <img src="/assets/download.png" alt="">
                         Request Item
                     </button>
-                    <button class="btn-3">
+                    <button class="btn-3" style="cursor: pointer;" id="etc-btn">
                         <img src="/assets/excel.png" alt="">
                         Export to Excel
                     </button>
@@ -263,180 +265,13 @@
                             Last Updated
                             <img src="/assets/filter.png" alt="" class="filter-icon">
                         </th>
+                        <th>
+                            Action
+                        </th>
                     </tr>
                     </thead>
 
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="item-name">
-                                    <img src="/assets/Coffe_Black.png" alt="" class="item-img">
-                                    <span>Coffee Black</span>
-                                </div>
-                            </td>
-                            <td>Beverage</td>
-                            <td>$5.20</td>
-                            <td>Cup</td>
-                            <td>180</td>
-                            <td>124</td>
-                            <td class="stock-count stock-green">56</td>
-                            <td><span class="status-box in-stock">In Stock</span></td>
-                            <td>21 May 2024, 09:40 AM</td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="item-name">
-                                    <img src="/assets/tea.png" alt="" class="item-img">
-                                    <span>Tea C</span>
-                                </div>
-                            </td>
-                            <td>Beverage</td>
-                            <td>$3.80</td>
-                            <td>Cup</td>
-                            <td>220</td>
-                            <td>175</td>
-                            <td class="stock-count stock-green">45</td>
-                            <td><span class="status-box in-stock">In Stock</span></td>
-                            <td>21 May 2024, 09:35 AM</td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="item-name">
-                                    <img src="/assets/steamed-bun.svg" alt="" class="item-img">
-                                    <span>Steamed Timsum</span>
-                                </div>
-                            </td>
-                            <td>Snacks</td>
-                            <td>$8.50</td>
-                            <td>Pcs</td>
-                            <td>95</td>
-                            <td>63</td>
-                            <td class="stock-count stock-green">32</td>
-                            <td><span class="status-box in-stock">In Stock</span></td>
-                            <td>21 May 2024, 09:30 AM</td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="item-name">
-                                    <img src="/assets/porridge.png" alt="" class="item-img">
-                                    <span>Porridge</span>
-                                </div>
-                            </td>
-                            <td>Food</td>
-                            <td>$10.40</td>
-                            <td>Bowl</td>
-                            <td>75</td>
-                            <td>66</td>
-                            <td class="stock-count stock-orange">9</td>
-                            <td><span class="status-box low-stock">Low Stock</span></td>
-                            <td>21 May 2024, 09:25 AM</td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="item-name">
-                                    <img src="/assets/Iced_tea_black.png" alt="" class="item-img">
-                                    <span>Iced Tea</span>
-                                </div>
-                            </td>
-                            <td>Beverage</td>
-                            <td>$6.90</td>
-                            <td>Glass</td>
-                            <td>140</td>
-                            <td>129</td>
-                            <td class="stock-count stock-orange">11</td>
-                            <td><span class="status-box low-stock">Low Stock</span></td>
-                            <td>21 May 2024, 09:20 AM</td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="item-name">
-                                    <img src="/assets/dumplings.png" alt="" class="item-img">
-                                    <span>Dumplings</span>
-                                </div>
-                            </td>
-                            <td>Snacks</td>
-                            <td>$12.30</td>
-                            <td>Pcs</td>
-                            <td>100</td>
-                            <td>92</td>
-                            <td class="stock-count stock-orange">8</td>
-                            <td><span class="status-box low-stock">Low Stock</span></td>
-                            <td>21 May 2024, 09:15 AM</td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="item-name">
-                                    <img src="/assets/Coffee_c.png" alt="" class="item-img">
-                                    <span>Iced Coffee</span>
-                                </div>
-                            </td>
-                            <td>Beverage</td>
-                            <td>$7.60</td>
-                            <td>Glass</td>
-                            <td>130</td>
-                            <td>130</td>
-                            <td class="stock-count stock-red">0</td>
-                            <td><span class="status-box out-stock">Out of Stock</span></td>
-                            <td>21 May 2024, 09:10 AM</td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="item-name">
-                                    <img src="/assets/Coffe_Black.png" alt="" class="item-img">
-                                    <span>Coffee C</span>
-                                </div>
-                            </td>
-                            <td>Beverage</td>
-                            <td>$4.90</td>
-                            <td>Cup</td>
-                            <td>160</td>
-                            <td>160</td>
-                            <td class="stock-count stock-red">0</td>
-                            <td><span class="status-box out-stock">Out of Stock</span></td>
-                            <td>21 May 2024, 09:05 AM</td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="item-name">
-                                    <img src="/assets/milo.png" alt="" class="item-img">
-                                    <span>Milo</span>
-                                </div>
-                            </td>
-                            <td>Beverage</td>
-                            <td>$5.70</td>
-                            <td>Cup</td>
-                            <td>115</td>
-                            <td>84</td>
-                            <td class="stock-count stock-green">31</td>
-                            <td><span class="status-box in-stock">In Stock</span></td>
-                            <td>21 May 2024, 09:00 AM</td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="item-name">
-                                    <img src="/assets/Chinease_Tea.png" alt="" class="item-img">
-                                    <span>Chinese Tea</span>
-                                </div>
-                            </td>
-                            <td>Beverage</td>
-                            <td>$4.40</td>
-                            <td>Cup</td>
-                            <td>105</td>
-                            <td>74</td>
-                            <td class="stock-count stock-green">31</td>
-                            <td><span class="status-box in-stock">In Stock</span></td>
-                            <td>21 May 2024, 08:55 AM</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="tableContent"></tbody>
                 </table>
             </div>
             <div class="page-box">
@@ -469,12 +304,15 @@
                     </div>
 
                     <div class="page-right">
-                        <span>Showing 1 to 10 of 128 entries</span>
+                        <span>Showing 1 to 10 of <span class="totalItem"></span> entries</span>
                     </div>
             </div>
         </div>
     </main>
 
+    <script src="/js/utility.js" defer></script>
     <script src="/js/inventory.js" defer></script>
-  </body>
+    <script src="/js/navigate.js" defer></script>
+  
+</body>
 </html>

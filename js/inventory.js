@@ -4,18 +4,16 @@ const list = document.getElementById('list')
 btn.addEventListener('click', (e) => {
     e.stopPropagation();
     btn.classList.add('active-three-dot')
-    list.style.display=`flex`;
+    list.style.display = `flex`;
 })
 
 document.addEventListener('click', (e) => {
-    if (btn.classList.contains('active-three-dot') && !btn.contains(e.target) && !list.contains(e.target)){
+    if (btn.classList.contains('active-three-dot') && !btn.contains(e.target) && !list.contains(e.target)) {
         btn.classList.remove('active-three-dot')
-        list.style.display='none'
+        list.style.display = 'none'
         return;
     }
 })
-
-
 
 
 const sideBar = document.getElementById('side-bar');
@@ -36,7 +34,7 @@ menuIcon.addEventListener('click', (e) => {
     if (isMobile) {
         sideBar.classList.add('active')
     }
-    else {  
+    else {
         if (sideBar.classList.contains('closed')) {
             sideBar.classList.remove('closed');
             main.style.marginLeft = '200px';
@@ -50,3 +48,84 @@ menuIcon.addEventListener('click', (e) => {
         }
     }
 });
+
+
+/* ============================================================================================ */
+
+const addItemBtn = document.getElementById('add-item-btn')
+
+addItemBtn.addEventListener('click', () => {
+    location.href = '/pages/inventory_new_item.html';
+})
+
+
+function showTableContent(items) {
+    tableContent.innerHTML = "";
+    const total = document.querySelectorAll('.totalItem').forEach((i) => i.innerHTML = items.length)
+
+    if (items.length === 0) {
+        tableContent.innerHTML = `
+        <tr>
+            <td colspan="10" style="text-align:center;">No items found</td>
+        </tr>
+    `;
+    }
+
+    for (let i = 0; i < items.length; i++) {
+        let item = items[i];
+
+        let stock = Number(item.inStock) || 0;
+
+        let statusText = stock <= 0 ? "Out of Stock" : "In Stock";
+        let statusClass = stock <= 0 ? "out-stock" : "in-stock";
+        let stockClass = stock <= 0 ? "stock-red" : "stock-green";
+
+        tableContent.innerHTML += `
+        <tr>
+            <td>
+                <div class="item-name">
+                    <img 
+                        src="${item.itemImage || "/assets/tea.png"}" 
+                        alt="" 
+                        class="item-img"
+                    >
+                    <span>${item.itemName || "-"}</span>
+                </div>
+            </td>
+
+            <td>${item.category || "-"}</td>
+            <td>$${item.price || "0"}</td>
+            <td>${item.unit || "-"}</td>
+            <td>${item.purchased}</td>
+            <td>${item.sold}</td>
+
+            <td class="stock-count ${stockClass}">
+                ${stock}
+            </td>
+
+            <td>
+                <span class="status-box ${statusClass}">
+                    ${statusText}
+                </span>
+            </td>
+
+            <td>
+                ${(item.update_at || "-").replace(",", "<br>")}
+            </td>
+
+            <td>
+                <button class="edit-btn">Edit</button>
+            </td>
+        </tr>
+    `;
+    }
+}
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tableContent = document.getElementById("tableContent");
+    const items = JSON.parse(localStorage.getItem("Inventory") || "[]");
+
+    showTableContent(items)
+})

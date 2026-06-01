@@ -550,3 +550,23 @@ main .header img {
 .side-bar {
   z-index: 99999;
 }
+
+form {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  
+}
+
+#itemImage {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#uploadBox {
+  position: relative;
+  /* height: 100%; */
+}
