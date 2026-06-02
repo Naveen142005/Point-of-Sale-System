@@ -625,3 +625,14 @@ main .header img {
     color: #35457c;
     margin: 0;
 }
+
+.item-img-right {
+  position: relative;
+}
+
+.itemImgeBox {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+}

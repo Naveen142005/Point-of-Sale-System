@@ -214,7 +214,7 @@ form.addEventListener("submit", async (e) => {
     const selects = form.querySelectorAll("select");
     const textarea = form.querySelector("textarea");
     const file = inputs[2].files[0];
-
+    
     let imageUrl = null;
 
     if (file) {
@@ -254,7 +254,6 @@ form.addEventListener("submit", async (e) => {
         showPopups("Item added successfully", true);
         form.reset();
         setTimeout(() => {
-
             location.href='./inventory_new_item.html'
         },1500)
     } else {
@@ -262,3 +261,6 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
+cancelBtn.addEventListener("click", () => {
+        location.href = "./inventory.html";
+    });

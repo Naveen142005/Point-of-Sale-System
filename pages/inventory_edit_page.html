@@ -146,16 +146,16 @@
                     />
                   </div>
 
-                  <div class="item-img-right">
+                  <div class="item-img-right" style="width: 100%;height: 100%;position: relative;">
                     <input
                       type="file"
-                      id="itemImage"
+                      id="itemImage-box" class="itemImgeBox"
                       accept="image/png, image/jpg, image/jpeg, image/webp"
-                      style="display: flex"
+                      style="display: flex;overflow: hidden;cursor: pointer;"
                     />
 
                     <div class="change-img" id="changeImgBtn">
-                      <img src="/assets/save-blue.png" alt="" />
+                      <img src="/assets/save-blue.png" alt="" id="" />
                       <span>Change Image</span>
                     </div>
 
@@ -187,7 +187,7 @@
                 <label>Price <sup style="color: red">*</sup></label>
                 <div class="input-with-value">
                   <input
-                    type="text"
+                    type="number"
                     placeholder="Enter price"
                     data-req
                     data-name="Price"
@@ -214,7 +214,7 @@
                 <label>In Stock <sup style="color: red">*</sup></label>
                 <div class="input-with-value">
                   <input
-                    type="text"
+                    type="number"
                     placeholder="Enter stock quantity"
                     data-req
                     data-name="Stock quantity"
@@ -294,7 +294,6 @@
       </div>
     </div>
     <script src="/js/utility.js"></script>
-    <script src="/js/inventory_new_item.js" defer></script>
     <script src="/js/inventory_edit_page.js" defer></script>
     <script src="/js/navigate.js" defer></script>
   </body>

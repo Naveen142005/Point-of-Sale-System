@@ -73,17 +73,17 @@ function getCurrentDateTime() {
     const month = months[date.getMonth()];
     const year = date.getFullYear();
 
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
+    let h = date.getHours();
+    let m = date.getMinutes();
 
-    const ampm = hours >= 12 ? "PM" : "AM";
+    const ampm = h >= 12 ? "PM" : "AM";
 
-    hours = hours % 12;
-    hours = hours === 0 ? 12 : hours;
+    h = h % 12;
+    h = h === 0 ? 12 : h;
 
-    minutes = minutes < 10 ? "0" + minutes : minutes;
+    m = m < 10 ? "0" + m : m;
 
-    return `${day} ${month} ${year}, ${hours}:${minutes} ${ampm}`;
+    return `${day} ${month} ${year}, ${h}:${m} ${ampm}`;
 }
 
 console.log(getCurrentDateTime());

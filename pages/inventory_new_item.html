@@ -107,7 +107,7 @@
           <div>Add a new item to your inventory</div>
         </div>
         
-      <form action="">
+      <form action="" id="form-full">
         <div class="form-box">
 
           <div class="input-row">
@@ -124,13 +124,13 @@
           </div>
 
           <div class="input-row">
-            <div class="input-box">
+            <div class="input-box" style="cursor: pointer;">
               <label>Item Image</label>
 
               <div class="upload-box" id="uploadBox">
-                <input type="file" id="itemImage">
+                <input type="file" id="itemImage" style="cursor: pointer;" accept="image/png, image/jpg, image/jpeg, image/webp">
 
-                <img src="/assets/upload.png" alt="" id="uploadedImg" accept="image/png, image/jpg, image/jpeg, image/webp">
+                <img src="/assets/upload.png" alt="" id="uploadedImg" >
                 <h4 >Click to upload or drag and drop</h4>
                 <p>PNG, JPG or WEBP (Max. 2MB)</p>
               </div>
@@ -156,7 +156,7 @@
             <div class="input-box">
               <label>Price <sup style="color: red;">*</sup></label>
               <div class="input-with-value">
-                <input type="text" placeholder="Enter price" data-req data-name="Price" data-type="price">
+                <input type="number" placeholder="Enter price" data-req data-name="Price" data-type="price">
                 <p>0.00</p>
               </div>
             </div>
@@ -176,7 +176,7 @@
             <div class="input-box">
               <label>In Stock <sup style="color: red;">*</sup></label>
               <div class="input-with-value">
-                <input type="text" placeholder="Enter stock quantity" data-req data-name="Stock quantity" data-type="number">
+                <input type="number" placeholder="Enter stock quantity" data-req data-name="Stock quantity" data-type="number">
                 <p>0</p>
               </div>
             </div>

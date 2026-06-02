@@ -845,3 +845,14 @@ button.select-box {
 .filter {
   cursor: pointer;
 }
+
+.filter-icon {
+    width: 14px;
+    height: 14px;
+    margin-left: 5px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.inventory-table th { 
+  color: var(--text-blue);
+}
