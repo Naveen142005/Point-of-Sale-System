@@ -24,11 +24,28 @@ function updateToLocal(key, arr) {
     }
 }
 
+function getBillingsFromLocal() {
+    const billings = JSON.parse(localStorage.getItem("Billings") || "{}");
+
+    if (Array.isArray(billings)) {
+        return {};
+    }
+
+    return billings;
+}
+
 function getItemFromLocal (key) {
     return JSON.parse(localStorage.getItem(key) || "[]")
 }
 
-
+function getItemIndex(key, itemCode) {
+    const items = getItemsFromLocal(key);
+    return items.findIndex((item) => item.itemCode == itemCode);
+}
+function getItemByCode(key, itemCode) {
+    const items = getItemsFromLocal(key);
+    return items.find((item) => item.itemCode == itemCode);
+}
 
 function showPopups(mes, isSuccess) {
     const popup = document.createElement("div");

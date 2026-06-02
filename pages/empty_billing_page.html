@@ -13,7 +13,14 @@
 </head>
 
 <body>
+    <!-- Now, I combined the 3 pages..
+            1. This page 
+            2. Items list view page, billing_page_with_items.html 
+            3. Price page. billing_page_with_price.html
 
+            SO all the Js development is going to be happen in the empty_billing_page.js
+    -->
+            
     <div class="side-bar" id="side-bar">
     <div class="divider">
 
@@ -115,7 +122,7 @@
             <div class="main-boxes"> 
                 <div class="items-add">
                     
-                    <table>
+                    <table id="table_head">
                         <tr>
                             <th>Item</th>
                             <th>Qty</th>
@@ -123,7 +130,8 @@
                             <th>Total</th>
                         </tr>
                     </table>
-                    <div class="empty-bill">
+
+                    <div class="empty-bill" id="noBillingItem" >
                         <div class="empty-icon">
                             <img src="/assets/bill.png" alt="">
                         </div>
@@ -131,6 +139,55 @@
                         <h4>No items added yet</h4>
                         <p>Select items from the menu to add to the bill</p>
                     </div>
+                      
+                    <table class="none" id="billingTable">
+            
+                        
+                    </table>
+
+                    <div class="price-amendment-box none" id="priceBox">
+
+                        <div class="price-header">
+                            <img src="/assets/tag_purple.png" alt="">
+                            <h3>Price Amendment</h3>
+                        </div>
+
+                        <div class="price-line"></div>
+
+                        <div class="price-row">
+                            <p>Total Amount</p>
+                            <h4>$146.30</h4>
+                        </div>
+
+                        <div class="price-row">
+                            <p>GST Amount (7%)</p>
+                            <h4>$10.24</h4>
+                        </div>
+
+                        <div class="price-line"></div>
+
+                        <div class="price-row payable-row">
+                            <p>Payable</p>
+                            <h2>$156.54</h2>
+                        </div>
+
+                        <div class="price-line"></div>
+
+                        <div class="price-row tender-row">
+                            <p>Tender</p>
+                            <div class="tender-box">
+                                <span>$</span>
+                                <input type="text" value="160.00">
+                            </div>
+                        </div>
+
+                        <div class="change-box">
+                            <p>Change (Balance)</p>
+                            <h2>$3.46</h2>
+                        </div>
+
+                    </div>
+
                     
                 </div>
                 <div class="items-menu">
@@ -176,109 +233,11 @@
                     </div>
 
                 </div>
+                <!-- Side menu bar -->
                 <div class="items-list-box">
-
-                    <div class="items-pic">
-                        <img src="/assets/Coffe_Black.png" alt="">
-                        <div class="img-title">Coffee Black</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/Tea_Black.png" alt="">
-                        <div class="img-title">Tea Black</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/Chrysanthemum_Tea.png" alt="">
-                        <div class="img-title">Chrysanthemum Tea</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/Coffee_omg.png" alt="">
-                        <div class="img-title">Coffee</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/tea.png" alt="">
-                        <div class="img-title">Tea</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/Chinease_Tea.png" alt="">
-                        <div class="img-title">Chinese Tea</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/Coffe_Black.png" alt="">
-                        <div class="img-title">Iced Coffee Black</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/Coffee_c.png" alt="">
-                        <div class="img-title">Iced Tea Black</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/soya_milk.png" alt="">
-                        <div class="img-title">Soya Milk</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/Iced_coffee_black.png" alt="">
-                        <div class="img-title">Iced Coffee</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/Iced_tea_black.png" alt="">
-                        <div class="img-title">Iced Tea</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/Grass_Jelly.png" alt="">
-                        <div class="img-title">Grass Jelly</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/Coffee_c.png" alt="">
-                        <div class="img-title">Coffee C</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/tea_c.png" alt="">
-                        <div class="img-title">Tea C</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/black_and_white.png" alt="">
-                        <div class="img-title">Black & White</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/milo.png" alt="">
-                        <div class="img-title">Milo</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/products/iced-milo.svg" alt="">
-                        <div class="img-title">Iced Milo</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/Takeaway_water.png" alt="">
-                        <div class="img-title">Takeaway Water</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/tea.png" alt="">
-                        <div class="img-title">Tea</div>
-                    </div>
-
-                    <div class="items-pic">
-                        <img src="/assets/Chinease_Tea.png" alt="">
-                        <div class="img-title">Chinese Tea</div>
-                    </div>
-
+                    
                 </div>
+
 
                 <div class="calc-box">
                     <div class="calc-left">
@@ -352,7 +311,7 @@
                             <span>New Bill</span>
                         </div>
 
-                        <div class="price-amendment">
+                        <div class="price-amendment" id="price-amendment">
                             <img src="/assets/tag.png" alt="">
                             <span>Price Amendment</span>
                         </div>
@@ -433,7 +392,7 @@
 
         </footer>
     </div>
-
+    <script src="/js/utility.js"></script>
     <script src="/js/empty_billing_page.js" defer></script>
     <script src="/js/navigate.js" defer></script>
 
