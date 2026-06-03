@@ -83,7 +83,6 @@ function checkField(field) {
 
 reqFields.forEach((field) => {
     field.addEventListener("input", () => {
-        checkField(field);
     });
 
     field.addEventListener("blur", () => {
@@ -196,7 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (selectedImageFile) {
             finalImageUrl = await uploadToCloudinary(selectedImageFile);
         }
-
         items[itemIndex] = {
             ...items[itemIndex],
             itemName: itemName.value,
@@ -205,6 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
             category: category.value,
             price: price.value,
             unit: unit.value,
+            purchased: items[itemIndex].purchased + Number(inStock.value),
             inStock: inStock.value,
             status: Number(inStock.value) > 0 ? "In Stock" : "Out of Stock",
             supplier: supplier.value,

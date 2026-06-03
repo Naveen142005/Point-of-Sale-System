@@ -14,9 +14,14 @@ function addItemToLocal(key, object) {
     }
 }
 
-function updateToLocal(key, arr) {
+function updateToLocal(key, data) {
     try {
-        localStorage.setItem(key, JSON.stringify(arr));
+        if (!localStorage.getItem(key)) {
+            localStorage.setItem(key, JSON.stringify(data));
+        } else {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
         return true;
     } catch (e) {
         console.log("LC update err", e);
@@ -39,11 +44,11 @@ function getItemFromLocal (key) {
 }
 
 function getItemIndex(key, itemCode) {
-    const items = getItemsFromLocal(key);
+    const items = getItemFromLocal(key);
     return items.findIndex((item) => item.itemCode == itemCode);
 }
 function getItemByCode(key, itemCode) {
-    const items = getItemsFromLocal(key);
+    const items = getItemFromLocal(key);
     return items.find((item) => item.itemCode == itemCode);
 }
 

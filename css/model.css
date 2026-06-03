@@ -146,3 +146,12 @@
     font-weight: 500;
   }
 }
+
+.temp-body{
+    
+    z-index:99999;
+}
+.model{
+    
+    z-index:100000;
+}

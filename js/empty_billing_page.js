@@ -1,54 +1,68 @@
-const sideBar = document.getElementById('side-bar');
-const main = document.getElementById('main');
-const menuIcon = document.getElementById('menu-icon');
+const sideBar = document.getElementById("side-bar");
+const main = document.getElementById("main");
+const menuIcon = document.getElementById("menu-icon");
 
-document.addEventListener('click', (e) => {
-    if (!sideBar.contains(e.target) && sideBar.classList.contains('active')) {
-        sideBar.classList.remove('active');
+
+
+document.addEventListener("click", (e) => {
+    if (!sideBar.contains(e.target) && sideBar.classList.contains("active")) {
+        sideBar.classList.remove("active");
         return;
     }
 });
 
-menuIcon.addEventListener('click', (e) => {
+menuIcon.addEventListener("click", (e) => {
     e.stopPropagation();
 
     const isMobile = window.innerWidth <= 768;
-    console.log(isMobile);
 
     if (isMobile) {
-        sideBar.classList.add('active');
+        sideBar.classList.add("active");
     } else {
-        if (sideBar.classList.contains('closed')) {
-            sideBar.classList.remove('closed');
-            main.style.marginLeft = '200px';
-            main.style.width = 'calc(100vw - 200px)';
-            sideBar.style.left = '0px';
+        if (sideBar.classList.contains("closed")) {
+            sideBar.classList.remove("closed");
+            main.style.marginLeft = "200px";
+            main.style.width = "calc(100vw - 200px)";
+            sideBar.style.left = "0px";
         } else {
-            sideBar.classList.add('closed');
-            main.style.marginLeft = '0px';
-            main.style.width = '100vw';
-            sideBar.style.left = '-500px';
+            sideBar.classList.add("closed");
+            main.style.marginLeft = "0px";
+            main.style.width = "100vw";
+            sideBar.style.left = "-500px";
         }
     }
 });
 
+//==================================================================================
 
-
-const listItemBox = document.querySelector('.items-list-box');
-const searchBox = document.querySelector('.search-box');
-const items = getItemFromLocal('Inventory');
+const listItemBox = document.querySelector(".items-list-box");
+const searchBox = document.querySelector(".search-box");
+const items = getItemFromLocal("Inventory");
 
 const priceContent = document.getElementById("price-amendment");
 const priceBox = document.getElementById("priceBox");
 const billingBox = document.getElementById("billingTable");
 const noBillingItem = document.getElementById("noBillingItem");
-const newBill = document.querySelector('.new-bill');
-
-
-
-
+const newBill = document.querySelector(".new-bill");
+const tableHead = document.getElementById("table_head");
 
 let currentBillId = localStorage.getItem("currentBillId");
+const total_price = document.querySelector('.rupee');
+
+const printBtn = document.querySelector('.print')
+
+
+function changeGrantTotal() {
+    const billings = getBillingsFromLocal();
+    const currBill = billings[currentBillId] || [];
+
+    let sum = currBill.reduce((acc, curr) => {
+        return acc + Number(curr.total || 0);
+    }, 0);
+
+    total_price.innerText = `₹${sum.toFixed(2)}`;
+}
+
 
 function getBillingsFromLocal() {
     const billings = JSON.parse(localStorage.getItem("Billings") || "{}");
@@ -60,63 +74,11 @@ function getBillingsFromLocal() {
     return billings;
 }
 
-function getNextBillId() {
-    const billings = getBillingsFromLocal();
-    const keys = Object.keys(billings);
 
-    if (keys.length === 0) {
-        return "Bill-1";
-    }
-
-    const numbers = keys.map((key) => {
-        return Number(key.split("-")[1]);
-    });
-
-    const maxNumber = Math.max(...numbers);
-
-    return "Bill-" + (maxNumber + 1);
+function setCurrBillId() {
+    currentBillId = "Bill-" + Date.now();
+    localStorage.setItem("currentBillId", currentBillId);
 }
-
-function createBillIfNeeded() {
-    if (!currentBillId) {
-        currentBillId = getNextBillId();
-        localStorage.setItem("currentBillId", currentBillId);
-    }
-}
-
-function addTheBillingToLocal(bill) {
-    const billings = getBillingsFromLocal();
-
-    createBillIfNeeded();
-
-    if (!billings[currentBillId]) {
-        billings[currentBillId] = [];
-    }
-
-    billings[currentBillId].push(bill);
-
-    updateToLocal("Billings", billings);
-}
-
-
-
-
-
-newBill.addEventListener('click', () => {
-    const billings = getBillingsFromLocal();
-
-    if (currentBillId && billings[currentBillId] && billings[currentBillId].length > 0) {
-        currentBillId = getNextBillId();
-        localStorage.setItem("currentBillId", currentBillId);
-    }
-
-    billingBox.innerHTML = "";
-
-    showOnly("empty");
-    updatePriceBoxByCurrentBillId();
-});
-
-
 
 
 
@@ -124,8 +86,6 @@ function showOnly(section) {
     billingBox.style.display = "none";
     noBillingItem.style.display = "none";
     priceBox.classList.add("none");
-
-    const tableHead = document.getElementById("table_head");
 
     if (tableHead) {
         tableHead.style.display = "none";
@@ -136,10 +96,10 @@ function showOnly(section) {
     }
 
     if (section === "billing") {
-        billingBox.style.display = "table";
+        billingBox.style.display = 'table';
 
         if (tableHead) {
-            tableHead.style.display = "table";
+            tableHead.style.display = 'table';
         }
     }
 
@@ -157,10 +117,7 @@ function updateBillingView() {
 }
 
 
-
-
-
-function updatePriceBoxByCurrentBillId() {
+function updatePrice() {
     const billings = getBillingsFromLocal();
     const currentBillItems = billings[currentBillId] || [];
 
@@ -189,22 +146,33 @@ function updatePriceBoxByCurrentBillId() {
     change.innerText = `$${changeAmount.toFixed(2)}`;
 }
 
+
+
+newBill.addEventListener("click", () => {
+    // const sum = 0;
+    total_price.innerText = `₹0.00`;
+
+    const billings = getBillingsFromLocal();
+    setCurrBillId();
+    billingBox.innerHTML = "";
+
+    showOnly("empty");
+    updatePrice();
+});
+
+
 priceBox.querySelector(".tender-box input").addEventListener("input", () => {
-    updatePriceBoxByCurrentBillId();
+    updatePrice();
 });
 
 priceContent.addEventListener("click", () => {
     if (billingBox.rows.length === 0) {
         showOnly("empty");
     } else {
-        updatePriceBoxByCurrentBillId();
+        updatePrice();
         showOnly("price");
     }
 });
-
-
-
-
 
 billingBox.addEventListener("click", (e) => {
     const delBtn = e.target.closest(".del-bill-item");
@@ -225,68 +193,93 @@ billingBox.addEventListener("click", (e) => {
     }
 
     updateToLocal("Billings", billings);
-
+    changeGrantTotal();
     updateBillingView();
-    updatePriceBoxByCurrentBillId();
+    updatePrice();
 });
 
 
+function inputListen(e) {
+    if (e.target.type !== "number") return;
 
+    const row = e.target.closest("tr");
+    const billingId = row.id;
+    const itemId = row.getAttribute("itemid");
 
+    let newQty = Number(e.target.value);
 
-billingBox.addEventListener("input", (e) => {
-    if (e.target.type === "number") {
-        if (e.target.value <= 0) {
-            e.target.style.color = "red";
-            e.target.parentElement.style.borderColor = "red";
-            return;
-        } else {
-            e.target.style.color = "black";
-            e.target.parentElement.style.borderColor = "#e8e9f3";
-        }
-
-        const row = e.target.closest("tr");
-        const billingId = row.id;
-        const newQty = Number(e.target.value);
-
-        const billings = getBillingsFromLocal();
-
-        if (billings[currentBillId]) {
-            billings[currentBillId] = billings[currentBillId].map((bill) => {
-                if (bill.billingId === billingId) {
-                    const newTotal = newQty * bill.price;
-
-                    row.children[3].innerText = `₹${newTotal.toFixed(2)}`;
-
-                    return {
-                        ...bill,
-                        qty: newQty,
-                        total: newTotal
-                    };
-                }
-
-                return bill;
-            });
-        }
-
-        updateToLocal("Billings", billings);
-        updatePriceBoxByCurrentBillId();
-    }
-});
-
-
-
-
-
-function addIntoBillingBox(itemId) {
-    const item = items.find((item) => item.itemCode == itemId);
+    const item = getItemByCode("Inventory", itemId);
 
     if (!item) {
+        showPopups("Item not found", false);
+        return;
+    }
+
+    const availableQty = Number(item.inStock || 0);
+
+    if (newQty <= 0 || e.target.value === "") {
+        newQty = 1;
+        e.target.value = 1;
+    }
+
+    if (newQty > availableQty) {
+        newQty = availableQty;
+        e.target.value = availableQty;
+        showPopups("Not Enough Qty", false);
+    }
+
+    e.target.style.color = "black";
+    e.target.parentElement.style.borderColor = "#e8e9f3";
+
+    const billings = getBillingsFromLocal();
+
+    if (billings[currentBillId]) {
+        billings[currentBillId] = billings[currentBillId].map((bill) => {
+            if (bill.billingId === billingId) {
+                const newTotal = newQty * Number(bill.price);
+
+                row.children[3].innerText = `₹${newTotal.toFixed(2)}`;
+
+                return {
+                    ...bill,
+                    qty: newQty,
+                    total: newTotal
+                };
+            }
+
+            return bill;
+        });
+    }
+
+    updateToLocal("Billings", billings);
+    updatePrice();
+    changeGrantTotal();
+}
+
+billingBox.addEventListener("input", (e) => {
+    inputListen(e);
+});
+
+billingBox.addEventListener("focusout", (e) => {
+    inputListen(e);
+});
+
+function addIntoBillingBox(itemId, qty = 1) {
+    
+    const item = items.find((item) => item.itemCode == itemId);
+    if (!item) {
+        showPopups('Item not found')
         console.log("Item not found");
         return;
     }
 
-    createBillIfNeeded();
+    const currqty = Number(getItemByCode('Inventory', itemId).inStock || 0)
+
+    if (currqty <= 0) {
+        showPopups('Not Enough Qty', false);
+        return;
+    }
+
 
     const billings = getBillingsFromLocal();
 
@@ -299,7 +292,15 @@ function addIntoBillingBox(itemId) {
     });
 
     if (existingBill) {
-        existingBill.qty = Number(existingBill.qty) + 1;
+        const last_qty = Number(existingBill.qty) + Number(qty)
+        if (last_qty > currqty) {
+            showPopups('Not enough of quantity');
+            setTimeout(() => {
+                showPopups('Avaiable qty is ' + currqty, true)
+            }, 3000);
+            return;
+        }
+        existingBill.qty = Number(existingBill.qty) + Number(qty);
         existingBill.total = existingBill.qty * existingBill.price;
 
         updateToLocal("Billings", billings);
@@ -314,18 +315,21 @@ function addIntoBillingBox(itemId) {
         }
 
         updateBillingView();
-        updatePriceBoxByCurrentBillId();
+        updatePrice();
+        changeGrantTotal()
         return;
     }
-
-    const qty = 1;
+    if (currqty <= 0) {
+        showPopups('Not Enough Qty', false);
+        return;
+    }
+    
     const price = Number(item.price);
     const total = qty * price;
-    let r = document.querySelector('.rupee').innerText
-    const billingId = "bill-" + Date.now();
+    const billingId = "bill-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
 
-    billingBox.innerHTML += `
-        <tr id="${billingId}">
+    billingBox.insertAdjacentHTML('beforeend', `
+        <tr id="${billingId}" itemid = "${itemId}">
             <td>
                 <div class="bill-item">
                     <div class="item-icon">
@@ -337,7 +341,7 @@ function addIntoBillingBox(itemId) {
 
             <td>
                 <div class="qty-num">
-                    <input type="number" min="0" value="${qty}" id="qty"/>
+                    <input type="number" min="0" value="${qty}" />
                 </div>
             </td>
 
@@ -351,7 +355,7 @@ function addIntoBillingBox(itemId) {
                 </button>
             </td>
         </tr>
-    `;
+    `);
 
     const billingItem = {
         billingId: billingId,
@@ -360,7 +364,8 @@ function addIntoBillingBox(itemId) {
         itemImage: item.itemImage,
         price: price,
         qty: qty,
-        total: total
+        total: total,
+        status: "processing"
     };
 
     billings[currentBillId].push(billingItem);
@@ -368,11 +373,9 @@ function addIntoBillingBox(itemId) {
     updateToLocal("Billings", billings);
 
     updateBillingView();
-    updatePriceBoxByCurrentBillId();
+    updatePrice();
+    changeGrantTotal()
 }
-
-
-
 
 
 function showListItems(items) {
@@ -392,27 +395,237 @@ function showListItems(items) {
         `;
     }
 
-    document.querySelectorAll('.items-pic').forEach((itemBox) => {
-        itemBox.addEventListener('click', () => {
-            addIntoBillingBox(itemBox.id);
+    document.querySelectorAll(".items-pic").forEach((itemBox) => {
+        itemBox.addEventListener("click", () => {
+            getItemIndex('')
+            addIntoBillingBox(itemBox.id, 1);
         });
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+
+document.addEventListener("DOMContentLoaded", () => {
+    setCurrBillId();
     showListItems(items);
     updateBillingView();
-    updatePriceBoxByCurrentBillId();
+    updatePrice();
+    changeGrantTotal()
 });
 
+// BILLING DETAILS FNCIONS =========================================
+
+function getBillDetails() {
+    return JSON.parse(localStorage.getItem("billings_details") || "[]");
+}
+function updateBillStatus(billId, status) {
+    const arr = getBillDetails();
+
+    const bill = arr.find((item) => {
+        return item.billId === billId;
+    });
+
+    if (bill) {
+        bill.status = status;
+    } else {
+        arr.push({
+            billId: billId,
+            status: status,
+            created_at: getCurrentDateTime()
+        });
+    }
+
+    updateToLocal("billings_details", arr);
+}
+function getBillStatus(billId) {
+    const arr = getBillDetails();
+
+    const bill = arr.find((item) => {
+        return item.billId === billId;
+    });
+
+    if (!bill) {
+        return "processing";
+    }
+
+    return bill.status;
+}
+// =========================================================
 
 
-searchBox.addEventListener('input', () => {
-    const value = searchBox.value.toLowerCase();
+
+printBtn.addEventListener("click", () => {
+    // billing state should change. 
+    // qty items should change
+    // new billing open aganum
+    // inventory also gets updated.
+    // const currBill = billings[billingId]
+
+    const billings = getBillingsFromLocal();
+    const currBillings = billings[currentBillId] || [];
+
+    if (currBillings.length === 0) {
+        showPopups("No items in bill", false);
+        return;
+    }
+
+    if (priceBox.classList.contains("none")) {
+        showPopups("Move to price amendment section for complete the billing", false);
+        return;
+    }
+
+
+    if (getBillStatus(currentBillId) === "Completed") {
+        showPopups("This bill already completed", false);
+        return;
+    }
+
+    const inventory = getItemFromLocal("Inventory") || [];
+
+    for (let i = 0; i < currBillings.length; i += 1) {
+        const itemCode = currBillings[i].itemCode;
+        const qty = Number(currBillings[i].qty);
+
+        const itemIdx = inventory.findIndex((item) => {
+            return item.itemCode == itemCode;
+        });
+
+        if (itemIdx === -1) {
+            showPopups("Item not found in inventory", false);
+            return;
+        }
+
+        inventory[itemIdx].sold = Number(inventory[itemIdx].sold || 0) + qty;
+        inventory[itemIdx].inStock = Number(inventory[itemIdx].inStock || 0) - qty;
+    }
+
+    updateToLocal("Inventory", inventory);
+
+    updateBillStatus(currentBillId, "Completed");
+
+    showPopups("Success", true);
+
+    setCurrBillId();
+
+    billingBox.innerHTML = "";
+    showOnly("empty");
+    updatePrice();
+});
+
+//=======================================================================================
+// Side la 
+
+const numInput = document.querySelector(".calc-left .input-group:first-child input");
+const qtySpan = document.querySelector(".qty-box span");
+const minusBtn = document.querySelector(".qty-box button:first-child");
+const plusBtn = document.querySelector(".qty-box button:last-child");
+const addBtn = document.querySelector(".add-btn");
+const numPadBtns = document.querySelectorAll(".num-pad button");
+
+minusBtn.addEventListener("click", () => {
+    let qty = Number(qtySpan.innerText);
+
+    if (qty > 1) {
+        qty -= 1;
+    }
+
+    qtySpan.innerText = qty;
+});
+
+plusBtn.addEventListener("click", () => {
+    let qty = Number(qtySpan.innerText);
+
+    qty += 1;
+
+    qtySpan.innerText = qty;
+});
+
+numPadBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const val = btn.innerText;
+
+        if (val === "⌫") {
+            numInput.value = numInput.value.slice(0, -1);
+            return;
+        }
+
+        if (val === ".") {
+            if (!numInput.value.includes(".")) {
+                numInput.value += val;
+            }
+            return;
+        }
+
+        numInput.value += val;
+    });
+});
+
+addBtn.addEventListener("click", () => {
+    const itemCode = numInput.value.trim();
+    const qty = Number(qtySpan.innerText);
+
+    if (itemCode === "") {
+        showPopups("Enter item number", false);
+        return;
+    }
+
+    const item = items.find((item) => {
+        return item.itemCode == itemCode;
+    });
+
+    if (!item) {
+        showPopups("Item not found", false);
+        return;
+    }
+    
+    addIntoBillingBox(itemCode, qty);
+
+    numInput.value = "";
+    qtySpan.innerText = "1";
+});
+
+numInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        addBtn.click();
+    }
+});
+
+let selectedCat = "All Items";
+
+function cleanText(text) {
+    return text.replace(/\s+/g, " ").replace(/\s*\/\s*/g, "/").trim();
+}
+
+function filterItems() {
+    const searchValue = searchBox.value.toLowerCase();
 
     const data = items.filter((item) => {
-        return item.itemName.toLowerCase().startsWith(value);
+        const itemNameOk = item.
+        itemName.toLowerCase().
+        includes(searchValue);
+
+        const itemCat = cleanText(item.category || "");
+        const catOk = selectedCat === "All Items" || itemCat === selectedCat;
+
+        return itemNameOk && catOk;
     });
 
     showListItems(data);
+}
+
+searchBox.addEventListener("input", () => {
+    filterItems();
+});
+
+document.querySelectorAll(".items-menu .item").forEach((catBox) => {
+    catBox.addEventListener("click", () => {
+        document.querySelectorAll(".items-menu .item").forEach((box) => {
+            box.classList.remove("active");
+        });
+
+        catBox.classList.add("active");
+
+        selectedCat = cleanText(catBox.innerText);
+
+        filterItems();
+    });
 });

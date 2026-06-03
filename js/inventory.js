@@ -74,7 +74,7 @@ function showTableContent(items) {
     for (let i = 0; i < items.length; i++) {
         let item = items[i];
 
-        let stock = Number(item.inStock) || 0;
+        let stock = Number(item.inStock);
 
         let statusText = stock <= 0 ? "Out of Stock" : "In Stock";
         let statusClass = stock <= 0 ? "out-stock" : "in-stock";

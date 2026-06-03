@@ -18,6 +18,21 @@
   --hover-bg: rgba(255, 255, 255, 0.1);
 }
 
+.read-msg {
+    background: #eda8a87a;
+    color: red;
+    padding: 12px 16px;
+    border: 1px solid #a7a6a4;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.none {
+    display: none;
+}
+
 * {
   margin: 0;
   padding: 0;
