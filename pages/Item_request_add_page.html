@@ -109,124 +109,127 @@
           <h3>Request Information</h3>
           <div class="input-row">
             <div class="input-box">
-
               <label>Req Id</label>
-              <input type="text" value="ITM-000129" disabled/>
-              <span style="font-size: 10px;">Auto-generated</span>
+              <input type="text" value="ITM-000129" disabled />
+              <span style="font-size: 10px">Auto-generated</span>
             </div>
 
             <div class="input-box">
               <label>Subject <sup style="color: red">*</sup></label>
               <input type="text" placeholder="Enter Subject" />
+              
             </div>
 
             <div class="input-box">
               <label>Requested By</label>
               <input type="text" placeholder="Admin" />
+              
             </div>
           </div>
 
           <div class="input-row">
             <div class="input-box">
-
               <label>Requested Date</label>
               <input type="text" value="20 May 2024" />
-          
+              
             </div>
 
             <div class="input-box">
               <label>Expecting Delivary<sup style="color: red">*</sup></label>
-               <div class="date-input-box">
+              <div class="date-input-box">
                 <input type="date" />
-                <img src="/assets/calendar_blue.png" alt="">
+                
+                <img src="/assets/calendar_blue.png" alt="" />
               </div>
             </div>
 
             <div class="input-box">
               <label>Status</label>
-              <input type="text" placeholder="Pending" />
+              <select name="" id="status">
+                <option value="Pending">Pending</option>
+                <option value="On the way">On the Way</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
             </div>
           </div>
         </div>
         <div class="items-box">
-  <div class="item-list-box">
-    <div class="item-list-box-header">
-      <div class="left">
-        <span>Items</span>
-        <br>
-        <span>Total 0 items</span>
-      </div>
-
-      <div class="right">
-        <img src="/assets/plus.png" alt="">
-        <p>Add Item</p>
-      </div>
-    </div>
-
-    <div class="item-list-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Item Name <sup>*</sup></th>
-            <th>Quantity <sup>*</sup></th>
-            <th>Expected Date <sup>*</sup></th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td>
-              <select>
-                <option>Select item</option>
-              </select>
-            </td>
-
-            <td>
-              <input type="number" placeholder="Enter quantity">
-            </td>
-
-            <td>
-              <div class="date-input-box">
-                <input type="date">
-                <img src="/assets/calendar_blue.png" alt="">
+          <div class="item-list-box">
+            <div class="item-list-box-header">
+              <div class="left">
+                <span>Items</span>
+                <br />
+                <span>Total 0 items</span>
               </div>
-            </td>
 
-            <td>
-              <button class="delete-btn">🗑</button>
-            </td>
-          </tr>
+              <div class="right">
+                <img src="/assets/plus.png" alt="" />
+                <p>Add Item</p>
+              </div>
+            </div>
 
-          <tr class="empty-row">
-            <td colspan="4"></td>
-        </tr>
+            <div class="item-list-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item Name <sup>*</sup></th>
+                    <th>Quantity <sup>*</sup></th>
+                    <th>Expected Date <sup>*</sup></th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
 
-        </tbody>
-      </table>
-    </div>
-  </div>
+                <tbody>
+                  <tr>
+                    <td>
+                      <select>
+                        <option>Select item</option>
+                      </select>
+                    </td>
 
-  <div class="btns">
-    <button class="cancel-btn">Cancel</button>
+                    <td>
+                      <input type="number" placeholder="Enter quantity" />
+                    </td>
 
-    <button class="save-btn">
-      <img src="/assets/save.png" alt="">
-      Save
-    </button>
+                    <td>
+                      <div class="date-input-box">
+                        <input type="date" />
+                        <img src="/assets/calendar_blue.png" alt="" />
+                      </div>
+                    </td>
 
-    <button class="submit-btn">
-      <img src="/assets/send.png" alt="">
-      Submit Request
-    </button>
-  </div>
-</div>
+                    <td>
+                      <button class="delete-btn">🗑</button>
+                    </td>
+                  </tr>
+
+                  <tr class="empty-row">
+                    <td colspan="4"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="btns">
+            <button class="cancel-btn">Cancel</button>
+
+            <button class="save-btn">
+              <img src="/assets/save.png" alt="" />
+              Save
+            </button>
+
+            <button class="submit-btn">
+              <img src="/assets/send.png" alt="" />
+              Submit Request
+            </button>
+          </div>
+        </div>
       </div>
     </main>
-    
+
     <script src="/js/utility.js"></script>
     <script src="/js/Item_request_add_page.js" defer></script>
-      <script src="/js/navigate.js" defer></script>
-
+    <script src="/js/navigate.js" defer></script>
   </body>
 </html>

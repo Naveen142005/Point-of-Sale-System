@@ -278,17 +278,44 @@ main .header img {
   width: 1px;
 }
 
-.filters-box {
-  display: flex;
-  justify-content: space-between;
-  min-height: 100px;
-  background-color: var(--white);
+.filter-box {
+  width: 100%;
+  padding: 16px;
+  background: var(--white);
+  border-radius: 8px;
   box-shadow: var(--box-shadow);
-  border-radius: 6px;
-  align-items: center;
-  padding: 12px;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-areas:
+    "rid sub by from to btn";
+  gap: 14px;
+  align-items: end;
 }
+
+.all-filters {
+  display: contents;
+}
+
+.all-filters .filter:nth-child(1) {
+  grid-area: rid;
+}
+
+.all-filters .filter:nth-child(2) {
+  grid-area: sub;
+}
+
+.all-filters .filter:nth-child(3) {
+  grid-area: by;
+}
+
+.all-filters .filter:nth-child(4) {
+  grid-area: from;
+}
+
+.all-filters .filter:nth-child(5) {
+  grid-area: to;
+}
+
 
 .filter {
   display: flex;
@@ -316,33 +343,6 @@ main .header img {
   height: 20px;
 }
 
-
-.filter-box {
-  width: 100%;
-  background: var(--white);
-  box-shadow: var(--box-shadow);
-  padding: 18px;
-  border-radius: 8px;
-  display: flex;
-  align-items: end;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.all-filters {
-  display: flex;
-  flex: 1;
-  align-items: end;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-.filter {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
 
 .title {
   font-size: 11px;
@@ -398,11 +398,9 @@ main .header img {
 }
 
 .filter-btn {
-  cursor: pointer;
-  width: 18%;
+   grid-area: btn;
   display: flex;
   gap: 12px;
-  justify-content: flex-end;
   /* flex-wrap: wrap; */
 }
 
@@ -709,11 +707,7 @@ ul > li {
 }
 
 
-@media screen and (max-width: 1280px) {
-    .filter-box {
-      flex-direction: column;
-    }
-}
+
 
 @media screen and (max-width:1200px ) {
      .page-box {
@@ -729,25 +723,26 @@ ul > li {
     }
 }
 
-@media screen and (max-width:968px) {
-    .all-filters {
-        flex-wrap: wrap;
-    }
-} 
 
-@media screen and (max-width:860px) {
-   .inventory-header {
+
+@media screen and (max-width: 880px) {
+  .inventory-header {
     flex-direction: column;
+    align-items: stretch;
     gap: 12px;
-   }
-   .i-right button {
+  }
 
-    padding:8px;
-   }
-   .i-right {
-    margin-left: auto;
-   }
-} 
+  .i-right {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+  }
+
+  .i-right button {
+    height: 38px;
+    padding: 0 12px;
+  }
+}
 
 @media screen and (max-width: 768px) {
     .side-bar {
@@ -804,19 +799,6 @@ ul > li {
         box-shadow: var(--box-shadow);
         border-radius: 8px;
         border: 1px solid var(--text-muted);
-    }
-
-    .filters-box .filter-btn {
-        width: 100%;
-        justify-content: center;
-    }
-    .filters-box .filter-btn .filter{
-        justify-content: center;
-        text-align: center;
-    }
-    .filters-box .filter-btn .filter .select-box{
-        display: flex;
-        justify-content: center;
     }
 }   
 
@@ -892,9 +874,17 @@ ul > li {
   color: rgb(4, 4, 122);
 }
 
-.date-box::-webkit-calendar-picker-indicator {
+.date-box input::-webkit-calendar-picker-indicator {
   opacity: 0;
-  cursor: pointer;
+  cursor: pointer !important;
+}
+
+.select-box, .date-box {
+  cursor:  pointer !important;
+}
+
+.date-box input {
+  cursor:  pointer !important;
 }
 
 .date-box img {
@@ -904,34 +894,81 @@ ul > li {
   right: 12px;
   pointer-events: none;
 }
-@media screen and (max-width: 1280px) {
-    .select-box select,
-    .select-box:not(.date-box) input {
-        font-size: 10px;
-    }
-}
 
-@media screen and (max-width: 968px) {
-    .select-box select,
-    .select-box:not(.date-box) input {
-        font-size: 9px;
-    }
-}
-
-@media screen and (max-width: 550px) {
-    .select-box select,
-    .select-box:not(.date-box) input {
-        font-size: 8px;
-    }
-}
-
-@media screen and (max-width: 380px) {
-    .select-box select,
-    .select-box:not(.date-box) input {
-        font-size: 7.5px;
-    }
-}
 
 table th  {
   color: var(--text-blue) !important;
 }
+
+table thead tr th, .btn-1, .btn-3, tbody tr >:last-child img{
+  cursor: pointer !important; 
+}
+
+@media (max-width: 1250px) {
+  .filter-box {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-areas:
+      "rid sub by from to"
+      ". . . btn btn";
+  }
+}
+
+@media (max-width: 900px) {
+  .filter-box {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "rid sub"
+      "by from"
+      "to btn";
+  }
+}
+
+@media (max-width: 600px) {
+  .filter-box {
+    padding: 12px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "rid"
+      "sub"
+      "by"
+      "from"
+      "to"
+      "btn";
+  }
+}
+
+@media (max-width: 380px) {
+  .filter-btn {
+    flex-direction: column;
+  }
+
+  .filter-btn button {
+    width: 100%;
+    height: 38px !important;
+    flex: none;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .page-center .page-btn {
+    display: none;
+  }
+
+  .page-center .page-btn:first-child,
+  .page-center .page-btn:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.filter-btn button {
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+

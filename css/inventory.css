@@ -293,72 +293,133 @@ main .header img {
 }
 
 .filters-box {
-  display: flex;
-  justify-content: space-between;
-  min-height: 100px;
-  background-color: var(--white);
+  width: 100%;
+  background: var(--white);
   box-shadow: var(--box-shadow);
-  border-radius: 6px;
-  align-items: center;
-  padding: 12px;
+  padding: 18px;
+  border-radius: 8px;
+
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-areas: "cat item status from to btn";
+  gap: 14px;
+  align-items: end;
+}
+
+.all-filters {
+  display: contents;
+}
+
+.all-filters .filter:nth-child(1) {
+  grid-area: cat;
+}
+
+.all-filters .filter:nth-child(2) {
+  grid-area: item;
+}
+
+.all-filters .filter:nth-child(3) {
+  grid-area: status;
+}
+
+.all-filters .filter:nth-child(4) {
+  grid-area: from;
+}
+
+.all-filters .filter:nth-child(5) {
+  grid-area: to;
+}
+
+.filter-btn {
+  grid-area: btn;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
+  min-width: 0;
 }
 
 .filter {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
 }
 
-.filter .title {
-  font-size: 10px;
+.title {
+  
+  height: 14px;
+  line-height: 14px;
+    font-size: 10px;
   color: var(--text-blue);
   font-weight: 900;
 }
 
 .select-box {
-  border: 1px solid beige;
+  width: 100%;
+  height: 38px;
+  border: 1px solid var(--text-muted);
+  border-radius: 6px;
+  background: var(--white);
+
   display: flex;
   align-items: center;
-  flex-direction: row;
-  padding: 10px 8px;
-  gap: 12px;
-  border-radius: 8px;
-}
-.select-box img {
-  width: 20px;
-  height: 20px;
-}
-.all-filters {
-  display: flex;
-  align-items: center;
-  width: 80%;
-  gap: 12px;
+  gap: 8px;
+  padding: 0 10px;
+  position: relative;
 }
 
-.select-box > :nth-child(3) {
-  margin-left: auto;
-}
-
-.select-box span {
-  font-size: 12px;
+.select-box select,
+.select-box input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1px;
   font-weight: 600;
   color: rgb(4, 4, 122);
 }
 
-.filter-btn {
+.select-box select {
+  appearance: none;
+  -webkit-appearance: none;
   cursor: pointer;
-  width: 20%;
-  display: flex;
-  gap: 30px;
-  justify-content: flex-end;
 }
 
+.select-box input {
+  cursor: pointer;
+}
+
+.select-box img {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.select-box input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.select-box > * {font-size: 11px !important;}
 .active-btn {
-  background: var(--purple-gradient);
-  color: white;
-  font-weight: 400;
-  letter-spacing: 0.4px;
+  background: var(--purple-gradient) !important;
+  color: white !important;
+  border: none !important;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.filter-btn button {
+  justify-content: center;
+  cursor: pointer;
+}
+
+.filter-btn button span {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2400ff;
 }
 
 .inventory-list {
@@ -856,3 +917,52 @@ button.select-box {
 .inventory-table th { 
   color: var(--text-blue);
 }
+
+@media screen and (max-width: 1250px) {
+  .filters-box {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-areas:
+      "cat item status from to"
+      ". . . btn btn";
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .filters-box {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "cat item"
+      "status from"
+      "to btn";
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .filters-box {
+    padding: 12px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "cat"
+      "item"
+      "status"
+      "from"
+      "to"
+      "btn";
+  }
+
+  .filter-btn {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .filter-btn {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-btn button {
+    height: 38px;
+    min-height: 38px;
+  }
+}
+

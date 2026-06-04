@@ -631,9 +631,7 @@ main {
     padding: 0 11px;
 }
 
-.input-box.small {
-    width: 70%;
-}
+  
 
 .input-box input {
     width: 100%;
@@ -1623,4 +1621,23 @@ footer,
     font-size: 12px;
     font-weight: 800;
     color: var(--purple);
+}
+
+.calc-right {
+  gap: 20px;
+  justify-content: space-evenly;
+}
+.num-pad {
+  width: 100%;
+}
+.calc-box {
+  align-items: center;
+}
+.calc-left, .calc-middle {
+  height: 100%;
+  justify-content: center; 
+}
+.calc-left {
+  position: relative;
+  bottom: 6px;
 }

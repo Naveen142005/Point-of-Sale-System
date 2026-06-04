@@ -53,7 +53,7 @@ const subject = allInput[1];
 const reqBy = allInput[2];
 const reqDate = allInput[3];
 const expDelivery = allInput[4];
-const statusInput = allInput[5];
+const statusInput = document.getElementById('status');
 const addItemBtn = document.querySelector(".item-list-box-header .right");
 const tbody = document.querySelector(".item-list-table tbody");
 const totalText = document.querySelector(".item-list-box-header .left span:last-child");
@@ -234,7 +234,8 @@ function checkForm() {
 
 function saveRequest(state) {
     if (!checkForm()) return;
-
+    console.log(statusInput.value);
+    
     const obj = {
         reqId: reqId.value,
         subject: subject.value.trim(),

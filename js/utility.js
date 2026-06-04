@@ -39,7 +39,7 @@ function getBillingsFromLocal() {
     return billings;
 }
 
-function getItemFromLocal (key) {
+function getItemFromLocal(key) {
     return JSON.parse(localStorage.getItem(key) || "[]")
 }
 
@@ -53,36 +53,50 @@ function getItemByCode(key, itemCode) {
 }
 
 function showPopups(mes, isSuccess) {
+    const oldPopup = document.querySelector(".my-popup");
+    if (oldPopup) oldPopup.remove();
+
     const popup = document.createElement("div");
 
+    popup.className = "my-popup";
     popup.innerText = mes;
+
     popup.style.position = "fixed";
-    popup.style.top = "20px";
-    popup.style.right = "20px";
-    popup.style.padding = "12px 20px";
+    popup.style.left = "50%";
+    popup.style.top = "80px";
+    popup.style.width = "420px";
+    popup.style.maxWidth = "90%";
+    popup.style.padding = "14px 22px";
     popup.style.borderRadius = "8px";
     popup.style.color = "white";
-    popup.style.backgroundColor = isSuccess ? "green" : "red";
-    popup.style.zIndex = "9999";
-    popup.style.fontSize='12px'
-    popup.style.transform = "translateX(120%)";
-    popup.style.transition = "0.4s ease";
+    popup.style.backgroundColor = isSuccess ? "#198754" : "#dc3545";
+    popup.style.zIndex = "99999";
+    popup.style.fontSize = "13px";
+    popup.style.fontWeight = "600";
+    popup.style.textAlign = "center";
+    popup.style.lineHeight = "1.4";
+    popup.style.boxShadow = "0 5px 18px rgba(0,0,0,0.22)";
+
+    popup.style.transform = "translate(-50%, -40px)";
+    popup.style.opacity = "0";
+    popup.style.transition = "0.35s ease";
 
     document.body.appendChild(popup);
 
     setTimeout(() => {
-        popup.style.transform = "translateX(0)";
+        popup.style.transform = "translate(-50%, 0)";
+        popup.style.opacity = "1";
     }, 10);
 
     setTimeout(() => {
-        popup.style.transform = "translateX(150%)";
-    }, 2000);
+        popup.style.transform = "translate(-50%, -40px)";
+        popup.style.opacity = "0";
+    }, 2200);
 
     setTimeout(() => {
-        popup.remove()
-    },3000)
+        popup.remove();
+    }, 2700);
 }
-
 
 function getCurrentDateTime() {
     const date = new Date();
@@ -157,4 +171,47 @@ async function uploadToCloudinary(file) {
     }
 
     return data.secure_url;
+}
+
+//sort function to sort the table values by the th
+function sortItems(items, key, assending = true) {
+    if (items.length <= 0) return items;
+    if (!key) return items;
+
+    const val = items[0][key];
+    console.log(val);
+    
+    if (val !== "" && !isNaN(Number(val))) {
+        items.sort((a, b) => {
+            if (assending) {
+                return Number(a[key]) - Number(b[key]);
+            } else {
+                return Number(b[key]) - Number(a[key]);
+            }
+        });
+    }
+
+    // date sort
+    else if (!isNaN(Date.parse(val))) {
+        items.sort((a, b) => {
+            if (assending) {
+                return new Date(a[key]) - new Date(b[key]);
+            } else {
+                return new Date(b[key]) - new Date(a[key]);
+            }
+        });
+    }
+
+    // string sort
+    else {
+        items.sort((a, b) => {
+            if (assending) {
+                return String(a[key]).localeCompare(String(b[key]));
+            } else {
+                return String(b[key]).localeCompare(String(a[key]));
+            }
+        });
+    }
+
+    return items;
 }

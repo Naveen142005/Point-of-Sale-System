@@ -341,7 +341,7 @@ function addIntoBillingBox(itemId, qty = 1) {
 
             <td>
                 <div class="qty-num">
-                    <input type="number" min="0" value="${qty}" />
+                    <input type="number"/>
                 </div>
             </td>
 
@@ -496,6 +496,10 @@ printBtn.addEventListener("click", () => {
 
         inventory[itemIdx].sold = Number(inventory[itemIdx].sold || 0) + qty;
         inventory[itemIdx].inStock = Number(inventory[itemIdx].inStock || 0) - qty;
+
+        if (inventory[itemIdx].inStock == 0) {
+            inventory[itemIdx].status = 'Out of Stock';
+        }
     }
 
     updateToLocal("Inventory", inventory);
@@ -503,7 +507,7 @@ printBtn.addEventListener("click", () => {
     updateBillStatus(currentBillId, "Completed");
 
     showPopups("Success", true);
-
+    total_price.innerText = `₹0.00`;
     setCurrBillId();
 
     billingBox.innerHTML = "";

@@ -58,7 +58,7 @@ addItemBtn.addEventListener('click', () => {
     location.href = '/pages/inventory_new_item.html';
 })
 
-
+let currLoadedItems;
 function showTableContent(items) {
     tableContent.innerHTML = "";
     const total = document.querySelectorAll('.totalItem').forEach((i) => i.innerHTML = items.length)
@@ -119,6 +119,7 @@ function showTableContent(items) {
         </tr>
     `;
     }
+    currLoadedItems = items;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -193,4 +194,48 @@ document.addEventListener("click", (e) => {
 
         location.href = `./inventory_edit_page.html?id=${id}`;
     }
+});
+
+
+
+const tableKeys = [
+    "itemName",   
+    "category",   
+    "price",      
+    "unit",       
+    "purchased",  
+    "sold",       
+    "inStock",    
+    "status",     
+    "update_at",  
+    null          
+];
+
+const ths = document.querySelectorAll('table thead tr th');
+
+let assending = true;
+let lastIdx = -1;
+
+ths.forEach((th, idx) => {
+    th.style.cursor = "pointer";
+
+    th.addEventListener('click', () => {
+        const key = tableKeys[idx];
+
+        if (key === null) return;
+
+        if (lastIdx !== idx) {
+            assending = true;
+        }
+            console.log(key);
+            
+        const sorted = sortItems([...currLoadedItems], key, assending);
+
+        showTableContent(sorted);
+        console.log(sorted);
+        
+
+        assending = !assending;
+        lastIdx = idx;
+    });
 });

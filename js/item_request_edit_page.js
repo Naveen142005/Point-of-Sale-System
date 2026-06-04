@@ -46,7 +46,7 @@ const subject = inp[1];
 const reqBy = inp[2];
 const reqDate = inp[3];
 const expDate = inp[4];
-const statusInp = inp[5];
+const statusInp = document.getElementById('status')
 
 const addBtn = document.querySelector(".item-list-box-header .right");
 const tbody = document.querySelector(".item-list-table tbody");
@@ -297,7 +297,9 @@ function upd(st) {
     if (st) {
         oldState = st;
     }
-
+    
+    alert(statusInp.value);
+    
     arr[idx] = {
         ...arr[idx],
         reqId: reqId.value,

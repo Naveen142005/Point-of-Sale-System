@@ -99,9 +99,8 @@
       <div class="title">Item</div>
       <div class="select-box">
         <select>
-          <option>Select item</option>
-          <option>Item 001</option>
-          <option>Item 002</option>
+         
+        
         </select>
       </div>
     </div>
@@ -111,11 +110,11 @@
       <div class="filter-date-top">
         <div class="title">Reported Date</div>
         <div class="report-date-box">
-          <p class="date-tab active-tab b-1">Today</p>
-          <p class="date-tab b-2">Yesterday</p>
-          <p class="date-tab b-3">This Week</p>
-          <p class="date-tab">This Month</p>
-          <p class="date-tab">Custom</p>
+          <p class="date-tab active-tab b-1" data-value="Today">Today</p>
+          <p class="date-tab b-2" data-value="Yesterday">Yesterday</p>
+          <p class="date-tab b-3" data-value="This Week">This Week</p>
+          <p class="date-tab" data-value="This Month">This Month</p>
+          <!-- <p class="date-tab">Custom</p> -->
         </div>
       </div>
 
@@ -123,14 +122,14 @@
         <div class="filter">
           <div class="title">Reported Date From</div>
           <div class="select-box date-box">
-            <input type="text" placeholder="Select date" readonly />
+            <input type="date" placeholder="Select date" />
             <img src="/assets/calendar.png" alt="" />
           </div>
         </div>
         <div class="filter">
           <div class="title">Reported Date To</div>
           <div class="select-box date-box">
-            <input type="text" placeholder="Select date" readonly />
+            <input type="date" placeholder="Select date"  />
             <img src="/assets/calendar.png" alt="" />
           </div>
         </div>
@@ -189,48 +188,23 @@
                 <table class="inventory-table">
                     <thead>
                     <tr>
-                        <th>
-                            Request ID
+                        <th >
+                            Item Name 
                             <img src="/assets/sort.png" alt="" class="filter-icon">
                         </th>
                         <th>
-                            Subject
+                            Sold Quantity
                             <img src="/assets/sort.png" alt="" class="filter-icon">
                         </th>
                         <th>
-                            Requested by
+                            Total Price
                             <img src="/assets/sort.png" alt="" class="filter-icon">
                         </th>
                         
                     </tr>
                     </thead>
 
-                    <tbody>
-                        <tr>
-                            
-                            <td>Request for Coffee Beans</td>
-                            <td>James Anderson</td>
-                            <td>20 May 2024<br>09:15 AM</td>
-                            
-                        </tr>
-
-                        <tr>
-                            
-                            <td>Sarah Johnson</td>
-                            <td>19 May 2024<br>04:30 PM</td>
-                            <td>22 May 2024</td>
-                            
-                        </tr>
-
-                        <tr>
-                            
-                            <td>Michael Brown</td>
-                            <td>18 May 2024<br>11:05 AM</td>
-                            <td>21 May 2024</td>
-                           
-                        </tr>
-    
-                </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
             <div class="page-box">
@@ -263,6 +237,7 @@
         </div>
     </main>
 
+    <script src="/js/utility.js" defer></script>
     <script src="/js/sales_report.js" defer></script>
         <script src="/js/navigate.js" defer></script>
 

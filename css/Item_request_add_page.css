@@ -316,7 +316,7 @@ main .header img {
 .request-info-box {
   padding: 16px;
   border-radius: 8px;
-  padding-left: 40px;
+
   background-color: var(--white);
   box-shadow: var(--box-shadow);
   display: flex;
@@ -348,6 +348,9 @@ main .header img {
 }
 
 .input-box label {
+
+  color: #101633;
+  height: 15px;
   font-size: 12px;
   font-weight: bold;
   color: #101633;
@@ -665,8 +668,7 @@ h3 {
   }
   
   .request-info-box {
-    padding-left: 20px;
-    padding-right: 20px;
+
   }
   
   .item-list-table {

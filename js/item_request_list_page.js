@@ -73,6 +73,7 @@ const filterBtn = document.querySelector(".filter-btn button:nth-child(1)");
 const resetBtn = document.querySelector(".filter-btn button:nth-child(2)");
 const newBtns = document.querySelectorAll(".btn-1");
 
+let currLoadedItems;
 function getReqs() {
     return getItemFromLocal("items_request");
 }
@@ -145,6 +146,9 @@ function showReqs(arr) {
     }
 
     setTotal(arr.length);
+    currLoadedItems = arr;
+    console.log(currLoadedItems);
+    
 }
 
 function filterReqs() {
@@ -222,4 +226,43 @@ newBtns.forEach((btn) => {
 document.addEventListener("DOMContentLoaded", () => {
     setReqOptions();
     showReqs(getReqs());
+});
+
+
+
+
+const tableKeys = [
+    "reqId",
+    "subject",
+    "requested_by",
+    "requested_date",
+    "expecting_delivery",
+    "status",
+    null
+];
+
+const ths = document.querySelectorAll('table thead tr th');
+
+let assending = true;
+let lastIdx = -1;
+
+ths.forEach((th, idx) => {
+    th.style.cursor = "pointer";
+
+    th.addEventListener('click', () => {
+        const key = tableKeys[idx];
+
+        if (key === null) return;
+
+        if (lastIdx !== idx) {
+            assending = true;
+        }
+
+        const sorted = sortItems([...currLoadedItems], key, assending);
+
+        showReqs(sorted);
+
+        assending = !assending;
+        lastIdx = idx;
+    });
 });
