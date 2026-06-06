@@ -59,19 +59,44 @@ addItemBtn.addEventListener('click', () => {
 })
 
 let currLoadedItems;
-function showTableContent(items) {
+
+let currentPage = 1;
+let showPerPage = 10;
+
+const pageCenter = document.querySelector(".page-center");
+const showingText = document.getElementById("showingText");
+const entryBox = document.querySelector(".page-left .entry-box");
+const entryValue = document.querySelector(".page-left .entry-box span");
+
+function showTableContent(items, resetPage = true) {
+    currLoadedItems = items;
+
+    if (resetPage) {
+        currentPage = 1;
+    }
+
     tableContent.innerHTML = "";
-    const total = document.querySelectorAll('.totalItem').forEach((i) => i.innerHTML = items.length)
+
+    document.querySelectorAll(".totalItem").forEach((i) => {
+        i.innerHTML = items.length;
+    });
 
     if (items.length === 0) {
         tableContent.innerHTML = `
-        <tr>
-            <td colspan="10" style="text-align:center;">No items found</td>
-        </tr>
-    `;
+            <tr>
+                <td colspan="10" style="text-align:center;">No items found</td>
+            </tr>
+        `;
+
+        createPageButtons();
+        updateShowingText();
+        return;
     }
 
-    for (let i = 0; i < items.length; i++) {
+    let startIdx = (currentPage - 1) * showPerPage;
+    let endIdx = currentPage * showPerPage;
+
+    for (let i = startIdx; i < Math.min(items.length, endIdx); i++) {
         let item = items[i];
 
         let stock = Number(item.inStock);
@@ -81,46 +106,49 @@ function showTableContent(items) {
         let stockClass = stock <= 0 ? "stock-red" : "stock-green";
 
         tableContent.innerHTML += `
-        <tr>
-            <td>
-                <div class="item-name">
-                    <img 
-                        src="${item.itemImage || "/assets/tea.png"}" 
-                        alt="" 
-                        class="item-img"
-                    >
-                    <span>${item.itemName || "-"}</span>
-                </div>
-            </td>
+            <tr>
+                <td>
+                    <div class="item-name">
+                        <img 
+                            src="${item.itemImage || "/assets/tea.png"}" 
+                            alt="" 
+                            class="item-img"
+                        >
+                        <span>${item.itemName || "-"}</span>
+                    </div>
+                </td>
 
-            <td>${item.category || "-"}</td>
-            <td>$${item.price || "0"}</td>
-            <td>${item.unit || "-"}</td>
-            <td>${item.purchased}</td>
-            <td>${item.sold}</td>
+                <td>${item.category || "-"}</td>
+                <td>$${item.price || "0"}</td>
+                <td>${item.unit || "-"}</td>
+                <td>${item.purchased || 0}</td>
+                <td>${item.sold || 0}</td>
 
-            <td class="stock-count ${stockClass}">
-                ${stock}
-            </td>
+                <td class="stock-count ${stockClass}">
+                    ${stock}
+                </td>
 
-            <td>
-                <span class="status-box ${statusClass}">
-                    ${statusText}
-                </span>
-            </td>
+                <td>
+                    <span class="status-box ${statusClass}">
+                        ${statusText}
+                    </span>
+                </td>
 
-            <td>
-                ${(item.update_at || "-").replace(",", "<br>")}
-            </td>
+                <td>
+                    ${(item.update_at || "-").replace(",", "<br>")}
+                </td>
 
-            <td>
-                <button class="edit-btn" data-id = ${item.itemCode}>Edit</button>
-            </td>
-        </tr>
-    `;
+                <td>
+                    <button class="edit-btn" data-id="${item.itemCode}">Edit</button>
+                </td>
+            </tr>
+        `;
     }
-    currLoadedItems = items;
+
+    createPageButtons();
+    updateShowingText();
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const items = JSON.parse(localStorage.getItem("Inventory") || "[]");
@@ -238,4 +266,94 @@ ths.forEach((th, idx) => {
         assending = !assending;
         lastIdx = idx;
     });
+});
+
+
+function createPageButtons() {
+    let totalPages = Math.ceil(currLoadedItems.length / showPerPage);
+
+    if (totalPages === 0) {
+        totalPages = 1;
+    }
+
+    let buttons = "";
+
+    buttons += `
+        <button class="page-btn" data-page="first">&laquo;</button>
+        <button class="page-btn" data-page="prev">&lsaquo;</button>
+    `;
+
+    if (totalPages <= 5) {
+        for (let i = 1; i <= totalPages; i++) {
+            buttons += `
+                <button 
+                    class="page-btn ${currentPage === i ? "active-page" : ""}" 
+                    data-page="${i}">
+                    ${i}
+                </button>
+            `;
+        }
+    } else {
+        buttons += `
+            <button class="page-btn ${currentPage === 1 ? "active-page" : ""}" data-page="1">1</button>
+            <button class="page-btn ${currentPage === 2 ? "active-page" : ""}" data-page="2">2</button>
+            <button class="page-btn ${currentPage === 3 ? "active-page" : ""}" data-page="3">3</button>
+            <button class="page-btn ${currentPage === 4 ? "active-page" : ""}" data-page="4">4</button>
+            <button class="page-btn ${currentPage === 5 ? "active-page" : ""}" data-page="5">5</button>
+            <button class="page-btn dots" disabled>...</button>
+            <button class="page-btn ${currentPage === totalPages ? "active-page" : ""}" data-page="${totalPages}">
+                ${totalPages}
+            </button>
+        `;
+    }
+
+    buttons += `
+        <button class="page-btn" data-page="next">&rsaquo;</button>
+        <button class="page-btn" data-page="last">&raquo;</button>
+    `;
+
+    pageCenter.innerHTML = buttons;
+}
+
+function updateShowingText() {
+    let totalItems = currLoadedItems.length;
+
+    if (totalItems === 0) {
+        showingText.innerHTML = `Showing 0 to 0 of 0 entries`;
+        return;
+    }
+
+    let start = (currentPage - 1) * showPerPage + 1;
+    let end = Math.min(currentPage * showPerPage, totalItems);
+
+    showingText.innerHTML = `Showing ${start} to ${end} of ${totalItems} entries`;
+}
+
+pageCenter.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("page-btn")) return;
+
+    let page = e.target.dataset.page;
+    let totalPages = Math.ceil(currLoadedItems.length / showPerPage);
+
+    if (page === "first") {
+        currentPage = 1;
+    } 
+    else if (page === "prev") {
+        if (currentPage > 1) {
+            currentPage--;
+        }
+    } 
+    else if (page === "next") {
+        if (currentPage < totalPages) {
+            currentPage++;
+        }
+    } 
+    else if (page === "last") {
+        currentPage = totalPages;
+    } 
+    else {
+        currentPage = Number(page);
+    }
+
+    showTableContent(currLoadedItems, false);
 });

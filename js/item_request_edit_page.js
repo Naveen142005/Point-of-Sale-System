@@ -11,6 +11,7 @@ document.addEventListener("click", (e) => {
 
 menuIcon.addEventListener("click", (e) => {
     e.stopPropagation();
+
     const mob = window.innerWidth <= 768;
 
     if (mob) {
@@ -35,10 +36,14 @@ document.addEventListener("click", (e) => {
     if (!box) return;
 
     const input = box.querySelector("input");
-    if (input && input.showPicker) input.showPicker();
+
+    if (input && input.showPicker && !input.disabled && !input.readOnly) {
+        input.showPicker();
+    }
 });
 
-//==========================================================================================
+// ==========================================================================================
+
 const inp = document.querySelectorAll(".request-info-box input");
 
 const reqId = inp[0];
@@ -46,7 +51,7 @@ const subject = inp[1];
 const reqBy = inp[2];
 const reqDate = inp[3];
 const expDate = inp[4];
-const statusInp = document.getElementById('status')
+const statusInp = document.getElementById("status");
 
 const addBtn = document.querySelector(".item-list-box-header .right");
 const tbody = document.querySelector(".item-list-table tbody");
@@ -143,7 +148,7 @@ function addRow(obj = null) {
             </div>
         </td>
 
-        <td>
+        <td style="text-align:center">
             <button class="delete-btn">🗑</button>
         </td>
     `;
@@ -166,7 +171,13 @@ function fill() {
     reqBy.value = old.requested_by;
     reqDate.value = old.requested_date;
     expDate.value = old.expecting_delivery;
+    console.log(statusInp.value);
+
+    console.log(old.status);
+    console.log(statusInp);
+
     statusInp.value = old.status;
+
 
     clearTbl();
 
@@ -181,25 +192,16 @@ function fill() {
 
 fill();
 
-function makeReadOnly() {
-    const allInputs = document.querySelectorAll("input");
-    const allSelects = document.querySelectorAll("select");
-
+function showReadMsg(txt) {
     const msg = document.querySelector(".read-msg");
+
+    if (!msg) return;
+
+    msg.innerText = txt;
     msg.classList.remove("none");
+}
 
-    allInputs.forEach((inp) => {
-        inp.readOnly = true;
-    });
-
-    allSelects.forEach((sel) => {
-        sel.disabled = true;
-    });
-
-    addBtn.style.display = "none";
-    saveBtn.style.display = "none";
-    submitBtn.style.display = "none";
-
+function hideDelBtns() {
     const delBtns = document.querySelectorAll(".delete-btn");
 
     delBtns.forEach((btn) => {
@@ -207,17 +209,74 @@ function makeReadOnly() {
     });
 }
 
-if (old.state === "submitted") {
-    makeReadOnly();
+function lockAllFields() {
+    const allInputs = document.querySelectorAll("input");
+    const allSelects = document.querySelectorAll("select");
+
+    allInputs.forEach((inp) => {
+        inp.disabled = true;
+    });
+
+    allSelects.forEach((sel) => {
+        sel.disabled = true;
+    });
+}
+
+function receivedMode() {
+    lockAllFields();
+
+    addBtn.style.display = "none";
+    saveBtn.style.display = "none";
+    submitBtn.style.display = "none";
+
+    hideDelBtns();
+
+    showReadMsg("This request is received. No changes allowed.");
+}
+
+function submittedMode() {
+    lockAllFields();
+
+    statusInp.disabled = false;
+
+    addBtn.style.display = "none";
+    submitBtn.style.display = "none";
+    saveBtn.style.display = "inline-flex";
+
+    hideDelBtns();
+
+    showReadMsg("Request already submitted. Only status can be updated.");
+}
+
+function normalEditMode() {
+    reqId.readOnly = true;
+    reqDate.readOnly = true;
+    statusInp.disabled = true
+}
+
+if (old.status === "Received") {
+    receivedMode();
+} else if (old.state === "submitted") {
+    submittedMode();
+} else {
+    normalEditMode();
 }
 
 addBtn.addEventListener("click", () => {
+    if (old.status === "Received" || old.state === "submitted") {
+        return;
+    }
+
     addRow();
 });
 
 tbody.addEventListener("click", (e) => {
     const del = e.target.closest(".delete-btn");
     if (!del) return;
+
+    if (old.status === "Received" || old.state === "submitted") {
+        return;
+    }
 
     if (rows().length === 1) {
         showPopups("At least one item needed", false);
@@ -297,9 +356,7 @@ function upd(st) {
     if (st) {
         oldState = st;
     }
-    
-    alert(statusInp.value);
-    
+
     arr[idx] = {
         ...arr[idx],
         reqId: reqId.value,
@@ -316,8 +373,85 @@ function upd(st) {
     updateToLocal("items_request", arr);
 }
 
+function updStatusOnly() {
+    arr[idx] = {
+        ...arr[idx],
+        status: statusInp.value || "Pending",
+        update_at: getCurrentDateTime()
+    };
+
+    updateToLocal("items_request", arr);
+}
+
+const warningBox = document.querySelector(".warning");
+const warningCancel = warningBox.querySelector(".warning .btn-box .cancel-btn-model");
+const warningConfirm = warningBox.querySelector(".warning .btn-box .save-btn-model");
+
+function callModel() {
+    warningBox.style.display = "flex"; waring.style.zIndex = '1000001'
+}
+
+warningCancel.addEventListener("click", () => {
+    warningBox.style.display = "none";
+});
+
+warningBox.addEventListener("click", (e) => {
+    if (e.target === warningBox) {
+        warningBox.style.display = "none";
+    }
+});
+
 saveBtn.addEventListener("click", (e) => {
     e.preventDefault();
+
+    if (old.status === "Received") {
+        showPopups("Received request cannot be changed", false);
+        return;
+    }
+
+    if (statusInp.value === "Received") {
+        callModel();
+        return;
+    }
+
+    if (old.state === "submitted") {
+        updStatusOnly();
+
+        showPopups("Status updated successfully", true);
+
+        setTimeout(() => {
+            location.href = "./item_request_list_page.html";
+        }, 1500);
+
+        return;
+    }
+
+    if (!check()) return;
+
+    upd();
+
+    showPopups("Request updated successfully", true);
+
+    setTimeout(() => {
+        location.href = "./item_request_list_page.html";
+    }, 1500);
+});
+
+
+warningConfirm.addEventListener("click", () => {
+    warningBox.style.display = "none";
+
+    if (old.state === "submitted") {
+        updStatusOnly();
+
+        showPopups("Status updated successfully", true);
+
+        setTimeout(() => {
+            location.href = "./item_request_list_page.html";
+        }, 1500);
+
+        return;
+    }
 
     if (!check()) return;
 
@@ -333,6 +467,11 @@ saveBtn.addEventListener("click", (e) => {
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
+
+    if (old.status === "Received" || old.state === "submitted") {
+        return;
+    }
+
     if (!check()) return;
 
     subBox.style.display = "flex";
@@ -343,6 +482,10 @@ subCancel.addEventListener("click", () => {
 });
 
 subYes.addEventListener("click", () => {
+    if (old.status === "Received" || old.state === "submitted") {
+        return;
+    }
+
     upd("submitted");
 
     subBox.style.display = "none";

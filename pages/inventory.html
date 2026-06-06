@@ -297,12 +297,17 @@
         </div>
         <div class="page-box">
           <div class="page-left">
-            <span>Show</span>
+            <!-- <span>Show</span> -->
 
-            <div class="entry-box">
-              <span>10</span>
-              <img src="/assets/down_arrow_blac.png" alt="" />
-            </div>
+             <div class="entry-box">
+                <select>
+                  <option value="10">10 Per Page</option>
+                  <option value="50">50 Per Page</option>
+                  <option value="100">100 Per Page</option>
+                </select>
+
+                <img src="/assets/down_arrow_blac.png" alt="">
+              </div>
 
             <span>entries</span>
           </div>
@@ -325,7 +330,7 @@
           </div>
 
           <div class="page-right">
-            <span
+            <span id = "showingText"
               >Showing 1 to 10 of <span class="totalItem"></span> entries</span
             >
           </div>

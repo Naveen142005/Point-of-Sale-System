@@ -27,6 +27,7 @@
   font-family: var(--font-main);
 }
 
+
 body {
   height: 100vh;
   background-color: var(--body-bg);
@@ -900,7 +901,7 @@ ul {
 }
 
 button.select-box {
-    border: none;
+
     cursor: pointer;
 }
 .filter {
@@ -966,3 +967,55 @@ button.select-box {
   }
 }
 
+
+
+.page-left {
+  display: flex;
+  align-items: center;
+}
+
+.entry-box {
+  width: 120px;
+  height: 38px;
+  padding: 0 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  background: #ffffff;
+  border: 1px solid #dcd5ff;
+  border-radius: 8px;
+  /* box-shadow: 0 2px 6px rgba(120, 92, 255, 0.08); */
+
+  box-sizing: border-box;
+}
+
+.entry-box select {
+  flex: 1;
+  height: 100%;
+
+  border: none;
+  outline: none;
+  background: transparent;
+
+  font-size: 12px;
+  font-weight: 500;
+  color: #000;
+
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+
+
+.entry-box img {
+  width: 10px;
+  height: 10px;
+  object-fit: contain;
+  pointer-events: none;
+}

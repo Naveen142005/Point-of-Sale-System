@@ -146,7 +146,7 @@
               <label>Expecting Delivery <sup style="color: red">*</sup></label>
 
               <div class="date-input-box">
-                <input type="text" value="23 May 2024" />
+                <input type="date" value="23 May 2024" />
                 <img src="/assets/calendar_blue.png" alt="" />
               </div>
             </div>
@@ -155,7 +155,8 @@
               <label>Status</label>
                 <select name="" id="status">
                 <option value="Pending">Pending</option>
-                <option value="On the way">On the Way</option>
+                <option value="on the way">On the way</option>
+                <option value="Received">Received</option>
                 <option value="Cancelled">Cancelled</option>
               </select>
             </div>
@@ -186,7 +187,7 @@
                     <th>Item Name <sup>*</sup></th>
                     <th>Quantity <sup>*</sup></th>
                     <th>Expected Date <sup>*</sup></th>
-                    <th>Action</th>
+                    <th style="text-align:center">Action</th>
                   </tr>
                 </thead>
 
@@ -323,6 +324,29 @@
                 </div>
             </div>
         </div>
+          <div class="temp-body warning">
+              <div class="model">
+                  <div class="text-box">
+                      <div class="image">
+                          <img src="/assets/war.png" alt="">
+                      </div>
+                      <h4>Confirm Status Change ?</h4>
+                      <p>
+                          If you set the status to Received, you cannot edit this request again.
+                      </p>
+                  </div>
+                  <div class="btn-box">
+                      <button class="cancel-btn-model">Cancel</button>
+                      <button class="save-btn-model" >
+                          Conform
+                          <!-- <img src="/assets/right-arrow-white.png" alt=""> -->
+                      </button>
+                  </div>
+              </div>
+          </div>
+
+
+
 
     <script src="/js/utility.js" defer></script>
     <script src="/js/item_request_edit_page.js" defer></script>

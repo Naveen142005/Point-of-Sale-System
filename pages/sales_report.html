@@ -162,7 +162,9 @@
                     font-weight: 600;
                     color:#0707c8ca;
                     "
-                    >Total 28 items found</span>
+                    >Total 
+                    <span class="total_"></span>
+                    items found</span>
                 </div>
                 <div class="i-right">
                     <button class="btn-3">
@@ -209,12 +211,16 @@
             </div>
             <div class="page-box">
                     <div class="page-left">
+                          <div class="entry-box">
+                            <select>
+                              <option value="10">10 Per Page</option>
+                              <option value="50">50 Per Page</option>
+                              <option value="100">100 Per Page</option>
+                            </select>
 
-                        <div class="entry-box">
-                            <span>10 per page</span>
                             <img src="/assets/down_arrow_blac.png" alt="">
+                          </div>
                         </div>
-                    </div>
 
                     <div class="page-center">
                       
@@ -224,14 +230,12 @@
                         <button class="page-btn">2</button>
                         <button class="page-btn">3</button>
                         
-
-                    
                         <button class="page-btn">&rsaquo;</button>
                     
                     </div>
 
                     <div class="page-right">
-                        <span>Showing 1 to 10 of 28 entries</span>
+                        <span id="showingText">Showing 0 to 0 of 0 entries</span>
                     </div>
             </div>
         </div>

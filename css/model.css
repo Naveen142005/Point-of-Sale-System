@@ -31,7 +31,7 @@
   justify-content: center;
   align-items: center;
 
-  background-color: #0000008c;
+  background-color: #00000040;
   z-index: 100000;
 }
 .model {
@@ -148,10 +148,49 @@
 }
 
 .temp-body{
-    
     z-index:99999;
 }
 .model{
-    
     z-index:100000;
+}
+
+
+
+.warning .save-btn-model {
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  color: #ffffff;
+  background: #d97706;;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  border-radius: 6px;
+  gap: 12px;
+  padding: 10px 16px;
+  align-items: center;
+}
+
+
+.warning .text-box .image {
+  background-color: #fff3cd;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.warning h4 {
+  color: #92400e;
+}
+
+.warning p {
+  color: #555;
+}
+
+.warning img {
+  position: relative;
+  bottom: 3px;
 }

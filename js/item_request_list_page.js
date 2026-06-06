@@ -15,9 +15,6 @@ document.addEventListener('click', (e) => {
     }
 })
 
-
-
-
 const sideBar = document.getElementById('side-bar');
 const main = document.getElementById('main');
 const menuIcon = document.getElementById('menu-icon')
@@ -51,16 +48,19 @@ menuIcon.addEventListener('click', (e) => {
     }
 });
 
+
+
 const dateBoxes = document.querySelectorAll(".date-box");
 
 dateBoxes.forEach((box) => {
-  const input = box.querySelector("input");
-
-  box.addEventListener("click", () => {
-    input.showPicker();
-  });
+    const input = box.querySelector("input");
+    
+    box.addEventListener("click", () => {
+        input.showPicker();
+    });
 });
 
+//=================================================================================================
 
 const tbody = document.querySelector(".inventory-table tbody");
 const tot = document.querySelectorAll(".tot");
@@ -72,6 +72,14 @@ const toDate = document.querySelector(".filter:nth-child(5) input");
 const filterBtn = document.querySelector(".filter-btn button:nth-child(1)");
 const resetBtn = document.querySelector(".filter-btn button:nth-child(2)");
 const newBtns = document.querySelectorAll(".btn-1");
+
+
+let currentPage = 1;
+let showPerPage = 10;
+
+const pageCenter = document.querySelector(".page-center");
+const showingText = document.getElementById("showingText");
+const perPageSelect = document.getElementById("perPageSelect");
 
 let currLoadedItems;
 function getReqs() {
@@ -103,8 +111,16 @@ function getDateOnly(dateValue) {
     return d.toISOString().slice(0, 10);
 }
 
-function showReqs(arr) {
+function showReqs(arr, resetPage = true) {
+    currLoadedItems = arr;
+
+    if (resetPage) {
+        currentPage = 1;
+    }
+
     tbody.innerHTML = "";
+
+    setTotal(arr.length);
 
     if (arr.length === 0) {
         tbody.innerHTML = `
@@ -113,22 +129,16 @@ function showReqs(arr) {
             </tr>
         `;
 
-        setTotal(0);
+        createPageButtons();
+        updateShowingText();
         return;
     }
 
-    for (let i = 0; i < arr.length; i += 1) {
+    let startIdx = (currentPage - 1) * showPerPage;
+    let endIdx = currentPage * showPerPage;
+
+    for (let i = startIdx; i < Math.min(arr.length, endIdx); i += 1) {
         const req = arr[i];
-
-        let editBtn = "";
-
-       
-        editBtn = `
-            <button class="edit-btn" data-id="${req.reqId}" style="background-color: transparent;border: none;">
-                    <img src="/assets/eye.png" alt="" width="20" height="20">         
-            </button>
-        `;
-        
 
         tbody.innerHTML += `
             <tr>
@@ -138,18 +148,109 @@ function showReqs(arr) {
                 <td>${req.requested_date}</td>
                 <td>${req.expecting_delivery}</td>
                 <td>
-                <span class="status-box ${req.status.toLowerCase()}"> ${req.status}</span>
-               </td>
-                <td>${editBtn}</td>
+                    <span class="status-box ${req.status.toLowerCase()}">
+                        ${req.status}
+                    </span>
+                </td>
+                <td>
+                    <button class="edit-btn" data-id="${req.reqId}" style="background-color: transparent;border: none;">
+                        <img src="/assets/eye.png" alt="" width="20" height="20">         
+                    </button>
+                </td>
             </tr>
         `;
     }
 
-    setTotal(arr.length);
-    currLoadedItems = arr;
-    console.log(currLoadedItems);
-    
+    createPageButtons();
+    updateShowingText();
 }
+
+function createPageButtons() {
+    let totalPages = Math.ceil(currLoadedItems.length / showPerPage);
+
+    if (totalPages === 0) {
+        totalPages = 1;
+    }
+
+    let buttons = "";
+
+    buttons += `
+        <button class="page-btn" data-page="first">&laquo;</button>
+        <button class="page-btn" data-page="prev">&lsaquo;</button>
+    `;
+
+    if (totalPages <= 6) {
+        for (let i = 1; i <= totalPages; i += 1) {
+            buttons += `
+                <button 
+                    class="page-btn ${currentPage === i ? "active-page" : ""}" 
+                    data-page="${i}">
+                    ${i}
+                </button>
+            `;
+        }
+    } else {
+        buttons += `
+            <button class="page-btn ${currentPage === 1 ? "active-page" : ""}" data-page="1">1</button>
+            <button class="page-btn ${currentPage === 2 ? "active-page" : ""}" data-page="2">2</button>
+            <button class="page-btn ${currentPage === 3 ? "active-page" : ""}" data-page="3">3</button>
+            <button class="page-btn ${currentPage === 4 ? "active-page" : ""}" data-page="4">4</button>
+            <button class="page-btn ${currentPage === 5 ? "active-page" : ""}" data-page="5">5</button>
+            <button class="page-btn dots" disabled>...</button>
+            <button class="page-btn ${currentPage === totalPages ? "active-page" : ""}" data-page="${totalPages}">
+                ${totalPages}
+            </button>
+        `;
+    }
+
+    buttons += `
+        <button class="page-btn" data-page="next">&rsaquo;</button>
+        <button class="page-btn" data-page="last">&raquo;</button>
+    `;
+
+    pageCenter.innerHTML = buttons;
+}
+
+function updateShowingText() {
+    let totalItems = currLoadedItems.length;
+
+    if (totalItems === 0) {
+        showingText.innerHTML = "Showing 0 to 0 of 0 entries";
+        return;
+    }
+
+    let start = (currentPage - 1) * showPerPage + 1;
+    let end = Math.min(currentPage * showPerPage, totalItems);
+
+    showingText.innerHTML = `Showing ${start} to ${end} of ${totalItems} entries`;
+}
+
+pageCenter.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("page-btn")) return;
+
+    let page = e.target.dataset.page;
+    let totalPages = Math.ceil(currLoadedItems.length / showPerPage);
+
+    if (page === "first") {
+        currentPage = 1;
+    } else if (page === "prev") {
+        if (currentPage > 1) currentPage--;
+    } else if (page === "next") {
+        if (currentPage < totalPages) currentPage++;
+    } else if (page === "last") {
+        currentPage = totalPages;
+    } else {
+        currentPage = Number(page);
+    }
+
+    showReqs(currLoadedItems, false);
+});
+
+perPageSelect.addEventListener("change", () => {
+    showPerPage = Number(perPageSelect.value);
+    currentPage = 1;
+    showReqs(currLoadedItems, false);
+});
 
 function filterReqs() {
     const arr = getReqs();

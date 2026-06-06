@@ -238,41 +238,30 @@
                     <tbody></tbody>
                 </table>
             </div>
+            
             <div class="page-box">
-                    <div class="page-left">
-                        <span>Show</span>
+                <div class="page-left">
+                    <span>Show</span>
 
-                        <div class="entry-box" >
-                            <span>10</span>
-                            <img src="/assets/down_arrow_blac.png" alt="">
-                        </div>
+                    <div class="entry-box">
+                    <select id="perPageSelect">
+                        <option value="10">10 Per Page</option>
+                        <option value="50">50 Per Page</option>
+                        <option value="100">100 Per Page</option>
+                    </select>
 
-                        <span>entries</span>
+                    <img src="/assets/down_arrow_blac.png" alt="">
                     </div>
 
-                    <div class="page-center">
-                        <button class="page-btn">&laquo;</button>
-                        <button class="page-btn">&lsaquo;</button>
+                    <span>entries</span>
+                </div>
 
-                        <button class="page-btn active-page">1</button>
-                        <button class="page-btn">2</button>
-                        <button class="page-btn">3</button>
-                        <button class="page-btn">4</button>
-                        <button class="page-btn">5</button>
+                <div class="page-center"></div>
 
-                        <button class="page-btn dots">...</button>
-
-                        <button class="page-btn">13</button>
-                        <button class="page-btn">&rsaquo;</button>
-                        <button class="page-btn">&raquo;</button>
-                    </div>
-
-                    <div class="page-right">
-                        <span>Showing 1 to 10 of 
-                            <span class="tot"></span>
-                            entries</span>
-                    </div>
-            </div>
+                <div class="page-right">
+                    <span id="showingText">Showing 0 to 0 of 0 entries</span>
+                </div>
+            </div>  
         </div>
     </main>
 
