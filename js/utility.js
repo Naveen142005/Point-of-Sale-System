@@ -14,6 +14,7 @@ function addItemToLocal(key, object) {
     }
 }
 
+
 function updateToLocal(key, data) {
     try {
         if (!localStorage.getItem(key)) {
@@ -41,6 +42,11 @@ function getBillingsFromLocal() {
 
 function getItemFromLocal(key) {
     return JSON.parse(localStorage.getItem(key) || "[]")
+
+    /**
+     *  inventory : [{itemCode: }]
+     * 
+     * / */
 }
 
 function getItemIndex(key, itemCode) {
@@ -214,4 +220,31 @@ function sortItems(items, key, assending = true) {
     }
 
     return items;
+}
+
+async function encryptPassword(password) {
+    const data = new TextEncoder().encode(password);
+    const hash = await crypto.subtle.digest("SHA-256", data);
+
+    return Array.from(new Uint8Array(hash))
+        .map((byte) => byte.toString(16).padStart(2, "0"))
+        .join("");
+}
+
+
+function exportTableToExcel(table, fileName) {
+    let newTable = table.cloneNode(true);
+
+    newTable.querySelectorAll("img").forEach((img) => {
+        img.remove();
+    });
+
+    let blob = new Blob([newTable.outerHTML], {
+        type: "application/vnd.ms-excel"
+    });
+
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = fileName + ".xls";
+    a.click();
 }

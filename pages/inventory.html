@@ -95,7 +95,6 @@
         </div>
       </div>
       <form>
-
         <div class="filters-box">
           <div class="all-filters">
             <div class="filter">
@@ -202,7 +201,6 @@
             </div>
           </div>
         </div>
-
       </form>
       <div class="inventory-list">
         <div class="inventory-header">
@@ -224,7 +222,8 @@
               <img src="/assets/download.png" alt="" />
               Request Item
             </button>
-            <button class="btn-3" style="cursor: pointer" id="etc-btn">
+            <button class="btn-3" style="cursor: pointer" id="etc-btn" 
+            onclick="exportTableToExcel(document.querySelector('table'), 'Inventory table')">
               <img src="/assets/excel.png" alt="" />
               Export to Excel
             </button>
@@ -299,15 +298,15 @@
           <div class="page-left">
             <!-- <span>Show</span> -->
 
-             <div class="entry-box">
-                <select>
-                  <option value="10">10 Per Page</option>
-                  <option value="50">50 Per Page</option>
-                  <option value="100">100 Per Page</option>
-                </select>
+            <div class="entry-box">
+              <select>
+                <option value="10">10 Per Page</option>
+                <option value="50">50 Per Page</option>
+                <option value="100">100 Per Page</option>
+              </select>
 
-                <img src="/assets/down_arrow_blac.png" alt="">
-              </div>
+              <img src="/assets/down_arrow_blac.png" alt="" />
+            </div>
 
             <span>entries</span>
           </div>
@@ -330,7 +329,7 @@
           </div>
 
           <div class="page-right">
-            <span id = "showingText"
+            <span id="showingText"
               >Showing 1 to 10 of <span class="totalItem"></span> entries</span
             >
           </div>
