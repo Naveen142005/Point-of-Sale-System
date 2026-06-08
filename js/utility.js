@@ -128,6 +128,14 @@ function getCurrentDateTime() {
     return `${day} ${month} ${year}, ${h}:${m} ${ampm}`;
 }
 
+
+function formatDate(date) {
+    return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric"
+    });
+}
+
 console.log(getCurrentDateTime());
 
 function getNextCode(code) {

@@ -16,6 +16,10 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
 
     <style></style>
   </head>
@@ -192,7 +196,7 @@
       <header>
         <div class="left">
           <!-- Menu Icon -->
-          <img
+          <img style="cursor: pointer;"
             src="/assets/icons/header-menu.svg"
             alt="header-menu icon"
             width="25"
@@ -202,39 +206,24 @@
           />
 
           <!-- Search Box -->
-          <div class="search-div">
-            <img
-              src="/assets/icons/header-search.svg"
-              alt="header-search icon"
-              width="18"
-              height="18"
-              class="search-icon" style="position: relative;left: 16px;"
-            />
-
-            <input
-              type="text"
-              class="search-box"
-              placeholder="Search anything..."
-            />
-
-            <div class="key">Ctrl + K</div>
+          <div class="search-div" style="border: none;">
+            <h3>Dashboard</h3>
           </div>
         </div>
 
         <div class="right">
           <!-- Calendar Box -->
+
           <div class="calendar-box">
             <img
-              src="/assets/icons/header-calendar.svg"
-              alt="header-calendar icon"
-              width="25"
-              height="25"
+              src="/assets/calendar_blue.png"
+              alt="calendar icon"
               class="calendar-icon"
             />
 
-            <span>May 15 - May 21, 2024</span>
+            <input type="text" id="rangePicker" class="range-picker" />
 
-            <!-- Down Arrow Icon -->
+            <span id="dateText">May 15 - May 21, 2024</span>
             <img
               src="/assets/icons/header-down-arrow.svg"
               alt="header-down-arrow icon"
@@ -462,7 +451,7 @@
             </div>
           </div>
         </div>
-        <br />
+
         <div class="info-cards">
           <div class="sales-card">
             <div class="top">
@@ -584,9 +573,9 @@
               <a href="#" class="view-all">View All</a>
             </div>
 
-            <div class="transaction-list"></div>
+            <div class="transaction-list" style="margin-top: 12px;"></div>
 
-            <button class="all-transaction-btn">
+            <button class="all-transaction-btn" style="height: 38px;">
               View All Transactions
               <!-- <img src="/assets/icons/all-transaction-right-arrow.svg" alt="all-transaction-right-arrow icon" width="15" height="15"> -->
               <svg
@@ -643,76 +632,84 @@
             </div>
 
             <div class="action-list">
-              <a href="/pages/empty_billing_page.html" style="text-decoration: none;">
-                <div class="action-box" style="cursor: pointer;">
-                <div class="action-icon purple">
-                  <img
-                    src="/assets/icons/quick-action-new-bill.svg"
-                    alt="quick-action-new-bill icon"
-                    width="25"
-                    height="25"
-                  />
+              <a
+                href="/pages/empty_billing_page.html"
+                style="text-decoration: none"
+              >
+                <div class="action-box" style="cursor: pointer">
+                  <div class="action-icon purple">
+                    <img
+                      src="/assets/icons/quick-action-new-bill.svg"
+                      alt="quick-action-new-bill icon"
+                      width="25"
+                      height="25"
+                    />
+                  </div>
+                  <p style="font-size: 9px">New Bill</p>
                 </div>
-                <p style="font-size: 9px">New Bill</p>
-              </div>
               </a>
-              
-              <a href="/pages/inventory_new_item.html" style="text-decoration: none;">
-                <div class="action-box" style="cursor: pointer;">
-                <div class="action-icon green">
-                  <img
-                    src="/assets/icons/quick-action-add-product.svg"
-                    alt="quick-action-add-product icon"
-                    width="25"
-                    height="25"
-                  />
+
+              <a
+                href="/pages/inventory_new_item.html"
+                style="text-decoration: none"
+              >
+                <div class="action-box" style="cursor: pointer">
+                  <div class="action-icon green">
+                    <img
+                      src="/assets/icons/quick-action-add-product.svg"
+                      alt="quick-action-add-product icon"
+                      width="25"
+                      height="25"
+                    />
+                  </div>
+                  <p style="font-size: 9px">Add Product</p>
                 </div>
-                <p style="font-size: 9px">Add Product</p>
-              </div>
-            </a>
-              
-              <a href="/pages/Item_request_add_page.html" style="text-decoration: none;">
-                <div class="action-box" style="cursor: pointer;">
-                <div class="action-icon orange">
-                  <img
-                    src="/assets/icons/quick-action-new-order.svg"
-                    alt="quick-action-new-order icon"
-                    width="25"
-                    height="25"
-                  />
+              </a>
+
+              <a
+                href="/pages/Item_request_add_page.html"
+                style="text-decoration: none"
+              >
+                <div class="action-box" style="cursor: pointer">
+                  <div class="action-icon orange">
+                    <img
+                      src="/assets/icons/quick-action-new-order.svg"
+                      alt="quick-action-new-order icon"
+                      width="25"
+                      height="25"
+                    />
+                  </div>
+                  <p style="font-size: 9px">New Order</p>
                 </div>
-                <p style="font-size: 9px">New Order</p>
-              </div>
-            </a>
-              
-              <a href="#" style="text-decoration: none;">
-                <div class="action-box" style="cursor: pointer;">
-                <div class="action-icon blue">
-                  <img
-                    src="/assets/icons/quick-action-add-customer.svg"
-                    alt="quick-action-add-customer icon"
-                    width="25"
-                    height="25"
-                  />
+              </a>
+
+              <a href="#" style="text-decoration: none">
+                <div class="action-box" style="cursor: pointer">
+                  <div class="action-icon blue">
+                    <img
+                      src="/assets/icons/quick-action-add-customer.svg"
+                      alt="quick-action-add-customer icon"
+                      width="25"
+                      height="25"
+                    />
+                  </div>
+                  <p style="font-size: 9px">Add Customer</p>
                 </div>
-                <p style="font-size: 9px">Add Customer</p>
-              </div>
-            </a>
-              
-              <a href="/pages/sales_report.html" style="text-decoration: none;">
-                <div class="action-box" style="cursor: pointer;">
-                <div class="action-icon violet">
-                  <img
-                    src="/assets/icons/quick-action-reports.svg"
-                    alt="quick-action-reports icon"
-                    width="25"
-                    height="25"
-                  />
+              </a>
+
+              <a href="/pages/sales_report.html" style="text-decoration: none">
+                <div class="action-box" style="cursor: pointer">
+                  <div class="action-icon violet">
+                    <img
+                      src="/assets/icons/quick-action-reports.svg"
+                      alt="quick-action-reports icon"
+                      width="25"
+                      height="25"
+                    />
+                  </div>
+                  <p style="font-size: 9px">Reports</p>
                 </div>
-                <p style="font-size: 9px">Reports</p>
-              </div>
-            </a>
-              
+              </a>
             </div>
           </div>
         </div>
@@ -727,6 +724,7 @@
         </p>
       </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="/js/utility.js" defer></script>
     <script src="/js/dashboard.js" defer></script>
     <script src="/js/navigate.js" defer></script>

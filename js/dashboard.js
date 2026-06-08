@@ -101,7 +101,7 @@ document.addEventListener('click', (e) => {
 menuIcon.addEventListener('click', (e) => {
     e.stopPropagation();
     const isMobile = window.innerWidth <= 768;
-    console.log(isMobile);
+    // console.log(isMobile);
     if (isMobile) {
         sideBar.classList.add('active')
     }
@@ -121,6 +121,31 @@ menuIcon.addEventListener('click', (e) => {
 });
 
 
+
+//====================================================================
+
+const calBox = document.querySelector('.calendar-box')
+
+const dateText = document.getElementById("dateText");
+
+flatpickr("#rangePicker", {
+    mode: "range",
+    dateFormat: "Y-m-d",
+
+    onChange: function (selectedDates) {
+        if (selectedDates.length !== 2) return;
+
+        const startDate = new Date(selectedDates[0]);
+        const endDate = new Date(selectedDates[1]);
+        endDate.setHours(23, 59, 59, 999)
+
+        dateText.textContent = `${formatDate(startDate)} - ${formatDate(endDate)}, ${endDate.getFullYear()}`;
+
+        loadCards(startDate, endDate)
+    }
+});
+
+
 function per(now, old) {
     if (old == 0 && now == 0) return 0;
     if (old == 0) return 100;
@@ -129,30 +154,38 @@ function per(now, old) {
     return ans;
 }
 
-function loadCards() {
-    let cards = document.querySelectorAll(".card");
 
-    let bills = getItemFromLocal("Billings");
-    let details = getItemFromLocal("billings_details");
-    let users = getItemFromLocal("Users");
 
-    let today = new Date();
-    let day = today.getDay();
 
-    let thisStart = new Date(today);
-    thisStart.setDate(today.getDate() - day);
-    thisStart.setHours(0, 0, 0, 0);
+function loadCards(thisStart, thisEnd) {
+    // console.log("======================");
+    // console.log(thisStart, thisEnd);
+    // console.log("======================");
 
-    let thisEnd = new Date(thisStart);
-    thisEnd.setDate(thisStart.getDate() + 6);
-    thisEnd.setHours(23, 59, 59, 999);
+    // console.log("This Start Date: " + thisStart);
+    // console.log("This End Date: " + thisStart);
 
-    let lastStart = new Date(thisStart);
-    lastStart.setDate(thisStart.getDate() - 7);
 
-    let lastEnd = new Date(lastStart);
-    lastEnd.setDate(lastStart.getDate() + 6);
+    const bills = getItemFromLocal("Billings");
+    const details = getItemFromLocal("billings_details");
+    const users = getItemFromLocal("Users");
+
+    const rg = (thisEnd - thisStart) / 86400000;
+    const lastEnd = new Date(thisStart);
+    lastEnd.setDate(thisStart.getDate() - 1);
     lastEnd.setHours(23, 59, 59, 999);
+
+    const lastStart = new Date(lastEnd);
+    lastStart.setDate(lastEnd.getDate() - rg);
+
+
+
+    // console.log("++++++++++++++++++");
+    // console.log(lastStart);
+    // console.log(lastEnd);
+
+
+    // console.log("++++++++++++++++++");
 
     let totalAmt = 0;
     let thisAmt = 0;
@@ -162,30 +195,26 @@ function loadCards() {
     let thisCount = 0;
     let lastCount = 0;
 
+    let totalProfit = 0;
+    let thisTotalPro = 0;
+    let lastTotalPro = 0;
+
     details.forEach((d) => {
         if (d.status != "Completed") return;
-
-        totalCount++;
-
-        let amt = 0;
-
-        (bills[d.billId] || []).forEach((item) => {
-            amt += Number(item.total);
-        });
-
-        totalAmt += amt;
-
         let date = new Date(d.created_at);
 
-        if (date >= thisStart && date <= thisEnd) {
-            thisCount++;
-            thisAmt += amt;
-        }
-
-        if (date >= lastStart && date <= lastEnd) {
-            lastCount++;
-            lastAmt += amt;
-        }
+        (bills[d.billId] || []).forEach((item) => {
+            if (date >= thisStart && date <= thisEnd) {
+                totalCount += 1;
+                totalAmt += Number(item.total)
+                totalProfit += Number(item.profit)
+            }
+            if (date >= lastStart && date <= lastEnd) {
+                lastCount++;
+                lastAmt += Number(item.total);
+                lastTotalPro += Number(item.profit);
+            }
+        })
     });
 
     let thisCus = 0;
@@ -193,8 +222,12 @@ function loadCards() {
 
     users.forEach((u) => {
         let date = new Date(u.created_at);
+        // console.log("This user date: " + date);
+
 
         if (date >= thisStart && date <= thisEnd) {
+            // console.log("Valid : " + date + " " + thisStart + " " + thisEnd);
+
             thisCus++;
         }
 
@@ -203,68 +236,59 @@ function loadCards() {
         }
     });
 
-    let avg = totalCount == 0 ? 0 : totalAmt / totalCount;
+    // console.log(thisCus, lastCus);
 
-    let thisAvg = thisCount == 0 ? 0 : thisAmt / thisCount;
-    let lastAvg = lastCount == 0 ? 0 : lastAmt / lastCount;
 
-    let salesPer = per(thisAmt, lastAmt);
-    let orderPer = per(thisCount, lastCount);
-    let cusPer = per(thisCus, lastCus);
-    let avgPer = per(thisAvg, lastAvg);
+    const avg = totalCount == 0 ? 0 : totalAmt / totalCount;
 
+    const thisAvg = thisCount == 0 ? 0 : thisAmt / thisCount;
+    const lastAvg = lastCount == 0 ? 0 : lastAmt / lastCount;
+
+
+    // console.log(thisAmt);
+    // console.log(lastAmt);
+    // console.log(thisCount);
+    // console.log(lastCount);
+    // console.log(thisTotalPro);
+    // console.log(lastTotalPro);
+    // console.log();
+
+    const salesPer = per(thisAmt, lastAmt);
+    const orderPer = per(thisCount, lastCount);
+    const cusPer = per(thisCus, lastCus);
+    const avgPer = per(thisAvg, lastAvg);
+    const profitPer = per(thisTotalPro, lastTotalPro)
+
+    setCard(0, totalAmt, salesPer, true);
+    setCard(1, totalCount, orderPer, false);
+    setCard(2, thisCus, cusPer, false);
+    setCard(3, avg, avgPer, true);
+    setCard(4, totalProfit, profitPer, true);
+}
+
+function setCard(index, value, percent, rupee) {
+    const cards = document.querySelectorAll(".card");
     const greenColor = "rgb(35, 235, 5)";
     const redColor = "rgb(255,80,80)";
-    cards[0].querySelector(".price").innerText = "₹ " + totalAmt.toFixed(2);
+    cards[index].querySelector(".price").innerText =
+        rupee ? "₹ " + value.toFixed(2) : value;
 
-    if (salesPer >= 0) {
-        cards[0].querySelector(".comp span").style.color = greenColor;
-        cards[0].querySelector(".comp span").innerHTML = "↑ " + salesPer.toFixed(1) + "%";
+    let span = cards[index].querySelector(".comp span");
+
+    if (percent >= 0) {
+        span.style.color = greenColor;
+        span.innerHTML = "↑ " + percent.toFixed(1) + "%";
     } else {
-        cards[0].querySelector(".comp span").style.color = redColor;
-        cards[0].querySelector(".comp span").innerHTML = "↓ " + Math.abs(salesPer).toFixed(1) + "%";
+        span.style.color = redColor;
+        span.innerHTML = "↓ " + Math.abs(percent).toFixed(1) + "%";
     }
-
-    cards[1].querySelector(".price").innerText = totalCount;
-
-    if (orderPer >= 0) {
-        cards[1].querySelector(".comp span").style.color = greenColor;
-        cards[1].querySelector(".comp span").innerHTML = "↑ " + orderPer.toFixed(1) + "%";
-    } else {
-        cards[1].querySelector(".comp span").style.color = redColor;
-        cards[1].querySelector(".comp span").innerHTML = "↓ " + Math.abs(orderPer).toFixed(1) + "%";
-    }
-
-    cards[2].querySelector(".price").innerText = users.length;
-
-    if (cusPer >= 0) {
-        cards[2].querySelector(".comp span").style.color = greenColor;
-        cards[2].querySelector(".comp span").innerHTML = "↑ " + cusPer.toFixed(1) + "%";
-    } else {
-        cards[2].querySelector(".comp span").style.color = redColor;
-        cards[2].querySelector(".comp span").innerHTML = "↓ " + Math.abs(cusPer).toFixed(1) + "%";
-    }
-
-    cards[3].querySelector(".price").innerText = "₹ " + avg.toFixed(2);
-
-    if (avgPer >= 0) {
-        cards[3].querySelector(".comp span").style.color = greenColor;
-        cards[3].querySelector(".comp span").innerHTML = "↑ " + avgPer.toFixed(1) + "%";
-    } else {
-        cards[3].querySelector(".comp span").style.color = redColor;
-        cards[3].querySelector(".comp span").innerHTML = "↓ " + Math.abs(avgPer).toFixed(1) + "%";
-    }
-
-    cards[4].querySelector(".price").innerText = "₹ 0.00";
-    cards[4].querySelector(".comp span").style.color = greenColor;
-    cards[4].querySelector(".comp span").innerHTML = "↑ 0%";
 }
 
 
 function loadTopItems() {
-    let bills = getItemFromLocal("Billings");
-    let details = getItemFromLocal("billings_details");
-    let inventory = getItemFromLocal("Inventory");
+    const bills = getItemFromLocal("Billings");
+    const details = getItemFromLocal("billings_details");
+    const inventory = getItemFromLocal("Inventory");
 
     let itemMap = {};
 
@@ -330,9 +354,9 @@ function loadTopItems() {
 }
 
 function loadRecentTransactions() {
-    let bills = getItemFromLocal("Billings");
-    let details = getItemFromLocal("billings_details");
-    let box = document.querySelector(".transaction-list");
+    const bills = getItemFromLocal("Billings");
+    const details = getItemFromLocal("billings_details");
+    const box = document.querySelector(".transaction-list");
 
     let content = "";
 
@@ -368,8 +392,8 @@ function loadRecentTransactions() {
 }
 
 function loadLowStock() {
-    let inventory = getItemFromLocal("Inventory");
-    let box = document.querySelector(".stock-list");
+    const inventory = getItemFromLocal("Inventory");
+    const box = document.querySelector(".stock-list");
 
     let content = "";
 
@@ -394,7 +418,9 @@ function loadLowStock() {
     });
 
     if (content == "") {
-        box.style.justifyContent ='center'
+        box.style.justifyContent = 'center'
+        box.style.alignItems = "center";  
+        box.style.height = `100%`
         content = `
             <div style="padding: 15px; text-align: center;">
                 No low stock items
@@ -405,7 +431,20 @@ function loadLowStock() {
     box.innerHTML = content;
 }
 
+const today = new Date();
+const day = today.getDay();
+
+const thisStart = new Date(today)
+thisStart.setDate(thisStart.getDate() - 7);
+thisStart.setHours(0, 0, 0, 0);
+
+const thisEnd = new Date(today)
+thisEnd.setDate(thisStart.getDate() + 7);
+thisEnd.setHours(23, 59, 59, 999);
+
 loadLowStock();
 loadRecentTransactions();
 loadTopItems();
-loadCards();
+
+dateText.textContent = `${formatDate(thisStart)} - ${formatDate(thisEnd)}, ${thisEnd.getFullYear()}`;
+loadCards(thisStart, thisEnd);

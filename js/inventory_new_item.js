@@ -107,10 +107,7 @@ function checkField(field) {
         console.log(value);
         return false;
     }
-    if (type === "number") {
-        if (Number(value) == 0) document.getElementById('status').value = 'Out of Stock'
-        else document.getElementById('status').value = 'In Stock';
-    }
+    
 
     clearError(field);
     return true;
@@ -238,11 +235,12 @@ form.addEventListener("submit", async (e) => {
         itemImage: imageUrl,
         itemDescription: textarea.value.trim(),
         category: selects[0].value,
-        price: inputs[3].value.trim(),
+        basePrice: Number(inputs[3].value.trim()),
         unit: selects[1].value,
         inStock: inputs[4].value.trim(),
-        status: selects[2].value,
-        supplier: selects[3].value,
+        sellingPrice: Number(inputs[5].value.trim()),
+        // status: selects[2].value,
+        supplier: selects[2].value,
         purchased: 0,
         sold: 0,
         update_at: getCurrentDateTime()

@@ -217,10 +217,6 @@ function inputListen(e) {
 
     const availableQty = Number(item.inStock || 0);
 
-    if (newQty <= 0 || e.target.value === "") {
-        newQty = 1;
-        e.target.value = 1;
-    }
 
     if (newQty > availableQty) {
         newQty = availableQty;
@@ -236,7 +232,7 @@ function inputListen(e) {
     if (billings[currentBillId]) {
         billings[currentBillId] = billings[currentBillId].map((bill) => {
             if (bill.billingId === billingId) {
-                const newTotal = newQty * Number(bill.price);
+                const newTotal = newQty * Number(bill.sellingPrice);
 
                 row.children[3].innerText = `₹${newTotal.toFixed(2)}`;
 
@@ -286,10 +282,11 @@ function addIntoBillingBox(itemId, qty = 1) {
     if (!billings[currentBillId]) {
         billings[currentBillId] = [];
     }
-
+    
     const existingBill = billings[currentBillId].find((bill) => {
         return bill.itemCode == itemId;
     });
+    const BasePrice = Number(item.basePrice);
 
     if (existingBill) {
         const last_qty = Number(existingBill.qty) + Number(qty)
@@ -300,9 +297,14 @@ function addIntoBillingBox(itemId, qty = 1) {
             }, 3000);
             return;
         }
+        console.log(existingBill);
+        
         existingBill.qty = Number(existingBill.qty) + Number(qty);
-        existingBill.total = existingBill.qty * existingBill.price;
+        existingBill.total = existingBill.qty * Number(existingBill.sellingPrice);
+        existingBill.profit = (existingBill.qty * Number(existingBill.sellingPrice)) - (existingBill.qty * BasePrice);
 
+        
+        
         updateToLocal("Billings", billings);
 
         const row = document.getElementById(existingBill.billingId);
@@ -324,8 +326,12 @@ function addIntoBillingBox(itemId, qty = 1) {
         return;
     }
     
-    const price = Number(item.price);
+    const price = Number(item.sellingPrice);
     const total = qty * price;
+    console.log("--------------");
+    console.log(total);
+    
+    
     const billingId = "bill-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
 
     billingBox.insertAdjacentHTML('beforeend', `
@@ -341,7 +347,7 @@ function addIntoBillingBox(itemId, qty = 1) {
 
             <td>
                 <div class="qty-num">
-                    <input type="number"/>
+                    <input type="number"  value="1" min ="1"/>
                 </div>
             </td>
 
@@ -362,10 +368,11 @@ function addIntoBillingBox(itemId, qty = 1) {
         itemCode: item.itemCode,
         itemName: item.itemName,
         itemImage: item.itemImage,
-        price: price,
+        sellingPrice: price,
         qty: qty,
         total: total,
-        status: "processing"
+        status: "processing",
+        profit: total - qty*BasePrice
     };
 
     billings[currentBillId].push(billingItem);
@@ -389,7 +396,7 @@ function showListItems(items) {
                 <img src="${items[i].itemImage}" alt="">
                 <div class="img-title">
                     ${items[i].itemName}
-                    <div class="price-pic">$ ${items[i].price}</div>
+                    <div class="price-pic">$ ${items[i].sellingPrice}</div>
                 </div> 
             </div>
         `;

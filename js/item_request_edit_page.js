@@ -401,6 +401,50 @@ warningBox.addEventListener("click", (e) => {
     }
 });
 
+warningConfirm.addEventListener("click", () => {
+    warningBox.style.display = "none";
+
+    if (old.state === "submitted") {
+        updStatusOnly();
+
+        showPopups("Status updated successfully", true);
+        addTheItemTOInventory();
+        
+        
+        setTimeout(() => {
+            location.href = "./item_request_list_page.html";
+        }, 1500);
+        
+        return;
+    }
+    
+    if (!check()) return;
+    
+    upd();
+    
+    showPopups("Request updated successfully", true);
+    
+    setTimeout(() => {
+        location.href = "./item_request_list_page.html";
+    }, 1500);
+});
+
+function addTheItemTOInventory() {
+    const trs = rows();
+    trs.forEach((tr) => {
+        const selectVal = tr.querySelector('select').value
+        const qty = tr.querySelector('input[type = "number"]').value
+        const items = getItemFromLocal ('Inventory')
+
+        const currItem = items.filter ((item) => item.itemCode == selectVal)[0]
+
+        currItem.inStock = (Number (currItem.inStock) + Number (qty))
+
+        updateToLocal('Inventory', items)
+    })
+    
+}
+
 saveBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -438,31 +482,7 @@ saveBtn.addEventListener("click", (e) => {
 });
 
 
-warningConfirm.addEventListener("click", () => {
-    warningBox.style.display = "none";
 
-    if (old.state === "submitted") {
-        updStatusOnly();
-
-        showPopups("Status updated successfully", true);
-
-        setTimeout(() => {
-            location.href = "./item_request_list_page.html";
-        }, 1500);
-
-        return;
-    }
-
-    if (!check()) return;
-
-    upd();
-
-    showPopups("Request updated successfully", true);
-
-    setTimeout(() => {
-        location.href = "./item_request_list_page.html";
-    }, 1500);
-});
 
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
