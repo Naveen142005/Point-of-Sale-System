@@ -1,90 +1,217 @@
-const canva = document.getElementById("sales-graph");
 
-new Chart(canva, {
-    type: "line",
+let g = null;
+function loadGraph(type) {
 
-    data: {
-        labels: ["15 May", "16 May", "17 May", "18 May", "19 May", "20 May", "21 May"],
+    let X = [], Y = [];
+    let XX = [], YY = [];
+    if (type == 'Daily') {
+        [X, Y] = getThisWeek();
+        [XX, YY] = getLastWeek();
+    }
+    else if (type === 'This Week') {
+        [X, Y] = getThisWeek()
+    }
+    else if (type === 'This Month') {
+        [X, Y] = getThisMonth()
+    }
+    else if (type === 'Last Week') {
+        [X, Y] = getLastWeek()
+    }
+    else if (type === 'This Year') {
+        [X, Y] = getThisYear()
+    }
+    console.log(X);
+    console.log(Y);
+    console.log(YY);
+    const canva = document.getElementById("sales-graph");
+    if (g) {
+        g.destroy()
+    }
 
-        datasets: [
-            {
-                data: [6400, 5700, 9000, 3800, 6000, 7600, 9000],
-                borderColor: "#4b35ff",
-                borderWidth: 3,
-                tension: 0.34,
-                pointRadius: 0,
-                fill: false
+    g = new Chart(canva, {
+        type: "line",
+
+        data: {
+            labels: X,
+
+            datasets: [
+                {
+                    data: Y,
+                    borderColor: "#4b35ff",
+                    borderWidth: 3,
+                    tension: 0.34,
+                    pointRadius: 0,
+                },
+
+                {
+                    data: YY,
+                    borderColor: "#a798ff",
+                    borderWidth: 3,
+                    tension: 0.34,
+                    pointRadius: 0,
+                    borderDash: [4, 4]
+                }
+
+            ]
+        },
+
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
             },
-            {
-                data: [5800, 4200, 7000, 2200, 5400, 5600, 7100],
-                borderColor: "#a798ff",
-                borderWidth: 3,
-                borderDash: [4, 4],
-                tension: 0.45,
-                pointRadius: 0,
-                fill: false
-            }
-        ]
-    },
-
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-
-        plugins: {
-            legend: {
-                display: false
+            scales: {
+                x: {
+                    ticks: {
+                        font: {
+                            size: 10
+                        }
+                    }
+                },
+                y: {
+                    ticks: {
+                        font: {
+                            size: 10
+                        },
+                        callback: function (value) {
+                            return Intl.NumberFormat("en", {
+                                notation: "compact"
+                            }).format(value);
+                        }
+                    }
+                }
             }
         },
 
-        scales: {
-            x: {
-                grid: {
-                    display: false
-                },
 
-                ticks: {
-                    color: "#8d87a8",
-                    autoSkip: false,
-                    maxRotation: 0,
-                    minRotation: 0,
-                    font: {
-                        size: 9,
-                        weight: "700"
-                    },
-                    padding: 0
-                }
-            },
+    });
+}
 
-            y: {
-                min: 0,
-                max: 10000,
+function getGraphData(startDate, endDate, type) {
+    /* 
+        I am calculating based on the type.
+        week -> 4 (for month, instead of showing 1 - 31. I am showing weekly ok ?)
+        days -> 7
+        years -> 12
+    */
+    const billings_details = getItemFromLocal('billings_details')
+    const billings = getItemFromLocal('Billings')
 
-                ticks: {
-                    stepSize: 2000,
-                    color: "#8d87a8",
-                    font: {
-                        size: 9,
-                        weight: "700"
-                    },
-                    padding: 8,
-                    callback: function (val) {
-                        return val === 0 ? "0" : val / 1000 + "K";
-                    }
-                },
+    const filtered_bills = billings_details.filter((bill) => {
+        const d = new Date(bill.created_at)
+        if (d >= startDate && d <= endDate) return true;
+    })
 
-                grid: {
-                    color: "#eeeaf7",
-                    drawTicks: false
-                },
 
-                border: {
-                    display: false
-                }
-            }
+    // Each array will get change based on the type.
+    let week = [0, 0, 0, 0] // this is for type = 'month'
+    let days = [0, 0, 0, 0, 0, 0, 0] // this for type = 'week' because we have 7 days in a weekk,
+    let year = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // this is for year. simple.
+ 
+    console.log(filtered_bills);
+
+    filtered_bills.forEach((d) => {
+        const bill = billings[d.billId] || []
+        let totalamt = 0;
+        console.log("bills", bill);
+
+        bill.forEach((b) => {
+            totalamt += Number(b.total)
+        })
+        console.log(totalamt);
+
+        let date = new Date(d.created_at)
+
+        if (type === "month") {
+            let w = (date.getDate() % 7); // date % 7 -> week.... 
+            week[w] += totalamt
         }
+        else if (type === 'week') {
+            let day = date.getDay()
+            days[day] += totalamt
+        }
+        else {
+            const mon = date.getMonth();
+            year[mon] += totalamt
+        }
+    })
+
+    if (type == 'month') return week;
+    else if (type === "week") return days;
+    else return year;
+}
+
+
+// All the 4 function... for the line graph
+
+function getThisWeek() {
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - startDate.getDay());
+
+    const endDate = new Date(startDate);
+    endDate.setDate(startDate.getDate() + 6);
+
+    const dataY = getGraphData(startDate, endDate, 'week');
+
+    let dataX = [];
+    for (let i = 0; i < 7; i++) {
+        let date = new Date(startDate);
+        date.setDate(startDate.getDate() + i);
+
+        dataX.push(date.getDate() + ' ' + date.toLocaleString('en-US', { month: 'short' }));
     }
-});
+
+    return [dataX, dataY]
+
+}
+
+function getLastWeek() {
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - startDate.getDay() - 7);
+
+    const endDate = new Date(startDate);
+    endDate.setDate(startDate.getDate() + 6);
+
+    const dataY = getGraphData(startDate, endDate, 'week');
+    let dataX = [];
+    for (let i = 0; i < 7; i++) {
+        let date = new Date(startDate);
+        date.setDate(startDate.getDate() + i);
+
+        dataX.push(date.getDate() + ' ' + date.toLocaleString('en-US', { month: 'short' }));
+    }
+    return [dataX, dataY]
+}
+
+function getThisMonth() {
+    const startDate = new Date();
+    startDate.setDate(1);
+
+    const endDate = new Date();
+    endDate.setMonth(endDate.getMonth() + 1);
+    endDate.setDate(0);
+
+    const dataY = getGraphData(startDate, endDate, 'month');
+    const dataX = ['week-1', 'week-2', 'week-3', 'week-4']
+    return [dataX, dataY]
+}
+
+function getThisYear() {
+    const startDate = new Date();
+    startDate.setMonth(0);
+    startDate.setDate(1);
+
+    const endDate = new Date();
+    endDate.setMonth(11);
+    endDate.setDate(31);
+
+    const dataY = getGraphData(startDate, endDate, 'year');
+    const dataX = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return [dataX, dataY]
+}
+
 
 
 const sideBar = document.getElementById('side-bar');
@@ -155,6 +282,15 @@ function per(now, old) {
 }
 
 
+document.querySelector('.all-date').addEventListener('click', () => {
+    const today = new Date()
+    const start = new Date(today)
+    start.setFullYear(2000,1,1)
+    loadCards(start, today)
+    
+    
+    dateText.textContent = 'Select Date'
+})
 
 
 function loadCards(thisStart, thisEnd) {
@@ -264,6 +400,22 @@ function loadCards(thisStart, thisEnd) {
     setCard(2, thisCus, cusPer, false);
     setCard(3, avg, avgPer, true);
     setCard(4, totalProfit, profitPer, true);
+
+    document.querySelectorAll('.sale-data h2')[0].innerText = "₹ " + totalAmt
+    document.querySelectorAll('.sale-data h2')[1].innerText = "₹ " + lastAmt
+
+    const k = document.querySelector('.profit')
+    if (salesPer >= 0) {
+        k.innerText = `↗ ${salesPer}%`;
+        // k.style.background = 'rgba(59, 213, 141, 0.4)';
+        // k.style.color = 'white';
+    }
+    else {
+        k.innerText = `↘ ${Math.abs(salesPer)}%`;
+        k.style.background = 'rgba(225, 62, 62, 0.4)';
+        k.style.color = 'red';
+    }
+
 }
 
 function setCard(index, value, percent, rupee) {
@@ -285,25 +437,31 @@ function setCard(index, value, percent, rupee) {
 }
 
 
-function loadTopItems() {
-    const bills = getItemFromLocal("Billings");
-    const details = getItemFromLocal("billings_details");
-    const inventory = getItemFromLocal("Inventory");
+function loadTopItems(type = "All") {
+    const bills = getItemFromLocal("Billings") || {};
+    const details = getItemFromLocal("billings_details") || [];
+    const inventory = getItemFromLocal("Inventory") || [];
+
+    const [startDate, endDate] = getTopItemDateRange(type);
 
     let itemMap = {};
 
     details.forEach((d) => {
         if (d.status != "Completed") return;
 
+        const billDate = new Date(d.created_at);
+
+        if (startDate && endDate) {
+            if (billDate < startDate || billDate > endDate) return;
+        }
+
         (bills[d.billId] || []).forEach((item) => {
-            let invItem = inventory.find((inv) => {
-                return inv.itemCode == item.itemCode;
-            });
+            let invItem = inventory.find((inv) => inv.itemCode == item.itemCode);
 
             if (!itemMap[item.itemCode]) {
                 itemMap[item.itemCode] = {
                     itemName: item.itemName,
-                    itemImage: item.itemImage || invItem.itemImage,
+                    itemImage: item.itemImage || invItem?.itemImage || "",
                     qty: 0,
                     revenue: 0
                 };
@@ -316,9 +474,7 @@ function loadTopItems() {
 
     let topItems = Object.values(itemMap);
 
-    topItems.sort((a, b) => {
-        return b.qty - a.qty;
-    });
+    topItems.sort((a, b) => b.qty - a.qty);
 
     topItems = topItems.slice(0, 5);
 
@@ -352,6 +508,49 @@ function loadTopItems() {
 
     document.getElementById("topItemsBody").innerHTML = content;
 }
+
+function getTopItemDateRange(type) {
+    /*
+     Instead of writing each function for each type, we can done by only one function.
+     This is How... 
+    */
+    let startDate = new Date();
+    let endDate = new Date();
+
+    if (type === "This Week") {
+        startDate.setDate(startDate.getDate() - startDate.getDay());
+        endDate = new Date(startDate);
+        endDate.setDate(startDate.getDate() + 6);
+    }
+    else if (type === "Last Week") {
+        startDate.setDate(startDate.getDate() - startDate.getDay() - 7);
+        endDate = new Date(startDate);
+        endDate.setDate(startDate.getDate() + 6);
+    }
+    else if (type === "This Month") {
+        startDate.setDate(1);
+
+        endDate = new Date();
+        endDate.setMonth(endDate.getMonth() + 1);
+        endDate.setDate(0);
+    }
+    else if (type === "This Year") {
+        startDate.setMonth(0);
+        startDate.setDate(1);
+
+        endDate.setMonth(11);
+        endDate.setDate(31);
+    }
+    else {
+        return [null, null]; // all
+    }
+
+    startDate.setHours(0, 0, 0, 0);
+    endDate.setHours(23, 59, 59, 999); // i set the end of the day.
+
+    return [startDate, endDate];
+}
+
 
 function loadRecentTransactions() {
     const bills = getItemFromLocal("Billings");
@@ -419,7 +618,7 @@ function loadLowStock() {
 
     if (content == "") {
         box.style.justifyContent = 'center'
-        box.style.alignItems = "center";  
+        box.style.alignItems = "center";
         box.style.height = `100%`
         content = `
             <div style="padding: 15px; text-align: center;">
@@ -445,6 +644,56 @@ thisEnd.setHours(23, 59, 59, 999);
 loadLowStock();
 loadRecentTransactions();
 loadTopItems();
+loadGraph('Daily')
+
 
 dateText.textContent = `${formatDate(thisStart)} - ${formatDate(thisEnd)}, ${thisEnd.getFullYear()}`;
 loadCards(thisStart, thisEnd);
+
+const dropDown = document.querySelector(".drop-down");
+const menu = document.querySelector(".dropdown-menu");
+const selectedText = document.querySelector("#selectedGraphType");
+
+dropDown.onclick = function () {
+    menu.classList.toggle("show");
+};
+
+menu.querySelectorAll("div").forEach((item) => {
+    item.addEventListener('click', () => {
+        selectedText.innerText = item.innerText;
+        menu.classList.remove("show");
+        loadGraph(item.innerText);
+    });
+
+});
+
+
+document.onclick = function (e) {
+    if (!e.target.closest(".dropdown-box")) {
+        menu.classList.remove("show");
+    }
+};
+
+
+const topSellingDropDown = document.getElementById("topSellingDropDown");
+const topSellingMenu = document.getElementById("topSellingMenu");
+const topSellingText = document.getElementById("topSellingText");
+
+topSellingDropDown.onclick = function () {
+    topSellingMenu.classList.toggle("show");
+};
+
+topSellingMenu.querySelectorAll("div").forEach(function (item) {
+    item.onclick = function () {
+        topSellingText.innerText = item.innerText;
+        topSellingMenu.classList.remove("show");
+
+        loadTopItems(item.innerText);
+    };
+});
+
+document.addEventListener("click", function (e) {
+    if (!e.target.closest(".top-selling-filter")) {
+        topSellingMenu.classList.remove("show");
+    }
+});

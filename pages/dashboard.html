@@ -196,7 +196,8 @@
       <header>
         <div class="left">
           <!-- Menu Icon -->
-          <img style="cursor: pointer;"
+          <img
+            style="cursor: pointer"
             src="/assets/icons/header-menu.svg"
             alt="header-menu icon"
             width="25"
@@ -206,7 +207,7 @@
           />
 
           <!-- Search Box -->
-          <div class="search-div" style="border: none;">
+          <div class="search-div" style="border: none">
             <h3>Dashboard</h3>
           </div>
         </div>
@@ -215,22 +216,25 @@
           <!-- Calendar Box -->
 
           <div class="calendar-box">
-            <img
-              src="/assets/calendar_blue.png"
-              alt="calendar icon"
-              class="calendar-icon"
-            />
+            <div class="all-date">All</div>
+            <div class="calendar-date">
+              <img
+                src="/assets/calendar_blue.png"
+                alt="calendar icon"
+                class="calendar-icon"
+              />
 
-            <input type="text" id="rangePicker" class="range-picker" />
+              <input type="text" id="rangePicker" class="range-picker" />
 
-            <span id="dateText">May 15 - May 21, 2024</span>
-            <img
-              src="/assets/icons/header-down-arrow.svg"
-              alt="header-down-arrow icon"
-              width="25"
-              height="25"
-              class="down-arrow"
-            />
+              <span id="dateText">May 15 - May 21, 2024</span>
+              <img
+                src="/assets/icons/header-down-arrow.svg"
+                alt="header-down-arrow icon"
+                width="25"
+                height="25"
+                class="down-arrow"
+              />
+            </div>
           </div>
 
           <!-- Profile Area -->
@@ -471,15 +475,30 @@
                 </div>
               </div>
 
-              <div class="drop-down" style="cursor: pointer">
-                Daily
-                <img
-                  src="/assets/icons/sales-overview-dropdown-arrow.svg"
-                  alt="sales-overview-dropdown-arrow icon"
-                  width="12"
-                  height="12"
-                  class="size-6"
-                />
+              <div class="dropdown-box">
+                <div
+                  class="drop-down"
+                  id="graphDropDown"
+                  style="cursor: pointer"
+                >
+                  <span id="selectedGraphType">Daily</span>
+
+                  <img
+                    src="/assets/icons/sales-overview-dropdown-arrow.svg"
+                    alt="dropdown arrow"
+                    width="12"
+                    height="12"
+                  />
+                </div>
+
+                <div class="dropdown-menu" id="graphMenu">
+                  <div data-type="Daily">Daily</div>
+                  <div data-type="This Week">This Week</div>
+                  <div data-type="Last Week">Last Week</div>
+                  <div data-type="This Month">This Month</div>
+                  <div data-type="Last Month">Last Month</div>
+                  <div data-type="This year">This Year</div>
+                </div>
               </div>
             </div>
 
@@ -510,14 +529,29 @@
                 <h3>Top Selling items</h3>
               </div>
 
-              <div class="drop-down" style="cursor: pointer">
-                <div>This week</div>
-                <img
-                  src="/assets/icons/top-selling-dropdown-arrow.svg"
-                  alt="top-selling-dropdown-arrow icon"
-                  width="12"
-                  height="12"
-                />
+              <div class="top-selling-filter">
+                <div
+                  class="drop-down"
+                  id="topSellingDropDown"
+                  style="cursor: pointer"
+                >
+                  <div id="topSellingText">This Week</div>
+
+                  <img
+                    src="/assets/icons/top-selling-dropdown-arrow.svg"
+                    alt="top-selling-dropdown-arrow icon"
+                    width="12"
+                    height="12"
+                  />
+                </div>
+
+                <div class="top-selling-menu" id="topSellingMenu">
+                  <div>This Week</div>
+                  <div>Last Week</div>
+                  <div>This Month</div>
+                  <div>This Year</div>
+                  <div>All</div>
+                </div>
               </div>
             </div>
 
@@ -542,7 +576,7 @@
               </table>
             </div>
 
-            <div class="view-product">
+            <div class="view-product" onclick="location.href=`/pages/inventory.html`">
               <button>
                 View All Products
                 <svg
@@ -573,9 +607,9 @@
               <a href="#" class="view-all">View All</a>
             </div>
 
-            <div class="transaction-list" style="margin-top: 12px;"></div>
+            <div class="transaction-list" style="margin-top: 12px"></div>
 
-            <button class="all-transaction-btn" style="height: 38px;">
+            <button class="all-transaction-btn" style="height: 38px">
               View All Transactions
               <!-- <img src="/assets/icons/all-transaction-right-arrow.svg" alt="all-transaction-right-arrow icon" width="15" height="15"> -->
               <svg
