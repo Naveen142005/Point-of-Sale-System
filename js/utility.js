@@ -42,11 +42,6 @@ function getBillingsFromLocal() {
 
 function getItemFromLocal(key) {
     return JSON.parse(localStorage.getItem(key) || "[]")
-
-    /**
-     *  inventory : [{itemCode: }]
-     * 
-     * / */
 }
 
 function getItemIndex(key, itemCode) {
@@ -135,8 +130,8 @@ function formatDate(date) {
         day: "numeric"
     });
 }
-
-console.log(getCurrentDateTime());
+// 
+// console.log(getCurrentDateTime());
 
 function getNextCode(code) {
     let i = code.length - 1;

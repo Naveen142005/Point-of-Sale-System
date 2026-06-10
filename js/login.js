@@ -107,6 +107,7 @@ form.addEventListener("submit", async (event) => {
     const password = passwordInp.value.trim();
 
     const isLoginSuccess = await check(username, password);
+    console.log(isLoginSuccess);
 
     if (isLoginSuccess) {
         error.innerHTML = "Login Success. Redirecting to dashboard...";
