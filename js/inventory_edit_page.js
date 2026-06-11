@@ -11,6 +11,8 @@ const reqFields = form.querySelectorAll("[data-req]");
 const itemCode = document.getElementById('itemCode')
 let newValue = "ITM-00129";
 
+const defaultImgUrl = "https://res.cloudinary.com/dyifzw0io/image/upload/v1780902691/spx6qyuhghvvnkgtvvxs.png";
+
 // For increasing Item ID.
 const savedValueArray = JSON.parse(localStorage.getItem("Inventory") || "[]");
 
@@ -151,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const changeImgBtn = document.getElementById("changeImgBtn");
     const itemDescription = document.getElementById("itemDescription");
     const category = document.getElementById("category");
-    const price = document.getElementById("price");
+    const Baseprice = document.getElementById("price");
     const unit = document.getElementById("unit");
     const inStock = document.getElementById("inStock");
     const status = document.getElementById("status");
@@ -159,18 +161,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const saveBtn = document.getElementById("save-btn");
     const deleteBtn = document.getElementById("deleteBtn");
     const cancelBtn = document.getElementById("cancelBtn");
-
+    const sellingPrice = document.getElementById('Sprice')
 
     itemCode.value = item.itemCode;
     itemName.value = item.itemName;
-    itemImage.src = item.itemImage
+    itemImage.src = item.itemImage || defaultImgUrl
     itemDescription.value = item.itemDescription;
     category.value = item.category;
-    price.value = item.price;
+    Baseprice.value = item.basePrice;
     unit.value = item.unit;
     inStock.value = item.inStock;
     status.value = item.status;
     supplier.value = item.supplier;
+    sellingPrice.value = item.sellingPrice
 
 
     inStock.addEventListener("input", () => {
@@ -190,20 +193,23 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(itemImage.src);
         console.log(itemImageBox.files[0]);
 
-        let finalImageUrl = items[itemIndex].itemImage;
+        let finalImageUrl = items[itemIndex].itemImage || defaultImgUrl;
 
         if (selectedImageFile) {
             finalImageUrl = await uploadToCloudinary(selectedImageFile);
         }
+        const totalPurchased = Number(items[itemIndex].purchased) + Math.abs((Number(inStock.value) - Number(items[itemIndex].inStock)))
+        // alert(Math.abs((Number(inStock.value) - Number(items[itemIndex].inStock))))
         items[itemIndex] = {
             ...items[itemIndex],
             itemName: itemName.value,
-            itemImage: finalImageUrl,
+            itemImage: finalImageUrl || defaultImgUrl,
             itemDescription: itemDescription.value,
             category: category.value,
-            price: price.value,
+            basePrice: Number(Baseprice.value),
+            sellingPrice: Number(sellingPrice.value),
             unit: unit.value,
-            purchased: items[itemIndex].purchased + Number(inStock.value),
+            purchased: totalPurchased,
             inStock: inStock.value,
             status: Number(inStock.value) > 0 ? "In Stock" : "Out of Stock",
             supplier: supplier.value,
@@ -266,7 +272,5 @@ document.addEventListener("DOMContentLoaded", () => {
         location.href = "./inventory.html";
     });
 
-    function confirmDelete() {
-
-    }
+   
 });

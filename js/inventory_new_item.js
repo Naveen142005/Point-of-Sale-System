@@ -228,11 +228,12 @@ form.addEventListener("submit", async (e) => {
             return;
         }
     }
-
+    const defaultImgUrl = "https://res.cloudinary.com/dyifzw0io/image/upload/v1780902691/spx6qyuhghvvnkgtvvxs.png";
+    
     const itemData = {
         itemCode: inputs[0].value.trim(),
         itemName: inputs[1].value.trim(),
-        itemImage: imageUrl,
+        itemImage: imageUrl || defaultImgUrl ,
         itemDescription: textarea.value.trim(),
         category: selects[0].value,
         basePrice: Number(inputs[3].value.trim()),
@@ -241,7 +242,7 @@ form.addEventListener("submit", async (e) => {
         sellingPrice: Number(inputs[5].value.trim()),
         // status: selects[2].value,
         supplier: selects[2].value,
-        purchased: 0,
+        purchased: inputs[4].value.trim(),
         sold: 0,
         update_at: getCurrentDateTime()
     };
@@ -252,7 +253,7 @@ form.addEventListener("submit", async (e) => {
         showPopups("Item added successfully", true);
         form.reset();
         setTimeout(() => {
-            location.href='./inventory_new_item.html'
+            location.href='./inventory.html'
         },1500)
     } else {
         showPopups("Unknown error occurred", false);

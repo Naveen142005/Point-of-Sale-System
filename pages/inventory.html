@@ -28,6 +28,11 @@
           </div>
 
           <div class="full-menu">
+            <a href="/pages/dashboard.html" style="text-decoration: none;"> 
+                <div class="menu-item">
+            <img src="/assets/home.png" alt="">
+            <span>Home</span>
+            </div></a>
             <div class="menu-item">
               <img src="/assets/billing.png" alt="" />
               <span>Billing</span>
@@ -103,9 +108,15 @@
                 <img src="/assets/windo_black.png" alt="" />
 
                 <select id="category">
-                  <option value="">All Category</option>
-                  <option value="Drinks">Drinks</option>
-                  <option value="Snacks">Snacks</option>
+                  <option>Select category</option>
+                  <option>All Items</option>
+                  <option>Beverage</option>
+                  <option>Steamed Bun</option>
+                  <option>Steamed Timsum</option>
+                  <option>Deep Fry Timsum</option>
+                  <option>Bake</option>
+                  <option>Noodle/Dumplings</option>
+                  <option>Porridge</option>
                 </select>
 
                 <img src="/assets/down_arrow_blac.png" alt="" />
@@ -121,11 +132,8 @@
                   style="filter: brightness(0)"
                 />
 
-                <select id="itemName">
+                <select id="itemName"  >
                   <option value="">All Items</option>
-                  <option value="Coffee">Coffee</option>
-                  <option value="ok">ok</option>
-                  <option value="m">m</option>
                 </select>
 
                 <img src="/assets/down_arrow_blac.png" alt="" />
@@ -248,12 +256,12 @@
             <thead>
               <tr>
                 <th>
+                  Item Code
+                  
+                </th>
+                <th>
                   Item Name
-                  <img
-                    src="/assets/filter_head.png"
-                    alt=""
-                    class="filter-icon"
-                  />
+                  <img src="/assets/sort.png" alt="" class="filter-icon" />
                 </th>
                 <th>
                   Category

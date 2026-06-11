@@ -177,14 +177,19 @@
                 <label>Category <sup style="color: red">*</sup></label>
                 <select id="category" data-req data-name="Category">
                   <option>Select category</option>
-                  <option>Food</option>
-                  <option>Drinks</option>
-                  <option>Snacks</option>
+                    
+                    <option>Beverage</option>
+                    <option>Steamed Bun</option>
+                    <option>Steamed Timsum</option>
+                    <option>Deep Fry Timsum</option>
+                    <option>Bake</option>
+                    <option>Noodle/Dumplings</option>
+                    <option>Porridge</option>
                 </select>
               </div>
 
               <div class="input-box">
-                <label>Price <sup style="color: red">*</sup></label>
+                <label>Base Price <sup style="color: red">*</sup></label>
                 <div class="input-with-value">
                   <input
                     type="number"
@@ -194,7 +199,7 @@
                     data-type="price"
                     id="price"
                   />
-                  <p id="priceValue">0.00</p>
+                  <p id="priceValue" class="BasePrice">0.00</p>
                 </div>
               </div>
             </div>
@@ -227,7 +232,7 @@
             </div>
 
             <div class="input-row">
-              <div class="input-box">
+              <div class="input-box" style="opacity: 0;position: absolute;left: -100rem;" >
                 <label>Status</label>
                 <select id="status" disabled style="background-image: none">
                   <option>In Stock</option>
@@ -236,6 +241,20 @@
                 <span
                   >Status is auto-populated based on In Stock quantity.</span
                 >
+              </div>
+              <div class="input-box">
+                <label>Selling Price <sup style="color: red">*</sup></label>
+                <div class="input-with-value">
+                  <input
+                    type="number"
+                    placeholder="Enter price"
+                    data-req
+                    data-name="Price"
+                    data-type="price"
+                    id="Sprice"
+                  />
+                  <p class="SellingPrice">0.00</p>
+                </div>
               </div>
 
               <div class="input-box">
@@ -255,7 +274,7 @@
 
               <button class="save-btn" type="submit" id="save-btn">
                 <img src="/assets/save.png" alt="" />
-                Save
+                Update
               </button>
 
               <button class="del-btn delete-btn" id="deleteBtn" type="button">

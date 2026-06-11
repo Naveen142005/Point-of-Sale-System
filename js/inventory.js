@@ -59,7 +59,6 @@ addItemBtn.addEventListener('click', () => {
 })
 
 let currLoadedItems;
-
 let currentPage = 1;
 let showPerPage = 10;
 
@@ -98,6 +97,7 @@ function showTableContent(items, resetPage = true) {
 
     for (let i = startIdx; i < Math.min(items.length, endIdx); i++) {
         let item = items[i];
+        console.log(item);
 
         let stock = Number(item.inStock);
 
@@ -107,6 +107,7 @@ function showTableContent(items, resetPage = true) {
 
         tableContent.innerHTML += `
             <tr>
+                <td>${item.itemCode}</td>
                 <td>
                     <div class="item-name">
                         <img 
@@ -119,7 +120,7 @@ function showTableContent(items, resetPage = true) {
                 </td>
 
                 <td>${item.category || "-"}</td>
-                <td>$${item.price || "0"}</td>
+                <td>$${item.basePrice || "0"}</td>
                 <td>${item.unit || "-"}</td>
                 <td>${item.purchased || 0}</td>
                 <td>${item.sold || 0}</td>
@@ -149,10 +150,23 @@ function showTableContent(items, resetPage = true) {
     updateShowingText();
 }
 
+function setItemsName() {
+    const items = getItemFromLocal('Inventory');
+    const itemNameSelect = document.getElementById('itemName')
+
+    let options = `<option value="">All Items</option>`;
+    items.forEach ((item) => {
+        options += `<option value= "${item.itemName}">  ${item.itemName}</option>`
+    })
+    
+    itemNameSelect.innerHTML = options
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-    const items = JSON.parse(localStorage.getItem("Inventory") || "[]");
-
+    // const items = JSON.parse(localStorage.getItem("Inventory") || "[]");
+    const items = getItemFromLocal('Inventory');
+    setItemsName();
+    
     const category = document.getElementById("category");
     const itemName = document.getElementById("itemName");
     const status = document.getElementById("status");
@@ -162,30 +176,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const filterBtn = document.getElementById("filterBtn");
     const resetBtn = document.getElementById("resetBtn");
 
+
+
     showTableContent(items);
 
     filterBtn.addEventListener("click", () => {
         const finalData = items.filter((item) => {
             const itemDate = new Date(item.update_at);
 
-            if (category.value && item.category !== category.value) {
+            if (category.value && category.value !== "Select category" && category.value !== "All Items" && item.category !== category.value) {
                 return false;
             }
-
-            if (itemName.value && item.itemName !== itemName.value) {
+            if (itemName.value && item.itemName.toLowerCase() !== itemName.value.toLowerCase()) {
                 return false;
             }
-
-            if (status.value && item.status !== status.value) {
+            if (status.value && status.value !== "Select status" && item.status !== status.value) {
                 return false;
             }
-
             if (dateFrom.value && itemDate < new Date(dateFrom.value)) {
                 return false;
             }
+            if (dateTo.value) {
+                const toDate = new Date(dateTo.value);
+                toDate.setHours(23, 59, 59, 999);
 
-            if (dateTo.value && itemDate > new Date(dateTo.value)) {
-                return false;
+                if (itemDate > toDate) {
+                    return false;
+                }
             }
 
             return true;
@@ -216,7 +233,7 @@ document.querySelector(".date-box-1").addEventListener("click", () => {
 
 
 document.addEventListener("click", (e) => {
-    
+
     if (e.target.classList.contains("edit-btn")) {
         const id = e.target.dataset.id;
 
@@ -227,16 +244,17 @@ document.addEventListener("click", (e) => {
 
 
 const tableKeys = [
-    "itemName",   
-    "category",   
-    "price",      
-    "unit",       
-    "purchased",  
-    "sold",       
-    "inStock",    
-    "status",     
-    "update_at",  
-    null          
+    '',
+    "itemName",
+    "category",
+    "price",
+    "unit",
+    "purchased",
+    "sold",
+    "inStock",
+    "status",
+    "update_at",
+    null
 ];
 
 const ths = document.querySelectorAll('table thead tr th');
@@ -255,13 +273,13 @@ ths.forEach((th, idx) => {
         if (lastIdx !== idx) {
             assending = true;
         }
-            console.log(key);
-            
+        console.log(key);
+
         const sorted = sortItems([...currLoadedItems], key, assending);
 
         showTableContent(sorted);
         console.log(sorted);
-        
+
 
         assending = !assending;
         lastIdx = idx;
@@ -337,20 +355,20 @@ pageCenter.addEventListener("click", (e) => {
 
     if (page === "first") {
         currentPage = 1;
-    } 
+    }
     else if (page === "prev") {
         if (currentPage > 1) {
             currentPage--;
         }
-    } 
+    }
     else if (page === "next") {
         if (currentPage < totalPages) {
             currentPage++;
         }
-    } 
+    }
     else if (page === "last") {
         currentPage = totalPages;
-    } 
+    }
     else {
         currentPage = Number(page);
     }

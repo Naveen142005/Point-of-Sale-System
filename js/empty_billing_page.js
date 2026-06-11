@@ -2,8 +2,6 @@ const sideBar = document.getElementById("side-bar");
 const main = document.getElementById("main");
 const menuIcon = document.getElementById("menu-icon");
 
-
-
 document.addEventListener("click", (e) => {
     if (!sideBar.contains(e.target) && sideBar.classList.contains("active")) {
         sideBar.classList.remove("active");
@@ -136,14 +134,14 @@ function updatePrice() {
     const tender = priceBox.querySelector(".tender-box input");
     const change = priceBox.querySelector(".change-box h2");
 
-    total.innerText = `$${totalAmount.toFixed(2)}`;
-    gst.innerText = `$${gstAmount.toFixed(2)}`;
-    pay.innerText = `$${payableAmount.toFixed(2)}`;
+    total.innerText = `₹${totalAmount.toFixed(2)}`;
+    gst.innerText = `₹${gstAmount.toFixed(2)}`;
+    pay.innerText = `₹${payableAmount.toFixed(2)}`;
 
     const tenderAmount = Number(tender.value) || 0;
     const changeAmount = tenderAmount - payableAmount;
 
-    change.innerText = `$${changeAmount.toFixed(2)}`;
+    change.innerText = `₹${changeAmount.toFixed(2)}`;
 }
 
 
@@ -217,11 +215,15 @@ function inputListen(e) {
 
     const availableQty = Number(item.inStock || 0);
 
+    const currqty = Number(getItemByCode('Inventory', itemId).inStock || 0)
 
     if (newQty > availableQty) {
         newQty = availableQty;
         e.target.value = availableQty;
         showPopups("Not Enough Qty", false);
+        setTimeout(() => {
+                showPopups('Avaiable qty is ' + currqty, true)
+        }, 2500);
     }
 
     e.target.style.color = "black";
@@ -273,6 +275,9 @@ function addIntoBillingBox(itemId, qty = 1) {
 
     if (currqty <= 0) {
         showPopups('Not Enough Qty', false);
+        setTimeout(() => {
+                showPopups('Avaiable qty is ' + currqty, true)
+            }, 2500);
         return;
     }
 
@@ -283,52 +288,55 @@ function addIntoBillingBox(itemId, qty = 1) {
         billings[currentBillId] = [];
     }
     
-    const existingBill = billings[currentBillId].find((bill) => {
+    const billedItem = billings[currentBillId].find((bill) => {
         return bill.itemCode == itemId;
     });
     const BasePrice = Number(item.basePrice);
 
-    if (existingBill) {
-        const last_qty = Number(existingBill.qty) + Number(qty)
+    if (billedItem) {
+        const last_qty = Number(billedItem.qty) + Number(qty)
         if (last_qty > currqty) {
             showPopups('Not enough of quantity');
             setTimeout(() => {
                 showPopups('Avaiable qty is ' + currqty, true)
-            }, 3000);
+            }, 2500);
             return;
         }
-        console.log(existingBill);
+        console.log(billedItem);
         
-        existingBill.qty = Number(existingBill.qty) + Number(qty);
-        existingBill.total = existingBill.qty * Number(existingBill.sellingPrice);
-        existingBill.profit = (existingBill.qty * Number(existingBill.sellingPrice)) - (existingBill.qty * BasePrice);
+        billedItem.qty = Number(billedItem.qty) + Number(qty);
+        billedItem.total = billedItem.qty * Number(billedItem.sellingPrice);
+        billedItem.profit = (billedItem.qty * Number(billedItem.sellingPrice)) - (billedItem.qty * BasePrice);
 
         
         
         updateToLocal("Billings", billings);
 
-        const row = document.getElementById(existingBill.billingId);
+        const row = document.getElementById(billedItem.billingId);
 
         if (row) {
             const qtyInput = row.querySelector("input[type='number']");
-            qtyInput.value = existingBill.qty;
+            qtyInput.value = billedItem.qty;
 
-            row.children[3].innerText = `₹${existingBill.total.toFixed(2)}`;
+            row.children[3].innerText = `₹${billedItem.total.toFixed(2)}`;
         }
 
-        updateBillingView();
+        // updateBillingView();
         updatePrice();
         changeGrantTotal()
         return;
     }
     if (currqty <= 0) {
         showPopups('Not Enough Qty', false);
+        setTimeout(() => {
+                showPopups('Avaiable qty is ' + currqty, true)
+            }, 2500);
         return;
     }
     
     const price = Number(item.sellingPrice);
     const total = qty * price;
-    console.log("--------------");
+    // console.log("--------------");
     console.log(total);
     
     
@@ -392,18 +400,20 @@ function showListItems(items) {
 
     for (let i = 0; i < items.length; i += 1) {
         listItemBox.innerHTML += `
-            <div class="items-pic" id="${items[i].itemCode}" style="cursor:pointer">
+            <div class="items-pic" id="${items[i].itemCode}" style="cursor:pointer"  >
+                <span class="item-id">${items[i].itemCode}</span>
                 <img src="${items[i].itemImage}" alt="">
                 <div class="img-title">
                     ${items[i].itemName}
-                    <div class="price-pic">$ ${items[i].sellingPrice}</div>
+                    <div class="price-pic">₹ ${items[i].sellingPrice}</div>
                 </div> 
             </div>
         `;
     }
 
     document.querySelectorAll(".items-pic").forEach((itemBox) => {
-        itemBox.addEventListener("click", () => {
+        itemBox.addEventListener("click", (e) => {
+            if (e.target.classList.contains('item-id'))  return
             getItemIndex('')
             addIntoBillingBox(itemBox.id, 1);
         });
@@ -467,6 +477,7 @@ printBtn.addEventListener("click", () => {
     // inventory also gets updated.
     // const currBill = billings[billingId]
 
+
     const billings = getBillingsFromLocal();
     const currBillings = billings[currentBillId] || [];
 
@@ -479,7 +490,13 @@ printBtn.addEventListener("click", () => {
         showPopups("Move to price amendment section for complete the billing", false);
         return;
     }
-
+     const change = priceBox.querySelector(".change-box h2");
+     console.log(change.innerText);
+     
+    if (change.innerText.includes('-')) {
+        showPopups ("Give valid amount in the tender");
+        return;
+    }
 
     if (getBillStatus(currentBillId) === "Completed") {
         showPopups("This bill already completed", false);
@@ -639,4 +656,24 @@ document.querySelectorAll(".items-menu .item").forEach((catBox) => {
 
         filterItems();
     });
+});
+
+
+document.addEventListener("click", (e) => {
+    const idBox = e.target.closest(".item-id");
+
+    if (!idBox) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const id = idBox.innerText;
+
+    navigator.clipboard.writeText(id);
+
+    idBox.innerText = "Copied!";
+
+    setTimeout(() => {
+        idBox.innerText = id;
+    }, 1000);
 });

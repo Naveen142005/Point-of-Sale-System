@@ -1702,3 +1702,27 @@ footer,
     padding-top: 0;
   }
 }
+
+.items-pic {
+    position: relative;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.item-id {
+    display: none;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #111827;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.items-pic:hover .item-id {
+    display: block;
+}
